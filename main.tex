@@ -20,16 +20,19 @@
     % add chapters simply in this way: \input{<path-to-chapter>}
     \input{./chapters/frontmatter/frontispiece.tex}
     \input{./chapters/frontmatter/abstract.tex}
-    \input{./chapters/frontmatter/dedication.tex}
+    %\input{./chapters/frontmatter/dedication.tex}
     \tableofcontents
     \listoffigures
-    \lstlistoflistings
-    \listoftables
+    %\lstlistoflistings
+    %\listoftables
     % ---------------------------------------------------------------------
     % Mainmatter command changes the behavior back to the expected version, 
     % and resets the page number.
     % ---------------------------------------------------------------------
     \mainmatter
+    \input{./chapters/mainmatter/context-and-motivation.tex}
+    \input{./chapters/mainmatter/design-and-tecnologies.tex}
+    \input{./chapters/mainmatter/implementation.tex}
     % ---------------------------------------------------------------------
     % Backmatter command leaves the page numbering alone but switches the 
     % chapters back to being not numbered.
