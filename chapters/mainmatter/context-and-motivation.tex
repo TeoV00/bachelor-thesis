@@ -19,10 +19,13 @@ Ciascun stato membro è tenuto a sviluppare un strategia Nazionale e a questo pr
 Si tratta di una sfida globale che richiede il coinvolgimento non solo dei governi degli stati membri ma anche delle componenti della società come imprese private e pubbliche, società civili e operatori della informazione e cultura.
 
 In questa ottica nel 2016 si è formata l'Alleanza Italiana per lo sviluppo Sostenibile (ASviS) \cite{asvis} su iniziativa della fondazione UniPolis e dell'Università di Roma \enquote*{Tor vergata}, con l'obiettivo di diffondere la cultura dello sviluppo sostenibile, facendo accrescere la consapevolezza dell'importanza dell'Agenda 2030.
-Questa associazione vede a oggi una partecipazione di oltre 300 soggetti che si occupano di tematiche riconducibili agli Obiettivi di Sviluppo Sostenibile; fra gli aderenti alla alleanza vi sono associazioni, enti di diritto pubblico, università (fra queste anche l'Università di Bologna), enti e centri di ricerca pubblici e privati e tante altre organizzazioni della società civile italiana senza scopo di lucro \cite[Aderenti alla ASviS]{aderenti_asvis}. 
+Questa associazione vede a oggi una partecipazione di oltre 300 soggetti che si occupano di tematiche riconducibili agli Obiettivi di Sviluppo Sostenibile; fra gli aderenti alla alleanza vi sono associazioni, enti di diritto pubblico, università (fra queste anche l'Università di Bologna), enti e centri di ricerca pubblici e privati e tante altre organizzazioni della società civile italiana senza scopo di lucro \cite[Aderenti alla ASviS]{aderenti_asvis}.
+
+
 %
 %
 \section{Sostenibilità ed Ecosostenibilità}
+(descrizione generale, obbiettivi Onu, …)
 \section{Definizione}
 %
 %
@@ -93,11 +96,63 @@ Nella vita di tutti i giorni senza accorgercene siamo stimolati e invogliati ad 
 
 %
 \section{Extended Reality}
+Extended Reality (XR), in italiano Realtà Estesa, è un termine che raggruppa tutte le possibili realtà che si possono generare utilizzando sistemi elettronici e informatici per portare una o più persone in realtà potenziate o totalmente generate dal computer.
+Si identificano tre tipologie:
+
+\begin{itemize}
+    \item \textbf{Realtà Aumentata (AR)} L'ambiente reale circostante viene integrato con oggetti virtuali e/o informazioni utili aggiunti digitalmente;
+    \item \textbf{Realtà Virtuale (VR)} La realtà circostante viene completamente sostituita con una virtuale;
+    \item \textbf{Realtà Mista (MR)} \textcolor{red}{Il mondo reale e quello virtuale si mescolano.?}
+\end{itemize}
+
+%% MEGLIO SPOSTARE QUI IL DISCORSO SU COME SI INTERAGISCE CON QUESTE TENCOLOGIE
+\textcolor{red}{TODO: PARLARE DI COME SI PUò INTERAGIRE}
+
+Nel caso degli Head-Mounted Devices (HMDs), grazie ai sensori e alle videocamere presenti, le interazioni possono avvenire usando il movimento della testa (Hand-free) oppure attraverso le proprie mani senza la necessita di dispositivi o strumenti specifici come puntatori, controller o guanti.
 
 \subsection{Realtà aumentata}
+La Realtà Aumentata (in inglese Augmented Reality, AR) consiste nell'arricchire il mondo reale circostante con oggetti e informazioni multimediali di vario genere e tipologia che normalmente non sarebbero percepibili dai cinque sensi.
+Questi arricchimenti sono accessibili per mezzo di dispositivi come ad esempio visori AR, computer provvisti di webcam, smartphone, auricolari, lenti a contatto o tecniche particolari come il Video Mapping che fa uso di proiezioni sulle superfici e oggetti senza la necessità d'indossare alcun dispositivo \cite{Raskar1999SpatiallyAR}.
 
+Si identificano tre tipologie di AR che si differenziano in base al criterio utilizzato per il posizionamento degli elementi \enquote{aumentanti} nell'ambiente circostante; si hanno quindi Realtà Aumentate:
+
+\begin{description}
+    \item \textbf{Location-based} (Figura \ref{fig:location_ar}) dove gli elementi vengono disposti in una precisa posizione geografica GPS, ad esempio viene mostrata una icona in corrispondenza di punti d'interesse (POI) in tempo reale, o viene emesso un suono specifico in corrispondenza di uno di questi;
+    \item \textbf{Marker-based} (Figura \ref{fig:marker_ar}), gli oggetti vengono sovrapposti e posizionati sul marker che può essere un codice QR, una immagine o un disegno;
+    \item \textbf{Markerless} (Figura \ref{fig:markerless_ar}), dopo una scansione dell'ambiente circostante, ad esempio con la fotocamera dello smartphone, gli oggetti vengono collocati su quelle caratteristiche ambientali ritenute adatte (es. Superfici orizzontali o verticali).
+\end{description}
+
+\begin{figure}
+    \centering
+    \subfloat[Funzionalità Live View in Google Maps che utilizza l'AR Location-based]{
+        \includegraphics[width=0.32\textwidth]{img/location-based-ar.jpg}
+        \label{fig:location_ar}
+    }
+    \subfloat[Marker-based AR]{
+        \includegraphics[width=0.33\textwidth]{img/marker-base-ar.jpg}
+        \label{fig:marker_ar}
+    }
+    \subfloat[Markerless AR: App IKEA Place]{
+        \includegraphics[width=0.33\textwidth]{img/markerless-ar.jpg}
+        \label{fig:markerless_ar}
+    }
+    \caption{Esempi di tre tipologie di Realtà Aumentata} 
+    \label{fig:ARbased_type}
+\end{figure}
+
+Dopo che sono stati posizionati gli elementi virtuali è possibile muoversi attorno a essi e, se previsto, spostarli, cambiarne le dimensioni, rimuoverli o più generalmente averne interazioni a seconda del dispositivo che si sta utilzzando.
+
+%% in Boschetto AR, al momento, non è possibile alcuna interazione con gli oggetti mostrati.
+
+%%MALACOPIA-SCHELETRO
+% A seguito di una indagine condotta su cosa fosse la realtà mista condotta su un gruppo di esperti e studiosi del settore della realtà estesa, si è giunti a diverse definizioni che identificano il concetto di AR.
+% Per alcuni si tratta di semplici sovrapposizioni d'informazioni attinenti al contesto in cui l'utente si trova mentre per altri affinché sia AR è necessaria una registrazione spaziale e/o una interazione con lo spazio circostante. \cite[ Capitolo 4, What is AR?]{whatMR}
+%
 \subsection{Realtà virtuale}
+La Realtà Virtuale (in inglese Virtual Reality, VR) sostituisce l'ambiente circostante con uno che realmente esiste (es. simulazioni) o completamente virtuale (es. videogiochi), isolando l'utente da tutte le interazioni sociali esterne. Questo genere di realtà sono necessari dispositivi hardware indossabili specifici come gli head mounted displays (HMD)\dots
+
 \subsection{Mixed reality}
+
 %
 \section{Integrazione tra diversi tipi di device}
 \section{Integrazione tra totem e smartphone}
