@@ -279,3 +279,5 @@ TSWLatexianTemp*
 *.lpz
 
 *.DS_Store
+
+.vscode/
