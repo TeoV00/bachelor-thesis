@@ -21,7 +21,6 @@ Si tratta di una sfida globale che richiede il coinvolgimento non solo dei gover
 In questa ottica nel 2016 si è formata l'Alleanza Italiana per lo sviluppo Sostenibile (ASviS) \cite{asvis} su iniziativa della fondazione UniPolis e dell'Università di Roma \enquote*{Tor vergata}, con l'obiettivo di diffondere la cultura dello sviluppo sostenibile, facendo accrescere la consapevolezza dell'importanza dell'Agenda 2030.
 Questa associazione vede a oggi una partecipazione di oltre 300 soggetti che si occupano di tematiche riconducibili agli Obiettivi di Sviluppo Sostenibile; fra gli aderenti alla alleanza vi sono associazioni, enti di diritto pubblico, università (fra queste anche l'Università di Bologna), enti e centri di ricerca pubblici e privati e tante altre organizzazioni della società civile italiana senza scopo di lucro \cite[Aderenti alla ASviS]{aderenti_asvis}.
 
-
 %
 %
 \section{Sostenibilità ed Ecosostenibilità}
@@ -80,19 +79,55 @@ Con questo progetto l'Ateneo contribuisce a tre degli obiettivi per lo sviluppo 
 \end{figure}
 %
 \section{Motivare gli utenti}
-Considerando la diffusione dei risultati ottenuti (meno carta e più alberi)del progetto ReMade e il desiderio di aumentare la consapevolezza e competenza sul tema da parte della comunità Unibo si ritiene necessario creare interesse e stimolare gli utenti attraverso meccanismi come la \enquote{Gamification} e i \enquote{Serious Game}.
-%
+ Considerati gli obiettivi del progetto ReMade, si rende necessario coinvolgere il più possibile la comunità universitaria Unibo e per fare ciò occorre ricorrere a diverse tecniche come la Gamification e l'uso di Serious games.
+
 \subsection{Gamification}
+Prima di discutere il significato e le implicazioni che il fenomeno della \enquote{gamification} sottintende occorre fare una precisazione sui sostantivi inglesi \enquote{play} e \enquote{game} in quanto assumono sfumature di significato diverso che non sarebbero esprimibili con il termine italiano \enquote{gioco}. Di seguito le definizioni fornite dal Cambridge Dictionary \cite{cambridgeDict}:
 
-% Sono stati svolti diversi studi e ricerche che si intrecciato con la disciplina delle Human Computer Interaction che tendono appunto a scoprire e definire linee guida da utilizzare per sfruttare gli aspetti principali dell'intrattenimento e ricreativi dei videogiochi in contesti e applicazioni che non sono videogiochi.
-% Per motivare gli utenti quindi si possono mettere in atto diverse strategie come la gamification che portano l'utente a una continua sfida personale e comunitaria con la possibilità di ottenere premi e o riconoscimenti.
+\begin{description}
+    \item [Play] \enquote*{recreation, amusement}; attività puramente ricreativa senza regole e obbiettivi.
+    \item [Game] \enquote*{an activity or sport that people play, usually with rules and needing skill}; una attività o sport, dove tipicamente sono presenti regole e sono richieste abilità, il cui scopo è raggiungere uno o più obiettivi.
+\end{description}
 
-Il fenomeno della gamification consiste nel portare aspetti principali dei videogiochi, come il concetto di punteggio e di livello, in contesti non prettamente di gioco in modo da migliorare l'esperienza e il coinvolgimento dell'utente.
+La \enquote{gamification} o in alternativa \enquote{Gameful Design} (\enquote*{design for gameful experiences}, \cite{definingGamification2011}), consiste nell'utilizzare alcuni elementi di gioco in contesti non di gioco. Questi elementi, chiamati anche \enquote*{game atoms}, sono tutti quegli elementi e caratteristiche, anche di progettazione e di logica, che si possono individuare all'interno dei giochi, come ad esempio i livelli, il punteggio o il tempo limitato per raggiungere un obiettivo.
+Si identificano infatti cinque elementi di gioco, \enquote*{Game Elements}, ciascuno a un diverso livello di astrazione: 
 
-% da collerare i due discorsi
-Nella vita di tutti i giorni senza accorgercene siamo stimolati e invogliati ad andare in un determinato negozio o utilizzare un determinato mezzo di trasporto per accumulare punti convertibili in uno sconto, un omaggio o un viaggio gratuito.
-%
+\begin{enumerate}
+    \item \emph{Interface design patterns}: elementi come badge, livelli o classifiche;
+    \item \emph{Game design patterns}: per esempio tempo e/o risorse limitate, turni;
+    \item \emph{Design principles or heuristics}: Gioco duraturo, obiettivi chiari, varietà di stili di gioco;
+    \item \emph{Conceptual models of game design units}: modelli concettuali dei componenti o dell'esperienza di gioco;
+    \item \emph{Game design methods}: pratiche e processi specifici per la progettazione del gioco.
+\end{enumerate}
+
+L'utilizzo della Gamification ha avuto un grande successo tanto da esserne immersi anche nella vita di tutti i giorni, ad esempio molti negozi o siti (es. Booking, Figura \ref{fig:booking-genius}) a oggi prevedono un programma fedeltà che comprende l'accumulo di punti per ottenere sconti, molte applicazioni e dispositivi fitness (es. Apple Watch \cite{appleWatchGamification}) sfruttano badge (Figura \ref{fig:appleFitnessBadges}), livelli e sfide periodiche per stimolare l'utente a fare movimento \cite{gamification4exercise}, nel marketing o nelle campagne di crowdfunding (es. KickStarter) la raccolta fondi assume l'aspetto di un gioco con obiettivi e premi, anche nelle app di navigazione come in Waze ritroviamo un meccanismo di classifica fra gli utenti che possono accumulare punti guidando (Figura \ref{fig:waze-level}).
+
+\begin{figure}
+    \centering
+    \subfloat[App Fitness di Apple: schermata con premi e obiettivi]{
+        \includegraphics[width=0.4\textwidth]{img/apple-fitness-badge.jpeg}
+        \label{fig:appleFitnessBadges}
+    }
+    \hspace{2em}% Space between image A and B
+    \subfloat[Programma fedeltà Genius di Booking: sconti in base al livello]{
+        \includegraphics[width=0.4\textwidth]{img/booking-gamification.PNG}
+        \label{fig:booking-genius}
+    }
+    \hspace{2em}% Space between image B and C
+    \subfloat[App navigatore stradale Waze: tabellone punti e livello utente]{
+        \includegraphics[width=0.4\textwidth]{img/waze2.jpeg}
+        \label{fig:waze-level}
+    }
+    \caption{Esempi di piattaforme e app dove è presente la gamification} 
+    \label{fig:gamification-example}
+\end{figure}
+
 \subsection{Serious game}
+I Serious games sono giochi (digitali e non) a tutti gli effetti pensati per educare su un determinato tema;
+
+È stato dimostrato che questo genere di giochi possono migliorare l'attenzione e l'apprendimento se progettati correttamente;
+sono presenti studi che dimostrano che l'utilizzo di Serious Game aumenta l'efficacia dell'apprendimento da parte di studenti, e in alcuni casi anche grazie all'aiuto di tecnologie come la Realtà Estesa, Aumentata e Virtuale.
+Si cita uno dei tanti studi condotti per verificare l'efficacia di utilizzare la Realtà Estesa (AR, VR, MR) per insegnare in ambito medico ed effettuare simulazioni di operazioni chirurgiche dove è risultato che solo il 7\% dei casi non c'è stata maggiore efficacia nell'apprendimento \cite{HMDmedicalSeriousgame}, mentre nel resto degli altri casi c'è stata maggior motivazione, coinvolgimento ed efficacia da parte degli studenti.
 
 %
 \section{Extended Reality}
@@ -105,14 +140,13 @@ Si identificano tre tipologie:
     \item \textbf{Realtà Mista (MR)} \textcolor{red}{Il mondo reale e quello virtuale si mescolano.?}
 \end{itemize}
 
-%% MEGLIO SPOSTARE QUI IL DISCORSO SU COME SI INTERAGISCE CON QUESTE TENCOLOGIE
 \textcolor{red}{TODO: PARLARE DI COME SI PUò INTERAGIRE}
 
 Nel caso degli Head-Mounted Devices (HMDs), grazie ai sensori e alle videocamere presenti, le interazioni possono avvenire usando il movimento della testa (Hand-free) oppure attraverso le proprie mani senza la necessita di dispositivi o strumenti specifici come puntatori, controller o guanti.
 
 \subsection{Realtà aumentata}
 La Realtà Aumentata (in inglese Augmented Reality, AR) consiste nell'arricchire il mondo reale circostante con oggetti e informazioni multimediali di vario genere e tipologia che normalmente non sarebbero percepibili dai cinque sensi.
-Questi arricchimenti sono accessibili per mezzo di dispositivi come ad esempio visori AR, computer provvisti di webcam, smartphone, auricolari, lenti a contatto o tecniche particolari come il Video Mapping che fa uso di proiezioni sulle superfici e oggetti senza la necessità d'indossare alcun dispositivo \cite{Raskar1999SpatiallyAR}.
+Questi arricchimenti sono accessibili per mezzo di dispositivi come ad esempio visori AR, computer provvisti di webcam, smartphone, auricolari, lenti a contatto o tecniche particolari come il Video Mapping che fa uso di proiezioni sulle superfici e oggetti senza la necessità d'indossare alcun dispositivo (Spatially Argumented Reality\cite{Raskar1999SpatiallyAR}).
 
 Si identificano tre tipologie di AR che si differenziano in base al criterio utilizzato per il posizionamento degli elementi \enquote{aumentanti} nell'ambiente circostante; si hanno quindi Realtà Aumentate:
 
@@ -129,18 +163,16 @@ Si identificano tre tipologie di AR che si differenziano in base al criterio uti
         \label{fig:location_ar}
     }
     \subfloat[Marker-based AR]{
-        \includegraphics[width=0.33\textwidth]{img/marker-base-ar.jpg}
+        \includegraphics[width=0.32\textwidth]{img/marker-base-ar.jpg}
         \label{fig:marker_ar}
     }
     \subfloat[Markerless AR: App IKEA Place]{
-        \includegraphics[width=0.33\textwidth]{img/markerless-ar.jpg}
+        \includegraphics[width=0.32\textwidth]{img/markerless-ar.jpg}
         \label{fig:markerless_ar}
     }
     \caption{Esempi di tre tipologie di Realtà Aumentata} 
     \label{fig:ARbased_type}
 \end{figure}
-
-Dopo che sono stati posizionati gli elementi virtuali è possibile muoversi attorno a essi e, se previsto, spostarli, cambiarne le dimensioni, rimuoverli o più generalmente averne interazioni a seconda del dispositivo che si sta utilzzando.
 
 %% in Boschetto AR, al momento, non è possibile alcuna interazione con gli oggetti mostrati.
 
