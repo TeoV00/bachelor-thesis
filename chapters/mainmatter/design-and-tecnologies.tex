@@ -1,6 +1,22 @@
 % ! TeX root = ../../main.tex
 \chapter{Design e tecnologie}
 \section{Requisiti}
+% In  questo contesto il contributo di questa tesi mira ad aumentare l'interesse e la consapevolezza sul tema della ecosostenibilità e sul risparmio di carta attraverso l'integrazione di una applicazione per smartphone e un totem multimediale con anche l'aiuto della realtà aumentata e la \textit{gamification}.
+Questa tesi ha l'obiettivo di sviluppare l'applicativo per un totem multimediale che si integri con l'applicazione mobile per smartphone BoschettoAR, parte del progetto ReMade.
+Nello specifico nel totem interattivo con schermo touch screen devono essere visualizzate diverse schermate che mostrano i progressi del progetto ReMade e i dati condivisi degli utenti.
+Più precisamente devono essere presenti le schermate Home, statistiche, Classifica e Informazioni.
+
+La schermata principale chiamata \enquote{Home} deve mostrare un bosco ricco di alberi visto dall'alto (si vedono solo le chiome). Al tocco di un albero vengono mostrati i  (nickname,\dots) e le statistiche (contatori badge,...) relative all'utente corrispondente. Gli alberi devono cambiare la loro rappresentazione in base al livello raggiunto dall'utente.
+
+La schermata delle Statistiche invece deve mostrare diversi contatori provvisti di un'icona rappresentativa, di una \textit{label} (etichetta) che specifica a cosa si riferisce il dato mostrato e infine il valore con unità di misura. Ciascun contatore al tocco deve mostrare una breve descrizione che spieghi il significato del valore.
+
+La penultima pagina, quella della classifica, deve mostrare una classifica dei 10 migliori utenti sulla base della co2 risparmiata.
+Gli elementi della classifica devono avere la posizione, il nickname dell'utente, la rappresentazione del livello dell'utente e quanta co2 hanno risparmiato.
+
+La pagina delle Informazioni, deve mostrare diverse informazioni quali i calcoli fatti per ricavare i dati nella pagina delle statistiche e dettagli sul progetto a cui fa parte. Questa schermata deve essere il quanto più semplice possibile e può prevedere altre sezioni in caso di ulteriori informazioni da mostrare.
+
+Oltre alle diverse pagine, deve essere presente una sezione o schermata sempre accessibile e visibile che permetta di avviare la modalità di caricamento dei dati utente dall'app al totem indistintamente dalla schermata visualizzata. Avviata la modalità deve essere visualizzato il qrcode identificativo del totem che verrà scansionato dall'app mobile.
+
 \section{Design e mockup}
 \section{Tecnologie impiegate}
 \subsection{Applicazione Mobile}
