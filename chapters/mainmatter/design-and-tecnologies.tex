@@ -22,7 +22,7 @@ Oltre alle diverse pagine, deve essere presente una sezione o schermata sempre a
 \subsection{Requisiti non funzionali}
 \begin{itemize}
     \item Il sistema deve essere scalabile in modo da permettere l'aggiunta di nuovi totem interattivi e gestire simultaneamente più richieste di condivisione dei dati dall'applicazione.
-    \item L'interfaccia deve apparire familiare ed intuitiva fin dall'inizio, in modo da permettere un utilizzo immediato e non scoraggiare gli utenti all'interazione.
+    \item L'interfaccia deve apparire familiare ed intuitiva, in modo da permettere un utilizzo immediato e non scoraggiare gli utenti all'interazione.
     \item La sincronizzazione dei dati deve essere, per quanto possibile, immediata in modo da mostrare sempre dati aggiornati.
 \end{itemize}
 %
@@ -39,12 +39,12 @@ Prima di analizzare le scelte di \textit{design} e di mostrare i diversi \textit
 Per lo sviluppo del design grafico e del \textit{mockup} sono disponibili in commercio diversi programmi come Adobe XD, Balsamiq e Figma che è stato utilizzato in questo progetto.
 
 La struttura principale dell'applicativo del totem si suddivide in due sezioni principali: la barra di navigazione e la pagina selezionata (figura \ref{fig:viewStruct}).
-Nello specifico viene utilizzata la \textit{Navigation Rail} di Material Design come barra di navigazione verticale con l'inserimento alla fine di una sezione per l'avvio della condivisione dei dati tramite app (trattata nel dettaglio di seguito).
+Nello specifico viene utilizzata la \textit{Navigation Rail} di Material Design come barra di navigazione verticale con l'inserimento in fondo di una sezione dedicata usata per la condivisione dei dati tramite app.
 
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/mainStructure.png}
-    \caption{Pulsante per mostrare e nascondere il codice QR identificativo del totem per la condivisione dei dati da APP}
+    \includegraphics[width=0.8\textwidth]{img/mainStructure.png}
+    \caption{Layout generale dell'applicativo del totem composto da tre blocchi: barra di navigazione (in verde), sezione dedicata (in arancione) e schermata selezionata (in grigio)}
     \label{fig:viewStruct}
 \end{figure}
 
@@ -86,10 +86,10 @@ La seconda alternativa di \textit{homepage} invece permette di visualizzare molt
     \label{fig:homepages}
 \end{figure}
 
-In entrambe le alternative è presente un pannello che scende dall'alto che mostra i progressi condivisi dell'utente relativi all'elemento selezionato.
+In entrambe le alternative è presente un pannello che mostra i progressi dell'utente.
 
 \subsubsection{Pannello dettagli utente}
-Di questo componente sono stati pensati tre diverse possibili soluzioni: i primi due si assomigliano se non per qualche dettaglio come la mensola anziché del cordino in basso (figure \ref{fig:shelfDetail} e \ref{fig:cordDetail}) mentre l'ultimo si discosta completamente (figura \ref{fig:rectDetail}) sia graficamente sia per animazione.
+Per il pannello dei dettagli sono state pensate tre diverse soluzioni: le prime due sono identiche se non per il particolare in basso (mensola e cordino, figure \ref{fig:shelfDetail} e \ref{fig:cordDetail}) mentre l'ultima si discosta completamente (figura \ref{fig:rectDetail}) sia graficamente sia per animazione.
 \begin{figure} [h]
     \centering
     \subfloat[Stile mensola]{
@@ -97,7 +97,7 @@ Di questo componente sono stati pensati tre diverse possibili soluzioni: i primi
         \label{fig:shelfDetail}
     }
     \subfloat[Stile tendina]{
-        \includegraphics[width=0.33\textwidth]{img/cordDetail.png}
+        \includegraphics[width=0.32\textwidth]{img/cordDetail.png}
         \label{fig:cordDetail}
     }
     \subfloat[Stile rettangolo]{
@@ -109,7 +109,7 @@ Di questo componente sono stati pensati tre diverse possibili soluzioni: i primi
 \end{figure}
 %
 \subsection{Pagina statistiche}
-La pagina delle statistiche presenta una griglia di sei elementi, che chiameremo contatori, uno per ogni dato statistico (\ref{fig:statsPage}). Al tocco di un contatore questo si trasforma diventando quadrato e mostrando una breve descrizione del dato statistico (\ref{fig:descrShowedStats}).
+La pagina delle statistiche presenta una disposizione a griglia con sei elementi, chiamati contatori, uno per ogni dato statistico (\ref{fig:statsPage}). Al tocco di un contatore questo si deforma diventando un quadrato e mostrando una breve descrizione del dato statistico al suo interno (\ref{fig:descrShowedStats}).
 
 \begin{figure} [h]
     \centering
@@ -126,6 +126,7 @@ La pagina delle statistiche presenta una griglia di sei elementi, che chiameremo
 \end{figure}
 
 \begin{figure}
+    \centering
     \includegraphics[width=0.8\textwidth]{img/statsPage.png}
     \caption{Mockup della schermata delle statistiche}
     \label{fig:statsPage}
@@ -133,13 +134,19 @@ La pagina delle statistiche presenta una griglia di sei elementi, che chiameremo
 %
 %
 \subsection{Pagina della classifica}
-
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/topchartPage.png}
+    \caption{Mockup della schermata della classifica}
+    \label{fig:chartPage}
+\end{figure}
 %
 \subsection{Pagina delle informazioni}
-Inizialmente pensata come una unica pagina scorribile, simile ad una pagina web, ma poteva risultare difficile scorrere il dito su un monitor pubblico e più indicato per interazioni come tocchi invece di strisciamenti con forti attriti.
-Si è optato per un design semplice a griglia di \enquote*{piastrelle} (\textit{tiles}), dove a colpo d'occhio è possibile avere le informazioni principali e per maggiori dettagli basta toccare la \textit{tile} interessata.
+Questa pagina è stata pensata inizialmente come un'unica pagina scorribile verticalmente, simile ad una pagina web. Il tipo d'interazione con lo schermo, con questo \textit{design} e \textit{layout}, poteva risultare difficile e poco comoda considerata la grandezza dello schermo.
+Si è optato quinid per un design semplice con delle \enquote*{piastrelle} (\textit{tiles}) disposte a griglia. Con questo \textit{layout} è possibile avere le informazioni principali a colpo d'occhio e per ulteriori dettagli basta toccare la \textit{tile} interessata.
 
 \begin{figure} [h]
+    \centering
     \includegraphics[width=0.8\textwidth]{img/infoPage.png}
     \caption{\textit{Mockup} della schermata delle informazioni}
     \label{fig:infoPage}
@@ -150,13 +157,6 @@ Si è optato per un design semplice a griglia di \enquote*{piastrelle} (\textit{
 %
 \section{Tecnologie impiegate}
 Disclaimer dove dico che per entrambe le piattaforme, applicazione mobile e totem interattivo, sono state utilizzate le medesime tecnologie nella progettazione e sviluppo.
-
-\subsection{Figma}
-%
-\subsection{Visual Studio Code}
-%
-\subsection{Git}
-Version Control System VCS
 %
 \subsection{Flutter}
 %
@@ -166,3 +166,29 @@ Version Control System VCS
 %
 % \subsection{Applicazione Mobile}
 % \subsection{Pagina Web Totem}
+\section{Strumenti di sviluppo}
+\subsection{Git}
+Git (\ref{fig:gitLogo}) è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti.
+Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.2\textwidth]{img/gitlogo.png}
+    \caption[short]{Git: \textit{Version Control System} VCS}
+    \label{fig:gitLogo}
+\end{figure}
+Rispetto ai tradizionali VCS, Git non memorizza i cambiamenti dei file (\textit{delta-based version control}, figura \ref{fig:deltaVCS}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/deltasVCS.png}
+    \caption{\textit{Delta-based} VCS}
+    \label{fig:deltaVCS}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/snapshotsVCS.png}
+    \caption{Meccanismo di \textit{versioning} usato da Git con istantanee}
+    \label{fig:snapshotVCS}
+\end{figure}
+%
+\subsection{Visual Studio Code}
