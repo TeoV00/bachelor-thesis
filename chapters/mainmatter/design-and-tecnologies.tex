@@ -151,7 +151,6 @@ Si è optato quindi per un \textit{design} semplice con delle \enquote*{piastrel
     \caption{\textit{Mockup} della schermata delle informazioni}
     \label{fig:infoPage}
 \end{figure}
-
 %
 %
 %
@@ -182,20 +181,22 @@ Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
     \caption{Logo di Git}
     \label{fig:gitLogo}
 \end{figure}
-Rispetto ai tradizionali VCS, Git non memorizza i cambiamenti dei file (\textit{delta-based version control}, figura \ref{fig:deltaVCS}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}) (figura \ref{fig:snapshotVCS}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato \cite{gitSite}.
+%(\textit{delta-based version control}, figura \ref{fig:deltaVCS})
+Rispetto ai tradizionali VCS, Git non memorizza i cambiamenti dei file ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato \cite{gitSite}.
+%(figura \ref{fig:snapshotVCS})
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{img/deltasVCS.png}
-    \caption{Esempio di salvataggi nel tempo nei \textit{delta-based} VCS}
-    \label{fig:deltaVCS}
-\end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{img/snapshotsVCS.png}
-    \caption{Esempio di \textit{versioning} usato da Git con istantanee sul \textit{file system}}
-    \label{fig:snapshotVCS}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{img/deltasVCS.png}
+%     \caption{Esempio di salvataggi nel tempo nei \textit{delta-based} VCS}
+%     \label{fig:deltaVCS}
+% \end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{img/snapshotsVCS.png}
+%     \caption{Esempio di \textit{versioning} usato da Git con istantanee sul \textit{file system}}
+%     \label{fig:snapshotVCS}
+% \end{figure}
 %
 \subsection{Visual Studio Code}
 Visual Studio Code è un editor di codice sorgente, sviluppato da Microsoft per Windows, Mac e Linux. Prevede diverse funzionalità utili per la scrittura di codice come la previsione e suggerimento di codice (IntelliSense) e gli strumenti di segnalazione e correzione degli errori, che i comuni editor di testo non possiedono.
@@ -203,9 +204,9 @@ Può essere utilizzato con la maggior parte dei linguaggi di programmazione (es.
 
 Viste le qualità di questo editor e al suo utilizzo pregresso si è deciso di utilizzarlo per lo sviluppo di questo progetto con l'integrazione del \textit{plugin} ufficiale di Flutter che aggiunge ulteriori strumenti di analisi e \textit{debug}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{img/vsCode-screenshot.png}
-    \caption{Istantanea schermo di Visual Studio Code}
-    \label{fig:vsCodeScreen}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{img/vsCode-screenshot.png}
+%     \caption{Istantanea schermo di Visual Studio Code}
+%     \label{fig:vsCodeScreen}
+% \end{figure}
