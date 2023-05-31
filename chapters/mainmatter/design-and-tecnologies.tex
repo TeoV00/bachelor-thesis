@@ -109,7 +109,7 @@ Per il pannello dei dettagli sono state pensate tre diverse soluzioni: le prime 
 \end{figure}
 %
 \subsection{Pagina statistiche}
-La pagina delle statistiche presenta una disposizione a griglia con sei elementi, chiamati contatori, uno per ogni dato statistico (\ref{fig:statsPage}). Al tocco di un contatore questo si deforma diventando un quadrato e mostrando una breve descrizione del dato statistico al suo interno (\ref{fig:descrShowedStats}).
+La pagina delle statistiche presenta una disposizione a griglia con sei elementi, chiamati contatori, uno per ogni dato statistico (figura \ref{fig:statsPage}). Al tocco di un contatore questo si deforma diventando un quadrato e mostrando una breve descrizione del dato statistico al suo interno (figura \ref{fig:descrShowedStats}).
 
 \begin{figure} [h]
     \centering
@@ -121,7 +121,7 @@ La pagina delle statistiche presenta una disposizione a griglia con sei elementi
         \includegraphics[width=0.3\textwidth]{img/plantedTreeStatsdescr.png}
         \label{fig:descrShowedStats}
     }
-    \caption{Esempio di contatore nella pagina delle statistiche}
+    \caption{Esempio di contatore nella pagina delle statistiche prima e dopo il tocco dell'utente}
     \label{fig:statCircle}
 \end{figure}
 
@@ -143,7 +143,7 @@ La pagina delle statistiche presenta una disposizione a griglia con sei elementi
 %
 \subsection{Pagina delle informazioni}
 Questa pagina è stata pensata inizialmente come un'unica pagina scorribile verticalmente, simile ad una pagina web. Il tipo d'interazione con lo schermo, con questo \textit{design} e \textit{layout}, poteva risultare difficile e poco comoda considerata la grandezza dello schermo.
-Si è optato quinid per un design semplice con delle \enquote*{piastrelle} (\textit{tiles}) disposte a griglia. Con questo \textit{layout} è possibile avere le informazioni principali a colpo d'occhio e per ulteriori dettagli basta toccare la \textit{tile} interessata.
+Si è optato quindi per un \textit{design} semplice con delle \enquote*{piastrelle} (dette \textit{tiles}) disposte a griglia. Con questo \textit{layout} è possibile avere le informazioni principali a colpo d'occhio e per ulteriori dettagli basta toccare la \textit{tile} interessata.
 
 \begin{figure} [h]
     \centering
@@ -156,39 +156,56 @@ Si è optato quinid per un design semplice con delle \enquote*{piastrelle} (\tex
 %
 %
 \section{Tecnologie impiegate}
-Disclaimer dove dico che per entrambe le piattaforme, applicazione mobile e totem interattivo, sono state utilizzate le medesime tecnologie nella progettazione e sviluppo.
-%
+In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem interattivo e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per la gestione dei dati condivisi è stato utilizzato il servizio cloud Firebase Realtime mentre i codici QR sono serviti per l'identificazione degli alberi e del totem.
+
+\subsection{Applicazione Mobile}
+Nel caso specifico dell'applicazione per smartphone sono state utilizzate altre tecnologie come la realtà aumentata (si rimanda al capitolo \ref{sec:ar}) e il database relazionale.
+\subsubsection{Database Relazionale}
+per la memorizzazione dei dati in locale è stato creato e utilizzato un database relazionale opportunamente generato in base alla piattaforma di esecuzione dal \textit{plugin} di Flutter \texttt{sqflite}.
 \subsection{Flutter}
+
 %
 \subsection{Firebase Realtime}
+
 %
 \subsection{Codici QR}
+
 %
-% \subsection{Applicazione Mobile}
 % \subsection{Pagina Web Totem}
 \section{Strumenti di sviluppo}
 \subsection{Git}
-Git (\ref{fig:gitLogo}) è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti.
+Git (logo in figura \ref{fig:gitLogo}) è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti.
 Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
 \begin{figure}
     \centering
-    \includegraphics[width=0.2\textwidth]{img/gitlogo.png}
-    \caption[short]{Git: \textit{Version Control System} VCS}
+    \includegraphics[width=3cm]{img/gitlogo.png}
+    \caption{Logo di Git}
     \label{fig:gitLogo}
 \end{figure}
-Rispetto ai tradizionali VCS, Git non memorizza i cambiamenti dei file (\textit{delta-based version control}, figura \ref{fig:deltaVCS}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato.
+Rispetto ai tradizionali VCS, Git non memorizza i cambiamenti dei file (\textit{delta-based version control}, figura \ref{fig:deltaVCS}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}) (figura \ref{fig:snapshotVCS}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato \cite{gitSite}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{img/deltasVCS.png}
-    \caption{\textit{Delta-based} VCS}
+    \caption{Esempio di salvataggi nel tempo nei \textit{delta-based} VCS}
     \label{fig:deltaVCS}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{img/snapshotsVCS.png}
-    \caption{Meccanismo di \textit{versioning} usato da Git con istantanee}
+    \caption{Esempio di \textit{versioning} usato da Git con istantanee sul \textit{file system}}
     \label{fig:snapshotVCS}
 \end{figure}
 %
 \subsection{Visual Studio Code}
+Visual Studio Code è un editor di codice sorgente, sviluppato da Microsoft per Windows, Mac e Linux. Prevede diverse funzionalità utili per la scrittura di codice come la previsione e suggerimento di codice (IntelliSense) e gli strumenti di segnalazione e correzione degli errori, che i comuni editor di testo non possiedono.
+Può essere utilizzato con la maggior parte dei linguaggi di programmazione (es. C, Java, PHP) ed è possibile aggiungere nuovi linguaggi ed estendere le sue capacità attraverso dei \textit{plugin} scaricabili direttamente all'interno di Visual Studio Code.
+
+Viste le qualità di questo editor e al suo utilizzo pregresso si è deciso di utilizzarlo per lo sviluppo di questo progetto con l'integrazione del \textit{plugin} ufficiale di Flutter che aggiunge ulteriori strumenti di analisi e \textit{debug}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/vsCode-screenshot.png}
+    \caption{Istantanea schermo di Visual Studio Code}
+    \label{fig:vsCodeScreen}
+\end{figure}
