@@ -2,12 +2,12 @@
 \chapter{Design e tecnologie}
 \section{Requisiti}
 % In  questo contesto il contributo di questa tesi mira ad aumentare l'interesse e la consapevolezza sul tema della ecosostenibilità e sul risparmio di carta attraverso l'integrazione di una applicazione per smartphone e un totem multimediale con anche l'aiuto della realtà aumentata e la \textit{gamification}.
-Questa tesi ha l'obiettivo di sviluppare l'applicativo per un totem multimediale che si integri con l'applicazione mobile per smartphone BoschettoAR facente oarte del progetto ReMade.
+Questa tesi ha l'obiettivo di sviluppare l'applicativo per un totem multimediale che si integri con l'applicazione mobile per smartphone BoschettoAR facente parte del progetto ReMade.
 Nello specifico devono essere presenti diverse schermate che mostrano i progressi del progetto ReMade e i dati condivisi degli utenti.
 %
 \subsection{Requisiti funzionali}
 Più precisamente devono essere presenti le schermate Home, statistiche, Classifica e Informazioni.
-
+%TODO: scrivili in punto elenco e controlla se sono funzionali
 La schermata principale chiamata \enquote{Home} deve mostrare un bosco ricco di alberi visto dall'alto (si vedono solo le chiome). Al tocco di un albero vengono mostrati i  (nickname,\dots) e le statistiche (contatori badge,...) relative all'utente corrispondente. Gli alberi devono cambiare la loro rappresentazione in base al livello raggiunto dall'utente.
 
 La schermata delle Statistiche invece deve mostrare diversi contatori provvisti di un'icona rappresentativa, di una \textit{label} (etichetta) che specifica a cosa si riferisce il dato mostrato e infine il valore con unità di misura. Ciascun contatore al tocco deve mostrare una breve descrizione che spieghi il significato del valore.
@@ -134,6 +134,7 @@ La pagina delle statistiche presenta una disposizione a griglia con sei elementi
 %
 %
 \subsection{Pagina della classifica}
+%%TODO: write something
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{img/topchartPage.png}
@@ -158,13 +159,15 @@ Si è optato quindi per un \textit{design} semplice con delle \enquote*{piastrel
 In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem interattivo e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per la gestione dei dati condivisi è stato utilizzato il servizio cloud Firebase Realtime mentre i codici QR sono serviti per l'identificazione degli alberi e del totem.
 
 \subsection{Applicazione Mobile}
-Nel caso specifico dell'applicazione per smartphone sono state utilizzate altre tecnologie come la realtà aumentata (si rimanda al capitolo \ref{sec:ar}) e il database relazionale.
+Nel caso specifico dell'applicazione per smartphone sono state utilizzate altre tecnologie: la realtà aumentata (si rimanda al capitolo \ref{sec:ar}) e il database relazionale.
 \subsubsection{Database Relazionale}
 per la memorizzazione dei dati in locale è stato creato e utilizzato un database relazionale opportunamente generato in base alla piattaforma di esecuzione dal \textit{plugin} di Flutter \texttt{sqflite}.
 \subsection{Flutter}
 
 %
 \subsection{Firebase Realtime}
+Firebase Realtime è un database non relazionale (NoSQL) memorizzato nel cloud. In quanto NoSQL, i dati e le relazioni non vengono memorizzati in tabelle ma in documenti, archivi \textit{wide-column} o grafi (nodi e archi) a seconda della tipologia del database.
+Firebase Realtime è di tipo documentale e quindi fa uso di documenti simili ad oggetti JSON (\textit{JavaScript Object Notation}) per salvare i dati. Questo genere di memorizzazione permette maggiore flessibilità dello schema permettendo l'aggiunta o la modifica del modello dei dati. Inoltre i database NoSQL consentono una maggiore velocità e agilità di memorizzazione ed elaborazione oltre che offrire una maggiore scalabilità.
 
 %
 \subsection{Codici QR}
@@ -173,40 +176,11 @@ per la memorizzazione dei dati in locale è stato creato e utilizzato un databas
 % \subsection{Pagina Web Totem}
 \section{Strumenti di sviluppo}
 \subsection{Git}
-Git (logo in figura \ref{fig:gitLogo}) è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti.
-Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
-\begin{figure}
-    \centering
-    \includegraphics[width=3cm]{img/gitlogo.png}
-    \caption{Logo di Git}
-    \label{fig:gitLogo}
-\end{figure}
-%(\textit{delta-based version control}, figura \ref{fig:deltaVCS})
-Rispetto ai tradizionali VCS, Git non memorizza i cambiamenti dei file ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato \cite{gitSite}.
-%(figura \ref{fig:snapshotVCS})
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{img/deltasVCS.png}
-%     \caption{Esempio di salvataggi nel tempo nei \textit{delta-based} VCS}
-%     \label{fig:deltaVCS}
-% \end{figure}
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{img/snapshotsVCS.png}
-%     \caption{Esempio di \textit{versioning} usato da Git con istantanee sul \textit{file system}}
-%     \label{fig:snapshotVCS}
-% \end{figure}
+Git è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti. Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
+Rispetto ai tradizionali VCS, Git non memorizza le differenze dei file (\textit{delta-based version control}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato \cite{gitSite}.
+%TODO: scrivere o elencare le caratteristiche utilizzate in git tipo il branching o che ne so
 %
 \subsection{Visual Studio Code}
 Visual Studio Code è un editor di codice sorgente, sviluppato da Microsoft per Windows, Mac e Linux. Prevede diverse funzionalità utili per la scrittura di codice come la previsione e suggerimento di codice (IntelliSense) e gli strumenti di segnalazione e correzione degli errori, che i comuni editor di testo non possiedono.
-Può essere utilizzato con la maggior parte dei linguaggi di programmazione (es. C, Java, PHP) ed è possibile aggiungere nuovi linguaggi ed estendere le sue capacità attraverso dei \textit{plugin} scaricabili direttamente all'interno di Visual Studio Code.
-
+Può essere utilizzato con la maggior parte dei linguaggi di programmazione (es. C, Java, PHP) ed è possibile aggiungerne di nuovi ed estendere le sue capacità attraverso dei \textit{plugin} scaricabili direttamente all'interno di Visual Studio Code.
 Viste le qualità di questo editor e al suo utilizzo pregresso si è deciso di utilizzarlo per lo sviluppo di questo progetto con l'integrazione del \textit{plugin} ufficiale di Flutter che aggiunge ulteriori strumenti di analisi e \textit{debug}.
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{img/vsCode-screenshot.png}
-%     \caption{Istantanea schermo di Visual Studio Code}
-%     \label{fig:vsCodeScreen}
-% \end{figure}
