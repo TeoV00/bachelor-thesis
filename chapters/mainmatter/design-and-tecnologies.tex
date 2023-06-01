@@ -156,12 +156,13 @@ Si è optato quindi per un \textit{design} semplice con delle \enquote*{piastrel
 %
 %
 \section{Tecnologie impiegate}
-In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem interattivo e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per la gestione dei dati condivisi è stato utilizzato il servizio cloud Firebase Realtime mentre i codici QR sono serviti per l'identificazione degli alberi e del totem.
+Di seguito vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem interattivo e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
 
 \subsection{Applicazione Mobile}
-Nel caso specifico dell'applicazione per smartphone sono state utilizzate altre tecnologie: la realtà aumentata (si rimanda al capitolo \ref{sec:ar}) e il database relazionale.
-\subsubsection{Database Relazionale}
-per la memorizzazione dei dati in locale è stato creato e utilizzato un database relazionale opportunamente generato in base alla piattaforma di esecuzione dal \textit{plugin} di Flutter \texttt{sqflite}.
+Nel caso specifico dell'applicazione per smartphone sono state utilizzate la realtà aumentata (si rimanda al capitolo \ref{sec:ar}) e il database relazionale per la memorizzazione dei dati in locale.
+% \subsubsection{Database Relazionale}
+% per la memorizzazione dei dati in locale è stato creato e utilizzato un database relazionale opportunamente generato in base alla piattaforma di esecuzione dal \textit{plugin} di Flutter \texttt{sqflite}.
+
 \subsection{Flutter}
 
 %
@@ -171,6 +172,10 @@ Firebase Realtime è di tipo documentale e quindi fa uso di documenti simili ad 
 
 %
 \subsection{Codici QR}
+Il codice QR (\textit{Quick Response}) è un tipo di codice a barre a matrice (codice 2D) sviluppato e presentato nel 1994 dalla compagnia giapponese Denso Wave che si compone di tanti piccoli quadrati neri e bianchi, chiamati moduli, disposti in una matrice.
+I codici QR permettono di memorizzare una quantità variabile di dati che dipende dalla tipologia di dato, dalla versione utilizzata e dal livello di correzione dell'errore. La dimensione della matrice è definita dalla versione utilizzata e anche dalla tipologia di codice QR (Modello 1/2, \textit{Micro QR Code}, \textit{rMQR Code}, \textit{SQRC} o Frame QR).
+
+La versione più comune di \textit{QR code} è di tipo \textit{Model 1/2} di livello 3, presenta 29x29 moduli ed è in grado di memorizzare fino ad un massimo di 77 caratteri alfanumerici con la correzione dell'errore del 7\% circa.
 
 %
 % \subsection{Pagina Web Totem}
