@@ -395,11 +395,3 @@ Di seguito si elencano le principali tecniche d'integrazione:
 \end{description}
 
 \section{Integrazione tra totem e smartphone}
-L'integrazione fra totem e smartphone ha richiesto un'analisi sulla disponibilità e praticabilità di utilizzare determinate tecnologie per l'interazione fra i due dispositivi anche in un'ottica di \textit{user experience}, usabilità e scalabilità.
-
-Per questo progetto si è optato per una integrazione basata sul \textit{cloud computing} e più precisamente utilizzando un servizio \textit{cloud-based} per la memorizzazione in tempo reale dei dati. Viene utilizzato il prodotto Firebase Realtime di Google \cite{firebase} in un'ottica anche di scalabilità, affidabilità, facilità d'uso e sicurezza.
-Scegliendo questo modo d'integrazione si apre la possibilità di aggiungere nel tempo nuove postazioni interattive (totem) in caso di diffusione del progetto anche in altre sedi.
-
-Si è valutato l'utilizzo della tecnologia NFC per il trasferimento dei dati da APP a totem interattivo ma la mancanza dell'hardware necessario, e considerato che non tutti gli smartphone (in particolare quelli meno recenti) possiedono tale tecnologia, si è deciso di non utilizzarla.
-
-Come ulteriore alternativa  per il caricamento dei dati da parte dell'APP si è valutato l'utilizzo di una architettura client-server e di API esposte dal web-server installato sul totem. Quest'ultima opzione sarebbe stato un buon compromesso in termini di sicurezza e velocità di trasmissione ma poco scalabile, limitando la condivisione dei dati a solo quegli utenti connessi alla rete dell'Ateneo in sede a Cesena.
