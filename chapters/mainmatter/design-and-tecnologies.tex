@@ -1,7 +1,70 @@
 % ! TeX root = ../../main.tex
 \chapter{Design e tecnologie}
-\section{Obiettivo}
-L'obiettivo di questo progetto è sviluppare un app mobile per smartphone che mostri agli utenti quanto tramite risparmio di carta è possibile risparmiare grandi quantità di carta che corrisponde a co2 non emessa nell'ambiente. L'app tramite AR 
+\section{Premessa}
+\subsection{App Mobile}
+L'applicazione mobile da integrare con il totem si chiama BoschettoAR. Questa applicazione attraverso la realtà aumentata e la gamification fornisce agli utenti informazioni sui progressi raggiunti da UniBo con il processo di dematerializzazione e piantumazione proporzionale prevista dal progetto ReMade \ref{sec:remade}. Di seguito si descrive brevemente il funzionamento dell'app.
+
+%TODO: il discorso non inzia bene
+L'utente trovato un albero all'interno di aree verdi dell'ateneo (dove è presente un bosco digitale), apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto viene avviata la sessione di realtà aumentata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) che corrispondono alla co2 evitata dall'Università; inoltre vengono mostrate diverse informazioni sull'albero scansionato e sulla attività UniBo associata.
+
+\begin{figure}
+    \centering
+    \subfloat[Scansione QR code albero]{
+        \includegraphics[width=0.30\textwidth]{img/app/scan_qr_old.jpg}
+        \label{fig:scanQRapp}
+    }
+    \subfloat[Taniche di benzina in AR]{
+        \includegraphics[width=0.30\textwidth]{img/app/ar_fuel.jpg}
+        \label{fig:tankAR}
+    }
+    \subfloat[Plichi di carta in AR]{
+        \includegraphics[width=0.30\textwidth]{img/app/ar_paper.jpg}
+        \label{fig:paperAR}
+    }
+    \caption{Sessione AR dell'app mobile}
+    \label{fig:arSession}
+\end{figure}
+
+Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'utente che guadagna un badge aumentando di livello. Tutti i progressi raggiunti e i risparmi virtualmente guadagnati vengono visualizzati all'interno della pagina personale dove è possibile anche impostare i dati del profilo e una foto (figura \ref{fig:userPage}).
+
+\begin{figure}
+    \centering
+    \subfloat[Profilo utente con progressi e badge acquisiti]{
+        \includegraphics[width=0.30\textwidth]{img/app/user_page.png}
+        \label{fig:userProgress}
+    }
+    \subfloat[Pagina di modifica dei dati utente]{
+        \includegraphics[width=0.30\textwidth]{img/app/edit_user.png}
+        \label{fig:editUser}
+    }
+    \caption{Pagina utente app mobile}
+    \label{fig:userPage}
+\end{figure}
+
+Gli alberi collezionati si trovano nella pagina principale (figura \ref{fig:treeHome}) con tutte le informazioni e la possibilità di avviare direttamente la sessione di realtà aumentata (figura \ref{fig:treeDetail}).
+L'app è in grado di funzionare offline\footnote{Senza connessione ad internet} dopo una prima sincronizzazione necessaria.
+
+\begin{figure}
+    \centering
+    \subfloat[Homepage alla prima installazione]{
+        \includegraphics[width=0.30\textwidth]{img/app/first_launch.png}
+        \label{fig:appFirstLaunch}
+    }
+    \subfloat[Collezione utente degli alberi scansionati]{
+        \includegraphics[width=0.30\textwidth]{img/app/treeHome.png}
+        \label{fig:treeHome}
+    }
+    \subfloat[Pagina dei dettagli dell'albero con possibilità di avviare l'AR]{
+        \includegraphics[width=0.30\textwidth]{img/app/treeDetails.png}
+        \label{fig:treeDetail}
+    }
+    \caption[Homepage app BoschettoAR]{Homepage app BoschettoAR e pagina con dettagli albero}
+    \label{fig:homeApp}
+\end{figure}
+
+\subsection{Obiettivo}
+Con questo progetto si intende estendere l'esperienza fornita dall'app BoschettoAR integrando un totem interattivo che mostri, tramite rappresentazione grafica, la consapevolezza raggiunta dalla comunità UniBo sul tema dell'inquinamento. Con l'introduzione del totem si vuole inoltre aumentare l'effetto della gamification e rafforzare il senso di comunità.
+
 \section{Requisiti e analisi}
 \subsection{Requisiti funzionali}
 \subsubsection{App mobile}
@@ -31,7 +94,6 @@ L'obiettivo di questo progetto è sviluppare un app mobile per smartphone che mo
 \end{itemize}
 
 \subsection{Modello del dominio}
-
 %
 %
 %
