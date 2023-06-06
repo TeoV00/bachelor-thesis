@@ -1,78 +1,108 @@
 % ! TeX root = ../../main.tex
 \chapter{Design e tecnologie}
-\section{Requisiti}
-% In  questo contesto il contributo di questa tesi mira ad aumentare l'interesse e la consapevolezza sul tema della ecosostenibilità e sul risparmio di carta attraverso l'integrazione di una applicazione per smartphone e un totem multimediale con anche l'aiuto della realtà aumentata e la \textit{gamification}.
-Questa tesi ha l'obiettivo di sviluppare l'applicativo per un totem multimediale che si integri con l'applicazione mobile per smartphone BoschettoAR facente parte del progetto ReMade.
-Nello specifico devono essere presenti diverse schermate che mostrano i progressi del progetto ReMade e i dati condivisi degli utenti.
-%
+\section{Obiettivo}
+L'obiettivo di questo progetto è sviluppare un app mobile per smartphone che mostri agli utenti quanto tramite risparmio di carta è possibile risparmiare grandi quantità di carta che corrisponde a co2 non emessa nell'ambiente. L'app tramite AR 
+\section{Requisiti e analisi}
 \subsection{Requisiti funzionali}
-Più precisamente devono essere presenti le schermate Home, statistiche, Classifica e Informazioni.
-%TODO: scrivili in punto elenco e controlla se sono funzionali
-La schermata principale chiamata \enquote{Home} deve mostrare un bosco ricco di alberi visto dall'alto (si vedono solo le chiome). Al tocco di un albero vengono mostrati i  (nickname,\dots) e le statistiche (contatori badge,...) relative all'utente corrispondente. Gli alberi devono cambiare la loro rappresentazione in base al livello raggiunto dall'utente.
-
-La schermata delle Statistiche invece deve mostrare diversi contatori provvisti di un'icona rappresentativa, di una \textit{label} (etichetta) che specifica a cosa si riferisce il dato mostrato e infine il valore con unità di misura. Ciascun contatore al tocco deve mostrare una breve descrizione che spieghi il significato del valore.
-
-La penultima pagina, quella della classifica, deve mostrare una classifica dei 10 migliori utenti sulla base della co2 risparmiata.
-Gli elementi della classifica devono avere la posizione, il nickname dell'utente, la rappresentazione del livello dell'utente e quanta co2 hanno risparmiato.
-
-La pagina delle Informazioni, deve mostrare diverse informazioni quali i calcoli fatti per ricavare i dati nella pagina delle statistiche e dettagli sul progetto a cui fa parte. Questa schermata deve essere il quanto più semplice possibile e può prevedere altre sezioni in caso di ulteriori informazioni da mostrare.
-
-Oltre alle diverse pagine, deve essere presente una sezione o schermata sempre accessibile e visibile che permetta di avviare la modalità di caricamento dei dati utente dall'app al totem indistintamente dalla schermata visualizzata. Avviata la modalità deve essere visualizzato il qrcode identificativo del totem che verrà scansionato dall'app mobile.
-%
+\subsubsection{App mobile}
+% \begin{itemize}
+%     \item L'app deve presentare una schermata che raggruppi tutti gli alberi collezionati dall'utente e dei relativi progetti UniBo associati. Per ciascun elemento si deve mostrare una descrizione e dettagli sui risparmi ottenuti in diverse unità di misura.
+%     \item La scansione di un albero deve essere avviabile in qualsiasi momento all'interno dell'app. Dopo l'identificazione di un albero si deve avviare la modalità di realtà aumentata dove vengono mostrati i plichi di carta e le taniche di benzina risparmiate. Inoltre deve essere presente una sezione con le informazioni sull'albero e sul progetto associato. L'albero identificato, se non già presente, viene aggiunto alla collezione dell'utente.
+%     \item Ogni albero nuovo aggiunto alla collezione dovrà sbloccare un badge e aumentare il livello dell'utente.
+%     \item I progressi utente dovranno essere mostrati in una pagina dedicata. Nello specifico dovranno essere mostrati il livello, i badge e dei contatori sul risparmio raggiunto con la collezione personale di alberi. Dovrà essere presente anche una sezione che mostri le informazioni personali (es. nome, congome), di carriera (es. corso, anno immatricolazione) e una foto. Tutte queste informazioni dovranno essere modificabili.
+%     \item L'utente deve poter condividere i progressi raggiunti accedendo ad una pagina dedicata dove verrà chiesto di scansionare il codice QR identificativo del totem.
+% \end{itemize}
+\subsubsection{Totem}
+\begin{itemize}
+    \item Devono essere presenti le schermate: homepage, statistiche, classifica e informazioni.
+    \item Condivisione progressi: l'utente deve poter depositare i progressi raggiunti in app in qualsiasi momento indipendentemente dalla schermata del totem. Deve quindi essere sempre accessibile il codice QR che identifica il totem in modo da poterlo scansionare tramite app.
+    \item La homepage deve mostrare gli utenti coinvolti e i dettagli dei loro progressi depositati.
+    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la co2 virtualmente risparmiata con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
+    \item La classifica deve mostrare i 10 migliori utenti che hanno partecipato sulla base della co2 risparmiata.
+    \item Nella pagina delle informazioni deve essere presente la spiegazione dei calcoli fatti per i dati mostrati nelle altre schermate e una sezione con maggiori dettagli sul progetto a cui fa riferimento l'esperienza sostenibile. Deve essere possibile integrare ed aggiungere nuove sezioni.
+\end{itemize}
 \subsection{Requisiti non funzionali}
+\subsubsection{App mobile}
+\subsubsection{Totem}
 \begin{itemize}
     \item Il sistema deve essere scalabile in modo da permettere l'aggiunta di nuovi totem interattivi e gestire simultaneamente più richieste di condivisione dei dati dall'applicazione.
     \item L'interfaccia deve apparire familiare ed intuitiva, in modo da permettere un utilizzo immediato e non scoraggiare gli utenti all'interazione.
     \item La sincronizzazione dei dati deve essere, per quanto possibile, immediata in modo da mostrare sempre dati aggiornati.
 \end{itemize}
+
+\subsection{Modello del dominio}
+
 %
 %
 %
-\section{Design e mockup}
-Prima di analizzare le scelte di \textit{design} e di mostrare i diversi \textit{mockup} sviluppati si introducono i significati delle due parole in corsivo utilizzate.
+%
+\section{Design}
+\subsection{Architettura}
+Il sistema si compone di tre componenti principali: l'app mobile, il totem e il database cloud.
 
-\begin{description}
-    \item[Design] Il \textit{design} viene definito dal Cambridge Dictionary \cite{cambridgeDict} come \enquote*{il modo in cui qualcosa viene progettato e costruito o modellato} attraverso la stesura di un progetto che coniughi funzionalità ed estetica. Il \textit{design} può assumere diverse forme e fra queste ritroviamo anche il \textit{web design}, il \textit{graphic design} e l'\textit{interaction design}.
-    \item[Mockup] Il termine \textit{mockup} o \textit{mock-up}, in italiano \enquote*{modello}, è una realizzazione a scopo illustrativo o espositivo di un oggetto o sistema, senza le complete funzioni dell'originale. Viene tipicamente sviluppato per fornire un'idea visiva del prodotto finale ai clienti, permettendo di effettuare correzioni o modifiche sulla bozza del prodotto ancora prima che si passi alla fase di sviluppo. Molti settori fanno uso di \textit{mockup} dal marketing alla editoria fino all'ingegneria. Nel settore del \textit{web design}, ad esempio, viene utilizzato per abbozzare il \textit{layout} di una pagina web e decidere la disposizione degli elementi, i colori, i caratteri del testo e le funzionalità interattive.
-\end{description}
-
-Per lo sviluppo del design grafico e del \textit{mockup} sono disponibili in commercio diversi programmi come Adobe XD, Balsamiq e Figma che è stato utilizzato in questo progetto.
-
-La struttura principale dell'applicativo del totem si suddivide in due sezioni principali: la barra di navigazione e la pagina selezionata (figura \ref{fig:viewStruct}).
-Nello specifico viene utilizzata la \textit{Navigation Rail} di Material Design come barra di navigazione verticale con l'inserimento in fondo di una sezione dedicata usata per la condivisione dei dati tramite app.
-
+La condivisione dei progressi dell'utente dall'app al totem avviene passando per il database cloud Firebase Realtime in cui vengono memorizzati i dati.
+In figura \ref{fig:communication-schema} viene mostrato uno schema delle interazioni fra i tre componenti del sistema: i progressi dell'utente vengono prima caricati sul database nel cloud quindi successivamente scaricati sul totem.
+Oltre ai dati condivisi degli utenti, il database online fornisce le informazioni sugli alberi e i progetti corrispondenti sia al totem che all'app mobile.
 \begin{figure} [h]
     \centering
+    \includegraphics[width=0.5\textwidth]{img/arch-totem-app-dati.png}
+    \caption{Schema della architettura e interazione fra app e totem}
+    \label{fig:communication-schema}
+\end{figure}
+% MVVM model-viewmodel-view (utilizza il Provider Pattern per non dover passare il viewmodel nella gerarchia) nella app, potrebbe anche essere pattern DAO anche se questo non prevede una view
+% Singleton pattern to manage the instance of a database connection or an HTTP client.
+
+\subsection{Mockup}
+Attraverso i \textit{mockup}, vengono presentate e spiegate le diverse schermate del totem.
+Il termine \textit{mockup} o \textit{mock-up}, in italiano \enquote*{modello}, è una realizzazione a scopo illustrativo o espositivo di un oggetto o sistema, senza le complete funzioni dell'originale. Viene tipicamente sviluppato per fornire un'idea visiva del prodotto finale ai clienti, permettendo di effettuare correzioni o modifiche sulla bozza del prodotto ancora prima che si passi alla fase di sviluppo.
+
+Per la creazione dei mockup è stato utilizzato il software Figma anche se in commercio ne esistono molti altri come ad esempio Adobe XD o Balsamiq.
+
+Lo sviluppo della UI ha richiesto l'adattamento e la semplificazione degli elementi grafici in modo da semplificare l'interazione dell'utente con il totem rendendola il più intuitiva possibile. Vengono mantenuti i colori e il dettaglio dell'erba (figura \ref{fig:grassDetails}) dell'app mobile.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{img/grassDetail.png}
+    \caption{Dettaglio dell'erba presente nella'app e nel totem}
+    \label{fig:grassDetails}
+\end{figure}
+
+\subsubsection{Mobile app}
+
+
+\subsubsection{Totem}
+La struttura dell'interfaccia del totem si suddivide in due sezioni principali: una colonna a sinistra contenente la barra di navigazione e la sezione con il QR code del totem e lo spazio restante a destra dove viene visualizzata la pagina selezionata (figura \ref{fig:viewStruct}).
+\begin{figure}[h]
+    \centering
     \includegraphics[width=0.8\textwidth]{img/mainStructure.png}
-    \caption{Layout generale dell'applicativo del totem composto da tre blocchi: barra di navigazione (in verde), sezione dedicata (in arancione) e schermata selezionata (in grigio)}
+    \caption{Layout generale della UI del totem composto da tre blocchi: barra di navigazione (in verde), sezione codice QR (in arancione) e schermata selezionata (in grigio)}
     \label{fig:viewStruct}
 \end{figure}
 
-\subsection{Scansione codice QR totem}
-In fondo alla barra di navigazione verticale si è posizionato il codice QR che identifica il totem per la condivisione dei progressi dell'utente tramite app.
-In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante. Si compone di due immagini: un vaso ed una freccia verde (figura \ref{fig:hideQR}). Al tocco del pulsante la freccia svanisce, il vaso si ingrandisce fino a contenere al suo interno il codice QR (figura \ref{fig:showQR}).
+Di seguito si mostrano i mockup della homepage (fig. \ref{fig:homepages}), statistiche (fig. \ref{fig:statsPage}), classifica (fig. \ref{fig:chartPage}) e informazioni (fig. \ref{fig:infoPage}).
 
-\begin{figure} [h]
-    \centering
-    \subfloat[Codice QR del totem nascosto]{
-        \includegraphics[width=4cm]{img/depositIcon.png}
-        \label{fig:hideQR}
-    }
-    \vspace{1cm}
-    \subfloat[Codice QR del totem visibile]{
-        \includegraphics[width=4cm]{img/depositQR.png}
-        \label{fig:showQR}
-    }
-    \caption{Pulsante per mostrare e nascondere il codice QR identificativo del totem per la condivisione dei dati da APP}
-    \label{fig:depositIconsQR}
-\end{figure}
-%
-\subsection{Homepage}
-Per la \textit{homepage} sono stati pensati due design alternativi: uno mette in risalto gli utenti mentre l'altro fornisce una visione più globale della partecipazione degli utenti.
-Il primo è organizzato in mensole su cui poggiano i vasi contenenti l'alberello che rappresenta il livello dell'utente (figura \ref{fig:shelfHome}). Più alto è il livello raggiunto più rigogliosa e prospera sarà la chioma. Le mensole sono disposte in modo da occupare lo spazio a disposizione. Questa soluzione riduce molto la quantità di utenti visualizzabili per volta, costringendo ad una paginazione delle mensole navigabile con frecce o pulsanti per cambiare pagina (questo dettaglio nel mockup non è stato inserito).
-La seconda alternativa di \textit{homepage} invece permette di visualizzare molti più elementi rispetto alla precedente. La visualizzazione cambia prospettiva, viene abbandonata l'idea delle mensole e vengono mostrate le chiome degli alberi in visione aerea come se si guardasse un bosco dall'alto(figura \ref{fig:forestHome}).
+% % \subsubsection{Sezione dedicata al QR code del totem}
+% In questa sezione deve essere mostrato il codice QR che identifica il totem e si è deciso di renderlo visibile solo su richiesta esplicita dell'utente.
+% In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante. Si compone di due immagini: un vaso ed una freccia verde (figura \ref{fig:hideQR}). Al tocco del pulsante la freccia svanisce, il vaso si ingrandisce fino a contenere al suo interno il codice QR (figura \ref{fig:showQR}).
 
-\begin{figure} [h]
+% \begin{figure} [h]
+%     \centering
+%     \subfloat[Codice QR del totem nascosto]{
+%         \includegraphics[width=4cm]{img/depositIcon.png}
+%         \label{fig:hideQR}
+%     }
+%     \vspace{1cm}
+%     \subfloat[Codice QR del totem visibile]{
+%         \includegraphics[width=4cm]{img/depositQR.png}
+%         \label{fig:showQR}
+%     }
+%     \caption{Pulsante per mostrare e nascondere il codice QR identificativo del totem per la condivisione dei dati da APP}
+%     \label{fig:depositIconsQR}
+% \end{figure}
+
+Per quanto riguarda la homepage sono stati fatti due mockup con design differenti: nel primo vengono mostrati gli utenti come piccoli alberi disposti su delle mensole (figura \ref{fig:shelfHome}), nel secondo viene utilizzato un layout a griglia e gli utenti vengono rappresentati come chiome di alberi visti dall'alto (figura \ref{fig:forestHome}). In entrambi i casi il tocco di un elemento espande il pannello dei dettagli utente e le chiome e alberi variano in base al livello raggiunto.
+
+\begin{figure}[h]
     \centering
     \subfloat[Visualizzazione a mensole]{
         \includegraphics[width=0.45\textwidth]{img/shelfViewHome.png}
@@ -82,36 +112,31 @@ La seconda alternativa di \textit{homepage} invece permette di visualizzare molt
         \includegraphics[width=0.45\textwidth]{img/forestViewHome.png}
         \label{fig:forestHome}
     }
-    \caption{Possibili design di visualizzazione degli elementi della \textit{homepage}}
+    \caption[Alternative di homepage nel totem]{Design alternativi per la homepage del totem}
     \label{fig:homepages}
 \end{figure}
 
-In entrambe le alternative è presente un pannello che mostra i progressi dell'utente.
-
-\subsubsection{Pannello dettagli utente}
-Per il pannello dei dettagli sono state pensate tre diverse soluzioni: le prime due sono identiche se non per il particolare in basso (mensola e cordino, figure \ref{fig:shelfDetail} e \ref{fig:cordDetail}) mentre l'ultima si discosta completamente (figura \ref{fig:rectDetail}) sia graficamente sia per animazione.
-\begin{figure} [h]
+Nella homepage è presente un pannello a scomparsa che mostra i dettagli dell'utente selezionato. Sono stati pensati quattro diversi temi:
+%TODO: MENO PIPPONI E AGGIUNGERE quello con particolare tondeggiante (da notability appunti)
+\begin{figure}[h]
     \centering
     \subfloat[Stile mensola]{
-        \includegraphics[width=0.33\textwidth]{img/shelfDetail.png}
+        \includegraphics[width=0.30\textwidth]{img/shelfDetail.png}
         \label{fig:shelfDetail}
     }
     \subfloat[Stile tendina]{
-        \includegraphics[width=0.32\textwidth]{img/cordDetail.png}
+        \includegraphics[width=0.30\textwidth]{img/cordDetail.png}
         \label{fig:cordDetail}
     }
     \subfloat[Stile rettangolo]{
-        \includegraphics[width=0.33\textwidth]{img/rectDetail.png}
+        \includegraphics[width=0.30\textwidth]{img/rectDetail.png}
         \label{fig:rectDetail}
     }
-    \caption{Tre diversi stili per il pannello dei dettagli: mensola, tendina e rettangolo}
+    \caption{Tre diversi stili per il pannello dei dettagli nel totem: mensola, tendina e rettangolo}
     \label{fig:detailBanner}
 \end{figure}
-%
-\subsection{Pagina statistiche}
-La pagina delle statistiche presenta una disposizione a griglia con sei elementi, chiamati contatori, uno per ogni dato statistico (figura \ref{fig:statsPage}). Al tocco di un contatore questo si deforma diventando un quadrato e mostrando una breve descrizione del dato statistico al suo interno (figura \ref{fig:descrShowedStats}).
 
-\begin{figure} [h]
+\begin{figure}[h]
     \centering
     \subfloat[]{
         \includegraphics[width=0.3\textwidth]{img/plantedTreeStats.png}
@@ -121,71 +146,58 @@ La pagina delle statistiche presenta una disposizione a griglia con sei elementi
         \includegraphics[width=0.3\textwidth]{img/plantedTreeStatsdescr.png}
         \label{fig:descrShowedStats}
     }
-    \caption{Esempio di contatore nella pagina delle statistiche prima e dopo il tocco dell'utente}
+    \caption[Pagina delle statistiche nel totem]{Singolo contatore della schermata delle statistiche nel totem. Al tocco del contatore viene mostrata o nascosta la descrizione passando da \ref{fig:iconStats} a \ref{fig:descrShowedStats} e viceversa}
     \label{fig:statCircle}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/statsPage.png}
-    \caption{Mockup della schermata delle statistiche}
+    \caption[Pagina delle statistiche nel totem]{Pagina delle statistiche nel totem che presenta sei contatori disposti a griglia}
     \label{fig:statsPage}
 \end{figure}
-%
-%
-\subsection{Pagina della classifica}
-%%TODO: write something
-\begin{figure}
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/topchartPage.png}
-    \caption{Mockup della schermata della classifica}
+    \caption[Classifica Top10 nel totem]{Pagina della classifica dei 10 migliori utenti}
     \label{fig:chartPage}
 \end{figure}
-%
-\subsection{Pagina delle informazioni}
-Questa pagina è stata pensata inizialmente come un'unica pagina scorribile verticalmente, simile ad una pagina web. Il tipo d'interazione con lo schermo, con questo \textit{design} e \textit{layout}, poteva risultare difficile e poco comoda considerata la grandezza dello schermo.
-Si è optato quindi per un \textit{design} semplice con delle \enquote*{piastrelle} (dette \textit{tiles}) disposte a griglia. Con questo \textit{layout} è possibile avere le informazioni principali a colpo d'occhio e per ulteriori dettagli basta toccare la \textit{tile} interessata.
 
-\begin{figure} [h]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/infoPage.png}
-    \caption{\textit{Mockup} della schermata delle informazioni}
+    \caption[Pagina delle informazioni nel totem]{Pagina delle informazioni nel totem che prevede un design semplice con delle \textit{tiles} (\enquote*{piastrelle}) disposte a griglia. Al tocco di una tile si apre un pop-up che mostra maggiori informazioni.}
     \label{fig:infoPage}
 \end{figure}
+\pagebreak
 %
 %
 %
 \section{Tecnologie impiegate}
-Di seguito vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem interattivo e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
-
-\subsection{Applicazione Mobile}
-Nel caso specifico dell'applicazione per smartphone sono state utilizzate la realtà aumentata (si rimanda al capitolo \ref{sec:ar}) e il database relazionale per la memorizzazione dei dati in locale.
-% \subsubsection{Database Relazionale}
-% per la memorizzazione dei dati in locale è stato creato e utilizzato un database relazionale opportunamente generato in base alla piattaforma di esecuzione dal \textit{plugin} di Flutter \texttt{sqflite}.
+In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo della applicativo del totem e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
 
 \subsection{Flutter}
+Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) \textit{open source}\footnote{software pubblico alla quale è possibile applicare modifiche, miglioramenti e redistribuirlo liberamente} che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione alla interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
 
-%
+Il linguaggio Dart è un linguaggio di programmazione ad alto livello multi paradigma, influenzato da altri linguaggi come il C e Java, ed è ottimizzato per lo sviluppo veloce di applicazioni su qualsiasi piattaforma nativa e web.
+
 \subsection{Firebase Realtime}
-Firebase Realtime è un database non relazionale (NoSQL) memorizzato nel cloud. In quanto NoSQL, i dati e le relazioni non vengono memorizzati in tabelle ma in documenti, archivi \textit{wide-column} o grafi (nodi e archi) a seconda della tipologia del database.
-Firebase Realtime è di tipo documentale e quindi fa uso di documenti simili ad oggetti JSON (\textit{JavaScript Object Notation}) per salvare i dati. Questo genere di memorizzazione permette maggiore flessibilità dello schema permettendo l'aggiunta o la modifica del modello dei dati. Inoltre i database NoSQL consentono una maggiore velocità e agilità di memorizzazione ed elaborazione oltre che offrire una maggiore scalabilità.
-
+Firebase Realtime \cite{firebase} è un database non relazionale (NoSQL) memorizzato nel cloud. In quanto NoSQL, i dati e le relazioni non vengono memorizzati in tabelle ma in documenti, archivi \textit{wide-column} o grafi (nodi e archi) a seconda della tipologia del database.
+Firebase Realtime è di tipo documentale e quindi fa uso di documenti in formato JSON (\textit{JavaScript Object Notation}) per salvare i dati. Questo genere di memorizzazione permette maggiore flessibilità dello schema permettendo l'aggiunta o la modifica del modello dei dati (es. aggiunta o modifica di un campo). Inoltre i database NoSQL consentono una maggiore velocità e agilità di memorizzazione ed elaborazione oltre che offrire una maggiore scalabilità.
 %
 \subsection{Codici QR}
-Il codice QR (\textit{Quick Response}) è un tipo di codice a barre a matrice (codice 2D) sviluppato e presentato nel 1994 dalla compagnia giapponese Denso Wave che si compone di tanti piccoli quadrati neri e bianchi, chiamati moduli, disposti in una matrice.
-I codici QR permettono di memorizzare una quantità variabile di dati che dipende dalla tipologia di dato, dalla versione utilizzata e dal livello di correzione dell'errore. La dimensione della matrice è definita dalla versione utilizzata e anche dalla tipologia di codice QR (Modello 1/2, \textit{Micro QR Code}, \textit{rMQR Code}, \textit{SQRC} o Frame QR).
+Il codice QR (\textit{Quick Response}) è un tipo di codice a barre a matrice (codice 2D) sviluppato e presentato nel 1994 dalla compagnia giapponese Denso Wave che si compone di tanti piccoli quadrati neri e bianchi, chiamati moduli, disposti in una matrice \cite{qrCodeDensoWave}.
+I codici QR permettono di memorizzare una quantità variabile di dati che dipende dalla tipologia di dato, dalla versione utilizzata e dal livello di correzione dell'errore. La dimensione della matrice è definita dalla versione utilizzata e anche dalla tipologia di codice QR (Modello 1 o 2, \textit{Micro QR Code}, \textit{rMQR Code}, \textit{SQRC}, Frame QR).
 
-La versione più comune di \textit{QR code} è di tipo \textit{Model 1/2} di livello 3, presenta 29x29 moduli ed è in grado di memorizzare fino ad un massimo di 77 caratteri alfanumerici con la correzione dell'errore del 7\% circa.
+La versione più comune di \textit{QR code} è di tipo \textit{Model 1 o 2} di livello 3, presenta 29x29 moduli ed è in grado di memorizzare fino ad un massimo di 77 caratteri alfanumerici con la correzione dell'errore del 7\% circa.
 
-%
-% \subsection{Pagina Web Totem}
 \section{Strumenti di sviluppo}
 \subsection{Git}
-Git è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti. Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
-Rispetto ai tradizionali VCS, Git non memorizza le differenze dei file (\textit{delta-based version control}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato \cite{gitSite}.
-%TODO: scrivere o elencare le caratteristiche utilizzate in git tipo il branching o che ne so
-%
+Git \cite{gitSite} è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti. Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
+Rispetto ai tradizionali VCS, Git non memorizza le differenze dei file (\textit{delta-based version control}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato.
+
 \subsection{Visual Studio Code}
-Visual Studio Code è un editor di codice sorgente, sviluppato da Microsoft per Windows, Mac e Linux. Prevede diverse funzionalità utili per la scrittura di codice come la previsione e suggerimento di codice (IntelliSense) e gli strumenti di segnalazione e correzione degli errori, che i comuni editor di testo non possiedono.
+Visual Studio Code \cite{vsCodeSite} è un editor di codice sorgente, sviluppato da Microsoft per Windows, Mac e Linux. Prevede diverse funzionalità utili per la scrittura di codice come la previsione e suggerimento di codice (IntelliSense) e gli strumenti di segnalazione e correzione degli errori, che i comuni editor di testo non possiedono.
 Può essere utilizzato con la maggior parte dei linguaggi di programmazione (es. C, Java, PHP) ed è possibile aggiungerne di nuovi ed estendere le sue capacità attraverso dei \textit{plugin} scaricabili direttamente all'interno di Visual Studio Code.
 Viste le qualità di questo editor e al suo utilizzo pregresso si è deciso di utilizzarlo per lo sviluppo di questo progetto con l'integrazione del \textit{plugin} ufficiale di Flutter che aggiunge ulteriori strumenti di analisi e \textit{debug}.
