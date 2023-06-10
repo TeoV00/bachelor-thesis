@@ -2,7 +2,7 @@
 \chapter{Design e tecnologie}
 \section{Premessa}
 \subsection{App Mobile}
-L'applicazione mobile da integrare con il totem si chiama BoschettoAR. Questa applicazione attraverso la realtà aumentata e la gamification fornisce agli utenti informazioni sui progressi raggiunti da UniBo con il processo di dematerializzazione e piantumazione proporzionale prevista dal progetto ReMade \ref{sec:remade}. Di seguito si descrive brevemente il funzionamento dell'app.
+L'applicazione mobile, da integrare con il totem, si chiama BoschettoAR. Questa applicazione, attraverso la realtà aumentata e la gamification, fornisce agli utenti informazioni sui progressi raggiunti da UniBo attraverso il processo di dematerializzazione e piantumazione proporzionale prevista dal progetto ReMade \ref{sec:remade}. Di seguito si descrive brevemente il funzionamento dell'app.
 
 %TODO: il discorso non inzia bene
 L'utente trovato un albero all'interno di aree verdi dell'ateneo (dove è presente un bosco digitale), apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto viene avviata la sessione di realtà aumentata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) che corrispondono alla co2 evitata dall'Università; inoltre vengono mostrate diverse informazioni sull'albero scansionato e sulla attività UniBo associata.
@@ -25,7 +25,7 @@ L'utente trovato un albero all'interno di aree verdi dell'ateneo (dove è presen
     \label{fig:arSession}
 \end{figure}
 
-Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'utente che guadagna un badge aumentando di livello. Tutti i progressi raggiunti e i risparmi virtualmente guadagnati vengono visualizzati all'interno della pagina personale dove è possibile anche impostare i dati del profilo e una foto (figura \ref{fig:userPage}).
+Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'utente che guadagna un badge aumentando di livello. Tutti i progressi raggiunti e i risparmi virtualmente guadagnati vengono visualizzati all'interno della pagina personale (figura \ref{fig:userPage}) dove è possibile anche impostare i dati del profilo e una foto.
 
 \begin{figure}
     \centering
@@ -42,7 +42,7 @@ Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'u
 \end{figure}
 
 Gli alberi collezionati si trovano nella pagina principale (figura \ref{fig:treeHome}) con tutte le informazioni e la possibilità di avviare direttamente la sessione di realtà aumentata (figura \ref{fig:treeDetail}).
-L'app è in grado di funzionare offline\footnote{Senza connessione ad internet} dopo una prima sincronizzazione necessaria.
+L'app è in grado di funzionare offline dopo una prima sincronizzazione necessaria.
 
 \begin{figure}
     \centering
@@ -55,7 +55,7 @@ L'app è in grado di funzionare offline\footnote{Senza connessione ad internet} 
         \label{fig:treeHome}
     }
     \subfloat[Pagina dei dettagli dell'albero con possibilità di avviare l'AR]{
-        \includegraphics[width=0.30\textwidth]{img/app/treeDetails.png}
+        \includegraphics[width=0.30\textwidth]{img/app/treeDetailsOld.png}
         \label{fig:treeDetail}
     }
     \caption[Homepage app BoschettoAR]{Homepage app BoschettoAR e pagina con dettagli albero}
@@ -63,56 +63,88 @@ L'app è in grado di funzionare offline\footnote{Senza connessione ad internet} 
 \end{figure}
 
 \subsection{Obiettivo}
-Con questo progetto si intende estendere l'esperienza fornita dall'app BoschettoAR integrando un totem interattivo che mostri, tramite rappresentazione grafica, la consapevolezza raggiunta dalla comunità UniBo sul tema dell'inquinamento. Con l'introduzione del totem si vuole inoltre aumentare l'effetto della gamification e rafforzare il senso di comunità.
+L'obiettivo di questa tesi è di estendere l'esperienza fornita dall'app BoschettoAR integrando un totem interattivo che mostri il livello di consapevolezza raggiunta dalla comunità UniBo sul tema dell'inquinamento attraverso un bosco virtuale che cresce in base ai porgessi degli utenti  che condividono i propri progressi tramite app.
 
 \section{Requisiti e analisi}
 \subsection{Requisiti funzionali}
 \subsubsection{App mobile}
-% \begin{itemize}
-%     \item L'app deve presentare una schermata che raggruppi tutti gli alberi collezionati dall'utente e dei relativi progetti UniBo associati. Per ciascun elemento si deve mostrare una descrizione e dettagli sui risparmi ottenuti in diverse unità di misura.
-%     \item La scansione di un albero deve essere avviabile in qualsiasi momento all'interno dell'app. Dopo l'identificazione di un albero si deve avviare la modalità di realtà aumentata dove vengono mostrati i plichi di carta e le taniche di benzina risparmiate. Inoltre deve essere presente una sezione con le informazioni sull'albero e sul progetto associato. L'albero identificato, se non già presente, viene aggiunto alla collezione dell'utente.
-%     \item Ogni albero nuovo aggiunto alla collezione dovrà sbloccare un badge e aumentare il livello dell'utente.
-%     \item I progressi utente dovranno essere mostrati in una pagina dedicata. Nello specifico dovranno essere mostrati il livello, i badge e dei contatori sul risparmio raggiunto con la collezione personale di alberi. Dovrà essere presente anche una sezione che mostri le informazioni personali (es. nome, congome), di carriera (es. corso, anno immatricolazione) e una foto. Tutte queste informazioni dovranno essere modificabili.
-%     \item L'utente deve poter condividere i progressi raggiunti accedendo ad una pagina dedicata dove verrà chiesto di scansionare il codice QR identificativo del totem.
-% \end{itemize}
+\begin{itemize}
+    \item Condivisone dei progressi: l'utente, dopo aver impostato un nickname, dovrà poter condividere i propri progressi raggiunti con il totem attraverso una schermata dedicata. Entro un certo intervallo di tempo il caricamento deve interrompersi automaticamente.
+\end{itemize}
 \subsubsection{Totem}
 \begin{itemize}
     \item Devono essere presenti le schermate: homepage, statistiche, classifica e informazioni.
-    \item Condivisione progressi: l'utente deve poter depositare i progressi raggiunti in app in qualsiasi momento indipendentemente dalla schermata del totem. Deve quindi essere sempre accessibile il codice QR che identifica il totem in modo da poterlo scansionare tramite app.
-    \item La homepage deve mostrare gli utenti coinvolti e i dettagli dei loro progressi depositati.
-    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la co2 virtualmente risparmiata con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
-    \item La classifica deve mostrare i 10 migliori utenti che hanno partecipato sulla base della co2 risparmiata.
-    \item Nella pagina delle informazioni deve essere presente la spiegazione dei calcoli fatti per i dati mostrati nelle altre schermate e una sezione con maggiori dettagli sul progetto a cui fa riferimento l'esperienza sostenibile. Deve essere possibile integrare ed aggiungere nuove sezioni.
+    \item Ricezione dei progressi: il totem deve ricevere i progressi dell'utente condivisi tramite app.
+    \item La homepage deve mostrare gli utenti coinvolti e i dettagli dei loro progressi 
+    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la co2 virtualmente risparmiate con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
+    \item La classifica deve mostrare i 10 migliori utenti sulla base della co2 risparmiata.
+    \item Nella pagina delle informazioni deve essere presente la spiegazione dei calcoli effettuati e una sezione con maggiori dettagli sul progetto ReMade. Deve essere possibile aggiungere nuove sezioni.
 \end{itemize}
 \subsection{Requisiti non funzionali}
 \subsubsection{App mobile}
+\begin{itemize}
+    \item Nella pagina dei dettagli di un albero collezionato deve essere mostrato anche il progetto associato.
+    \item La pagina per il caricamento dei progressi deve fornire una breve guida e indicare le informazioni che verranno condivise.
+    \item Il caricamento dei progressi non deve impiegare più 8 secondi altrimenti deve essere interrotto. A fine processo, anche in caso di errore, deve essere mostrata una schermata che informi l'utente dell'avvenuto caricamento dei dati.
+\end{itemize}
 \subsubsection{Totem}
 \begin{itemize}
+    \item L'utente deve poter depositare i progressi raggiunti in app in qualsiasi momento indipendentemente dalla schermata del totem. Deve quindi essere sempre accessibile il codice QR che identifica il totem in modo da poterlo scansionare tramite app.
     \item Il sistema deve essere scalabile in modo da permettere l'aggiunta di nuovi totem interattivi e gestire simultaneamente più richieste di condivisione dei dati dall'applicazione.
-    \item L'interfaccia deve apparire familiare ed intuitiva, in modo da permettere un utilizzo immediato e non scoraggiare gli utenti all'interazione.
-    \item La sincronizzazione dei dati deve essere, per quanto possibile, immediata in modo da mostrare sempre dati aggiornati.
+    \item L'interfaccia deve apparire familiare rispetto all'app mobile in modo da permettere un utilizzo immediato e non scoraggiare gli utenti all'interazione. Devono essere necessari un paio di tocchi per navigare tra le schermate o mostrare il codice QR.
+    \item La sincronizzazione dei dati deve essere, per quanto possibile, immediata in modo da mostrare sempre dati aggiornati in tempo reale.
 \end{itemize}
 
 \subsection{Modello del dominio}
+I dati del totem, che vengono memorizzati all'interno del database nel cloud, riguardano le informazioni sul totem stesso (ad esempio il nome e la sede UniBo in cui si trova) e tutti i progressi caricati tramite app dagli utenti.
+Si ha quindi un'entità che rappresenta i progressi caricati dall'utente (\texttt{SharedData}) e un'entità che rappresenta il totem (\texttt{Totem}).
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/totem/totemDomain.png}
+    \caption[Modello del dominio del totem]{Modello del dominio del totem: in grassetto sono evidenziate le chiavi delle entità}
+    \label{fig:totemDomain}
+\end{figure}
 %
 %
 %
 %
 \section{Design}
-\subsection{Architettura}
-Il sistema si compone di tre componenti principali: l'app mobile, il totem e il database cloud.
-
-La condivisione dei progressi dell'utente dall'app al totem avviene passando per il database cloud Firebase Realtime in cui vengono memorizzati i dati.
-In figura \ref{fig:communication-schema} viene mostrato uno schema delle interazioni fra i tre componenti del sistema: i progressi dell'utente vengono prima caricati sul database nel cloud quindi successivamente scaricati sul totem.
-Oltre ai dati condivisi degli utenti, il database online fornisce le informazioni sugli alberi e i progetti corrispondenti sia al totem che all'app mobile.
+\subsection{Architettura e pattern}
+Il sistema si compone di tre componenti principali: l'app mobile, il totem e il cloud database. I progressi dell'utente dall'app vengono caricati sul database quindi scaricati nel totem. In figura \ref{fig:communication-schema} viene mostrato lo schema delle interazioni fra i tre componenti del sistema durante la condivisione dei progressi.
+Il database fornisce inoltre le informazioni sugli alberi e i relativi progetti sia al totem che all'app mobile.
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth]{img/arch-totem-app-dati.png}
+    \includegraphics[width=0.7\textwidth]{img/arch-totem-app-dati.png}
     \caption{Schema della architettura e interazione fra app e totem}
     \label{fig:communication-schema}
 \end{figure}
 % MVVM model-viewmodel-view (utilizza il Provider Pattern per non dover passare il viewmodel nella gerarchia) nella app, potrebbe anche essere pattern DAO anche se questo non prevede una view
-% Singleton pattern to manage the instance of a database connection or an HTTP client.
+% Singleton pattern to manage the instance of a database connection.
+
+Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzato principalmente il pattern architetturale MVI (\textit{Model-View-Intent}) dove gli \textit{intent} rappresentano l'intento dell'utente quando interagisce con la \textit{view} che viene aggiornata dopo che l'intent ha modificato il model.
+%TODO: finre e mostrare scherma pattern MVI
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{example-image-a}
+    \caption{Diagramma delle classi per il pattern MVI}
+    \label{fig:mviPattern}
+\end{figure}
+
+Per l'accesso ai dati è stato utilizzato il pattern \textit{Repository} che prevede una unica interfaccia. La classe \texttt{DataManager} funge da repository e fornisce un unico punto di accesso ai dati incapsulando l'elaborazione dei dati prelevati da provider diversi.
+Nel caso del totem si ha solo \texttt{FirebaseProvider} mentre l'app ha anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} come fonti dei dati.
+Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno che permette di definire le operazioni eseguibili sul provider separando l'aspetto implementativo.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/app/repository_pattern_scheme.png}
+    \caption{Schema UML pattern Repository nell'app: l'interfaccia \texttt{DataManager} è il repository, mentre \texttt{DatabaseProvider}, \texttt{FirebaseProvider} e \texttt{PreferenciesProvider} sono le interfacce dei singoli fornitori e sorgenti di dati.}
+    \label{fig:repoPattern}
+\end{figure}
+% MVI pattern utilizzato per le schermate post scansione qr code dove è presente un FutureBuilder e che quinid il dominio ritorna un dato Future che presenta degli stati, in base allo stato del dato viene mostrata una UI apposta. Il punto focale di questo pattern è che la UI rimane reattiva e il dominio aggiorna il suo stato mentre aggiorna o legge il dominio es. database. o sservizio online. Futurebuilder per la UI reattiva in base allo stato dell'intent (che in nel caso di tesi e tirocinio era un metodo specifico che ritornava un dato di tipo Future e quindi con diversi stati)
+
+%il pattern DAO invece è stato itilizzato per astrarre e incapsulare l'accesso al db e l'implementaizome delle operazioni, infatti mi è del tutto ignoto che cosa avviene dietro al metodo che chiamo per aggiungere un albero ai progresi utente nel db. e vale lo stesso con firebase.
+
+% pattern repository, dove la classe data manager appunto è il repository. Al suo interno ai diversi riferimenti a oggetti del dominio (che utilizzano il design pattern DAO, data access object). DAO funziona come un livello di mappatura/accesso ai dati, nascondendo brutte query. Tuttavia, un repository è un livello tra i domini e i livelli di accesso ai dati, che nasconde la complessità della raccolta dei dati e della preparazione di un oggetto di dominio
 
 \subsection{Mockup}
 Attraverso i \textit{mockup}, vengono presentate e spiegate le diverse schermate del totem.
@@ -120,119 +152,129 @@ Il termine \textit{mockup} o \textit{mock-up}, in italiano \enquote*{modello}, �
 
 Per la creazione dei mockup è stato utilizzato il software Figma anche se in commercio ne esistono molti altri come ad esempio Adobe XD o Balsamiq.
 
-Lo sviluppo della UI ha richiesto l'adattamento e la semplificazione degli elementi grafici in modo da semplificare l'interazione dell'utente con il totem rendendola il più intuitiva possibile. Vengono mantenuti i colori e il dettaglio dell'erba (figura \ref{fig:grassDetails}) dell'app mobile.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{img/grassDetail.png}
-    \caption{Dettaglio dell'erba presente nella'app e nel totem}
-    \label{fig:grassDetails}
-\end{figure}
-
 \subsubsection{Mobile app}
-
+La pagina per la condivisione dei dati, mostrata in figura \ref{fig:sharePage}, fornisce all'utente una breve spiegazione e informa quali dati verranno condivisi e mostrati pubblicamente nel totem.
+Cliccando sul pulsante \enquote*{Procedi} si passa all'identificazione del totem tramite codice QR (figura \ref{fig:scanTotem}) e successivamente alla schermata di caricamento dei dati sul totem (figura \ref{fig:uploadinData}).
+\begin{figure}[h]
+    \centering
+    \subfloat[Pagina di condivisone progressi]{
+        \includegraphics[width=0.3\textwidth]{img/app/uploadPage.png}
+        \label{fig:sharePage}
+    }
+    \subfloat[Scansione QR code totem]{
+        \includegraphics[width=0.3\textwidth]{img/app/uploadProgress.png}
+        \label{fig:scanTotem}
+    }
+    \subfloat[Schermata di caricamento progressi]{
+        \includegraphics[width=0.3\textwidth]{img/app/uploadingPage.png}
+        \label{fig:uploadinData}
+    }
+    \caption{}
+    \label{fig:shareDataApp}
+\end{figure}
 
 \subsubsection{Totem}
 La struttura dell'interfaccia del totem si suddivide in due sezioni principali: una colonna a sinistra contenente la barra di navigazione e la sezione con il QR code del totem e lo spazio restante a destra dove viene visualizzata la pagina selezionata (figura \ref{fig:viewStruct}).
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{img/mainStructure.png}
+    \includegraphics[width=0.8\textwidth]{img/totem/mainStructure.png}
     \caption{Layout generale della UI del totem composto da tre blocchi: barra di navigazione (in verde), sezione codice QR (in arancione) e schermata selezionata (in grigio)}
     \label{fig:viewStruct}
 \end{figure}
 
-Di seguito si mostrano i mockup della homepage (fig. \ref{fig:homepages}), statistiche (fig. \ref{fig:statsPage}), classifica (fig. \ref{fig:chartPage}) e informazioni (fig. \ref{fig:infoPage}).
+Vengono mantenuti i colori, il particolare dell'erba (figura \ref{fig:grassDetails}) e altre grafiche e icone, in modo da avere coerenza e continuità fra gli applicativi.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{img/totem/grassDetail.png}
+    \caption{Dettaglio dell'erba presente nella'app e nel totem}
+    \label{fig:grassDetails}
+\end{figure}
 
-% % \subsubsection{Sezione dedicata al QR code del totem}
-% In questa sezione deve essere mostrato il codice QR che identifica il totem e si è deciso di renderlo visibile solo su richiesta esplicita dell'utente.
-% In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante. Si compone di due immagini: un vaso ed una freccia verde (figura \ref{fig:hideQR}). Al tocco del pulsante la freccia svanisce, il vaso si ingrandisce fino a contenere al suo interno il codice QR (figura \ref{fig:showQR}).
+In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante che mostra il codice QR del totem. Al tocco del pulsante, questo si ingrandisce rendendo visibile al suo interno il codice QR (figura \ref{fig:showQR}).
+\begin{figure}
+    \centering
+    \subfloat[Codice QR del totem nascosto]{
+        \includegraphics[width=3cm]{img/totem/depositIcon.png}
+        \label{fig:hideQR}
+    }
+    \vspace{1cm}
+    \subfloat[Codice QR del totem visibile]{
+        \includegraphics[width=3cm]{img/totem/depositQR.png}
+        \label{fig:showQR}
+    }
+    \caption[Sezione QR code del totem]{Sezione QR code del totem: il codice inizialmente nascosto viene rivelato (icona a destra)}
+    \label{fig:depositIconsQR}
+\end{figure}
 
-% \begin{figure} [h]
-%     \centering
-%     \subfloat[Codice QR del totem nascosto]{
-%         \includegraphics[width=4cm]{img/depositIcon.png}
-%         \label{fig:hideQR}
-%     }
-%     \vspace{1cm}
-%     \subfloat[Codice QR del totem visibile]{
-%         \includegraphics[width=4cm]{img/depositQR.png}
-%         \label{fig:showQR}
-%     }
-%     \caption{Pulsante per mostrare e nascondere il codice QR identificativo del totem per la condivisione dei dati da APP}
-%     \label{fig:depositIconsQR}
-% \end{figure}
-
-Per quanto riguarda la homepage sono stati fatti due mockup con design differenti: nel primo vengono mostrati gli utenti come piccoli alberi disposti su delle mensole (figura \ref{fig:shelfHome}), nel secondo viene utilizzato un layout a griglia e gli utenti vengono rappresentati come chiome di alberi visti dall'alto (figura \ref{fig:forestHome}). In entrambi i casi il tocco di un elemento espande il pannello dei dettagli utente e le chiome e alberi variano in base al livello raggiunto.
-
-\begin{figure}[h]
+Per quanto riguarda la homepage sono stati fatti due mockup con design differenti: nel primo vengono mostrati gli utenti come piccoli alberi disposti su delle mensole (figura \ref{fig:shelfHome}), nel secondo viene utilizzato un layout a griglia e gli utenti vengono rappresentati come chiome di alberi visti dall'alto (figura \ref{fig:forestHome}) ricreando un vero e proprio boschetto virtuale. In entrambi i casi il tocco di un elemento espande il pannello dei dettagli utente e le chiome degli alberi variano in base al livello raggiunto.
+\begin{figure}
     \centering
     \subfloat[Visualizzazione a mensole]{
-        \includegraphics[width=0.45\textwidth]{img/shelfViewHome.png}
+        \includegraphics[width=0.45\textwidth]{img/totem/shelfViewHome.png}
         \label{fig:shelfHome}
     }
     \subfloat[Visualizzazione a bosco]{
-        \includegraphics[width=0.45\textwidth]{img/forestViewHome.png}
+        \includegraphics[width=0.45\textwidth]{img/totem/forestViewHome.png}
         \label{fig:forestHome}
     }
     \caption[Alternative di homepage nel totem]{Design alternativi per la homepage del totem}
     \label{fig:homepages}
 \end{figure}
 
-Nella homepage è presente un pannello a scomparsa che mostra i dettagli dell'utente selezionato. Sono stati pensati quattro diversi temi:
-%TODO: MENO PIPPONI E AGGIUNGERE quello con particolare tondeggiante (da notability appunti)
-\begin{figure}[h]
+Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostra il nickname, i progressi e il livello raggiunti dall'utente selezionato. Il design principale nelle tre versioni rimane invariato se non per la decorazione che può essere: a mensola (figura \ref{fig:shelfDetail}), a cordino (\ref{fig:cordDetail}) o tondeggiante (figura\ref{fig:roundDetail}).
+\begin{figure}
     \centering
     \subfloat[Stile mensola]{
-        \includegraphics[width=0.30\textwidth]{img/shelfDetail.png}
+        \includegraphics[width=0.30\textwidth]{img/totem/shelfDetail.png}
         \label{fig:shelfDetail}
     }
     \subfloat[Stile tendina]{
-        \includegraphics[width=0.30\textwidth]{img/cordDetail.png}
+        \includegraphics[width=0.30\textwidth]{img/totem/cordDetail.png}
         \label{fig:cordDetail}
     }
-    \subfloat[Stile rettangolo]{
-        \includegraphics[width=0.30\textwidth]{img/rectDetail.png}
-        \label{fig:rectDetail}
+    \subfloat[Stile curvo]{
+        \includegraphics[width=0.28\textwidth]{img/totem/roundDetail.png}
+        \label{fig:roundDetail}
     }
-    \caption{Tre diversi stili per il pannello dei dettagli nel totem: mensola, tendina e rettangolo}
+    \caption{Tre diversi stili per il pannello dei dettagli nel totem}
     \label{fig:detailBanner}
 \end{figure}
 
-\begin{figure}[h]
+La pagina delle statistiche (figura \ref{fig:statsPage}) mostra sei contatori (figura \ref{fig:statCircle}) ciascuno per un dato disposti in una griglia di tre colonne e due righe. Il contatore è stato pensato come un cerchio colorato con all'interno un'icona rappresentativa della statistica. Al tocco del singolo elemento viene mostrata una breve descrizione del dato.
+\begin{figure}
     \centering
     \subfloat[]{
-        \includegraphics[width=0.3\textwidth]{img/plantedTreeStats.png}
+        \includegraphics[width=0.3\textwidth]{img/totem/plantedTreeStats.png}
         \label{fig:iconStats}
     }
     \subfloat[]{
-        \includegraphics[width=0.3\textwidth]{img/plantedTreeStatsdescr.png}
+        \includegraphics[width=0.3\textwidth]{img/totem/plantedTreeStatsdescr.png}
         \label{fig:descrShowedStats}
     }
     \caption[Pagina delle statistiche nel totem]{Singolo contatore della schermata delle statistiche nel totem. Al tocco del contatore viene mostrata o nascosta la descrizione passando da \ref{fig:iconStats} a \ref{fig:descrShowedStats} e viceversa}
     \label{fig:statCircle}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{img/statsPage.png}
+    \includegraphics[width=0.8\textwidth]{img/totem/statsPage.png}
     \caption[Pagina delle statistiche nel totem]{Pagina delle statistiche nel totem che presenta sei contatori disposti a griglia}
     \label{fig:statsPage}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{img/topchartPage.png}
+    \includegraphics[width=0.8\textwidth]{img/totem/topchartPage.png}
     \caption[Classifica Top10 nel totem]{Pagina della classifica dei 10 migliori utenti}
     \label{fig:chartPage}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{img/infoPage.png}
+    \includegraphics[width=0.8\textwidth]{img/totem/infoPage.png}
     \caption[Pagina delle informazioni nel totem]{Pagina delle informazioni nel totem che prevede un design semplice con delle \textit{tiles} (\enquote*{piastrelle}) disposte a griglia. Al tocco di una tile si apre un pop-up che mostra maggiori informazioni.}
     \label{fig:infoPage}
 \end{figure}
-\pagebreak
 %
 %
 %
@@ -240,10 +282,13 @@ Nella homepage è presente un pannello a scomparsa che mostra i dettagli dell'ut
 In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo della applicativo del totem e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
 
 \subsection{Flutter}
-Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) \textit{open source}\footnote{software pubblico alla quale è possibile applicare modifiche, miglioramenti e redistribuirlo liberamente} che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione alla interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
+Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) \textit{open source}\footnote{Software pubblico alla quale è possibile applicare modifiche, miglioramenti e redistribuirlo liberamente} che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione alla interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
 
 Il linguaggio Dart è un linguaggio di programmazione ad alto livello multi paradigma, influenzato da altri linguaggi come il C e Java, ed è ottimizzato per lo sviluppo veloce di applicazioni su qualsiasi piattaforma nativa e web.
 
+\subsubsection{Plugin utilizzati}
+%TODO: elencare o parlare deiplugin utilizzati nello svilupppo del totem o della prte di app che tratta il caricamento dati (es. scansione qrcode totem)
+Si elencano i 
 \subsection{Firebase Realtime}
 Firebase Realtime \cite{firebase} è un database non relazionale (NoSQL) memorizzato nel cloud. In quanto NoSQL, i dati e le relazioni non vengono memorizzati in tabelle ma in documenti, archivi \textit{wide-column} o grafi (nodi e archi) a seconda della tipologia del database.
 Firebase Realtime è di tipo documentale e quindi fa uso di documenti in formato JSON (\textit{JavaScript Object Notation}) per salvare i dati. Questo genere di memorizzazione permette maggiore flessibilità dello schema permettendo l'aggiunta o la modifica del modello dei dati (es. aggiunta o modifica di un campo). Inoltre i database NoSQL consentono una maggiore velocità e agilità di memorizzazione ed elaborazione oltre che offrire una maggiore scalabilità.
