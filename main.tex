@@ -10,10 +10,6 @@
 \usepackage{subfig}
 \usepackage{wrapfig}
 %
-% \usepackage[
-%     backend=biber,
-%     style=alphabetic,
-%   ]{biblatex}
 
 \addbibresource{bibliography.bib}	% see bibliography.bib file for bibliography declarations
 %
@@ -46,7 +42,10 @@
     % ---------------------------------------------------------------------
     \nocite{*}{
         \backmatter
-        \printbibliography
+        \printbibliography[
+            heading=bibintoc,
+            title={Bibliografia}
+        ]
     }
     % ---------------------------------------------------------------------
     % Appendix
