@@ -5,7 +5,7 @@
 L'applicazione mobile, da integrare con il totem, si chiama BoschettoAR. Questa applicazione, attraverso la realtà aumentata e la gamification, fornisce agli utenti informazioni sui progressi raggiunti da UniBo attraverso il processo di dematerializzazione e piantumazione proporzionale prevista dal progetto ReMade \ref{sec:remade}. Di seguito si descrive brevemente il funzionamento dell'app.
 
 %TODO: il discorso non inzia bene
-L'utente trovato un albero all'interno di aree verdi dell'ateneo (dove è presente un bosco digitale), apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto viene avviata la sessione di realtà aumentata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) che corrispondono alla co2 evitata dall'Università; inoltre vengono mostrate diverse informazioni sull'albero scansionato e sulla attività UniBo associata.
+L'utente trovato un albero appartenente a un bosco digitale, all'interno di aree verdi dell'ateneo, apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto inizia l'esperienza di realtà aumentata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) che corrispondono alla co2 evitata dall'Università; inoltre vengono mostrate diverse informazioni sull'albero scansionato e sulla attività UniBo associata.
 
 \begin{figure}
     \centering
@@ -63,7 +63,7 @@ L'app è in grado di funzionare offline dopo una prima sincronizzazione necessar
 \end{figure}
 
 \subsection{Obiettivo}
-L'obiettivo di questa tesi è di estendere l'esperienza fornita dall'app BoschettoAR integrando un totem interattivo che mostri il livello di consapevolezza raggiunta dalla comunità UniBo sul tema dell'inquinamento attraverso un bosco virtuale che cresce in base ai porgessi degli utenti  che condividono i propri progressi tramite app.
+L'obiettivo di questa tesi è di estendere l'esperienza fornita dall'app BoschettoAR integrando un totem interattivo che mostri il livello di consapevolezza raggiunta dalla comunità UniBo sul tema dell'inquinamento attraverso la visualizzazione dei dati (es. bosco virtuale) grazie agli utenti che condividono i propri progressi tramite app ed aumentano la propria consapevolezza.
 
 \section{Requisiti e analisi}
 \subsection{Requisiti funzionali}
@@ -100,7 +100,7 @@ I dati del totem, che vengono memorizzati all'interno del database nel cloud, ri
 Si ha quindi un'entità che rappresenta i progressi caricati dall'utente (\texttt{SharedData}) e un'entità che rappresenta il totem (\texttt{Totem}).
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{img/totem/totemDomain.png}
+    \includegraphics[width=0.6\textwidth]{img/totem/totemDomain.png}
     \caption[Modello del dominio del totem]{Modello del dominio del totem: in grassetto sono evidenziate le chiavi delle entità}
     \label{fig:totemDomain}
 \end{figure}
@@ -118,33 +118,29 @@ Il database fornisce inoltre le informazioni sugli alberi e i relativi progetti 
     \caption{Schema della architettura e interazione fra app e totem}
     \label{fig:communication-schema}
 \end{figure}
-% MVVM model-viewmodel-view (utilizza il Provider Pattern per non dover passare il viewmodel nella gerarchia) nella app, potrebbe anche essere pattern DAO anche se questo non prevede una view
+
 % Singleton pattern to manage the instance of a database connection.
 
-Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzato principalmente il pattern architetturale MVI (\textit{Model-View-Intent}) dove gli \textit{intent} rappresentano l'intento dell'utente quando interagisce con la \textit{view} che viene aggiornata dopo che l'intent ha modificato il model.
-%TODO: finre e mostrare scherma pattern MVI
+Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzata una forma del pattern architetturale MVI (\textit{Model-View-Intent}). La \textit{View} viene aggiornata dal DataManager (\textit{Model}) attraverso un flusso unidirezionale dello stato della richiesta dell'utente (\textit{Intent}) che mantiene inoltre i dati del modello aggiornati da visualizzare.
+Buona parte degli eventi scatenati dall'utente nella \textit{View} innescano un \textit{intent}.
+Per esempio nell'app, dopo la scansione del codice qr di un albero viene avviato un \textit{intent} che va ad aggiornare il dominio; la \textit{View} nel frattempo viene costantemente informata sullo stato dell'operazione attraverso un flusso dati permettendo la reattività dell'interfaccia e la visualizzazione dei dati.
 \begin{figure}
     \centering
-    \includegraphics[width=0.4\textwidth]{example-image-a}
+    \includegraphics[width=0.6\textwidth]{img/totem/mvi-schema.png}
     \caption{Diagramma delle classi per il pattern MVI}
     \label{fig:mviPattern}
 \end{figure}
 
-Per l'accesso ai dati è stato utilizzato il pattern \textit{Repository} che prevede una unica interfaccia. La classe \texttt{DataManager} funge da repository e fornisce un unico punto di accesso ai dati incapsulando l'elaborazione dei dati prelevati da provider diversi.
+Per l'accesso ai dati è stato utilizzato il pattern \textit{Repository} che prevede una unica interfaccia. La classe \texttt{DataManager} funge anche da repository e fornisce un unico punto di accesso ai dati incapsulando l'elaborazione dei dati prelevati da provider diversi.
 Nel caso del totem si ha solo \texttt{FirebaseProvider} mentre l'app ha anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} come fonti dei dati.
 Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno che permette di definire le operazioni eseguibili sul provider separando l'aspetto implementativo.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{img/app/repository_pattern_scheme.png}
+    \includegraphics[width=0.8\textwidth]{img/app/repository_pattern_scheme.png}
     \caption{Schema UML pattern Repository nell'app: l'interfaccia \texttt{DataManager} è il repository, mentre \texttt{DatabaseProvider}, \texttt{FirebaseProvider} e \texttt{PreferenciesProvider} sono le interfacce dei singoli fornitori e sorgenti di dati.}
     \label{fig:repoPattern}
 \end{figure}
-% MVI pattern utilizzato per le schermate post scansione qr code dove è presente un FutureBuilder e che quinid il dominio ritorna un dato Future che presenta degli stati, in base allo stato del dato viene mostrata una UI apposta. Il punto focale di questo pattern è che la UI rimane reattiva e il dominio aggiorna il suo stato mentre aggiorna o legge il dominio es. database. o sservizio online. Futurebuilder per la UI reattiva in base allo stato dell'intent (che in nel caso di tesi e tirocinio era un metodo specifico che ritornava un dato di tipo Future e quindi con diversi stati)
-
-%il pattern DAO invece è stato itilizzato per astrarre e incapsulare l'accesso al db e l'implementaizome delle operazioni, infatti mi è del tutto ignoto che cosa avviene dietro al metodo che chiamo per aggiungere un albero ai progresi utente nel db. e vale lo stesso con firebase.
-
-% pattern repository, dove la classe data manager appunto è il repository. Al suo interno ai diversi riferimenti a oggetti del dominio (che utilizzano il design pattern DAO, data access object). DAO funziona come un livello di mappatura/accesso ai dati, nascondendo brutte query. Tuttavia, un repository è un livello tra i domini e i livelli di accesso ai dati, che nasconde la complessità della raccolta dei dati e della preparazione di un oggetto di dominio
 
 \subsection{Mockup}
 Attraverso i \textit{mockup}, vengono presentate e spiegate le diverse schermate del totem.
@@ -202,7 +198,7 @@ In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante che mostr
         \includegraphics[width=3cm]{img/totem/depositQR.png}
         \label{fig:showQR}
     }
-    \caption[Sezione QR code del totem]{Sezione QR code del totem: il codice inizialmente nascosto viene rivelato (icona a destra)}
+    \caption[Icone del QR code nel totem]{Icone del pulsante per mostrare il codice QR del totem e avviare la condivisione}
     \label{fig:depositIconsQR}
 \end{figure}
 
@@ -221,7 +217,7 @@ Per quanto riguarda la homepage sono stati fatti due mockup con design different
     \label{fig:homepages}
 \end{figure}
 
-Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostra il nickname, i progressi e il livello raggiunti dall'utente selezionato. Il design principale nelle tre versioni rimane invariato se non per la decorazione che può essere: a mensola (figura \ref{fig:shelfDetail}), a cordino (\ref{fig:cordDetail}) o tondeggiante (figura\ref{fig:roundDetail}).
+Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostra il nickname, i progressi e il livello raggiunti dall'utente selezionato. Il design principale nelle tre versioni rimane invariato se non per la decorazione che può essere: a mensola, a cordino o tondeggiante (rispettivamente figura \ref{fig:shelfDetail}, \ref{fig:cordDetail}, \ref{fig:roundDetail}).
 \begin{figure}
     \centering
     \subfloat[Stile mensola]{
@@ -282,13 +278,20 @@ La pagina delle statistiche (figura \ref{fig:statsPage}) mostra sei contatori (f
 In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo della applicativo del totem e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
 
 \subsection{Flutter}
-Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) \textit{open source}\footnote{Software pubblico alla quale è possibile applicare modifiche, miglioramenti e redistribuirlo liberamente} che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione alla interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
+Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) \textit{open source} che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione alla interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
 
 Il linguaggio Dart è un linguaggio di programmazione ad alto livello multi paradigma, influenzato da altri linguaggi come il C e Java, ed è ottimizzato per lo sviluppo veloce di applicazioni su qualsiasi piattaforma nativa e web.
 
 \subsubsection{Plugin utilizzati}
-%TODO: elencare o parlare deiplugin utilizzati nello svilupppo del totem o della prte di app che tratta il caricamento dati (es. scansione qrcode totem)
-Si elencano i 
+Di seguito si elencano i plugin flutter utilizzati nello sviluppo dell'applicativo del totem:
+
+\begin{itemize}
+    \item \texttt{flutter\_svg}\cite{providerPlugin}, per la visualizzazione delle immagini vettoriali utilizzate per la rappresentazione dei livelli utente e alcuni elementi grafici dell'interfaccia;
+    \item \texttt{firebase\_core}\cite{firebaseCorePlugin} e \texttt{firebase\_database}\cite{firebaseDatabasePlugin}, pacchetti per poter utilizzare i servizi Firebase e quindi l'accesso al database;
+    \item \texttt{barcode}\cite{barcodePlugin}, è una libreria per la generazione di codici a barre e QR;
+    \item \texttt{provider}\cite{providerPlugin}, permette di utilizzare coma maggiore facilità e semplicità il widget flutter InheritedWidget che serve a propagare una informazione nell'albero dei widget.
+    
+\end{itemize}
 \subsection{Firebase Realtime}
 Firebase Realtime \cite{firebase} è un database non relazionale (NoSQL) memorizzato nel cloud. In quanto NoSQL, i dati e le relazioni non vengono memorizzati in tabelle ma in documenti, archivi \textit{wide-column} o grafi (nodi e archi) a seconda della tipologia del database.
 Firebase Realtime è di tipo documentale e quindi fa uso di documenti in formato JSON (\textit{JavaScript Object Notation}) per salvare i dati. Questo genere di memorizzazione permette maggiore flessibilità dello schema permettendo l'aggiunta o la modifica del modello dei dati (es. aggiunta o modifica di un campo). Inoltre i database NoSQL consentono una maggiore velocità e agilità di memorizzazione ed elaborazione oltre che offrire una maggiore scalabilità.
