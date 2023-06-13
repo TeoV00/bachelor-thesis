@@ -2,10 +2,9 @@
 \chapter{Design e tecnologie}
 \section{Premessa}
 \subsection{App Mobile}
-L'applicazione mobile, da integrare con il totem, si chiama BoschettoAR. Questa applicazione, attraverso la realtà aumentata e la gamification, fornisce agli utenti informazioni sui progressi raggiunti da UniBo attraverso il processo di dematerializzazione e piantumazione proporzionale prevista dal progetto ReMade \ref{sec:remade}. Di seguito si descrive brevemente il funzionamento dell'app.
+L'applicazione mobile, da integrare con il totem, si chiama BoschettoAR. Questa applicazione, attraverso la realtà aumentata e la gamification, fornisce agli utenti informazioni sui progressi raggiunti dal'Università di Bologna attraverso il processo di dematerializzazione e piantumazione proporzionale prevista dal progetto ReMade (vedi sezione \ref{sec:remade}). Di seguito si descrive brevemente il funzionamento dell'app.
 
-%TODO: il discorso non inzia bene
-L'utente trovato un albero appartenente a un bosco digitale, all'interno di aree verdi dell'ateneo, apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto inizia l'esperienza di realtà aumentata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) che corrispondono alla co2 evitata dall'Università; inoltre vengono mostrate diverse informazioni sull'albero scansionato e sulla attività UniBo associata.
+L'utente, trovato un albero appartenente a un bosco digitale all'interno di aree verdi dell'ateneo, apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto inizia l'esperienza di realtà aumentata che permette all'utente di comprendere più concretamente, e vedere con i propri occhi, l'ammontare di carta e di anidride carbonica risparmiata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) in quantità proporzionale alla CO2 evitata dall'Università; vengono mostrate una breve descrizione dell'albero e dell'attività UniBo associata e anche informazioni sui risparmi ottenuti in termini di CO2, carta, elettricità e benzina.
 
 \begin{figure}
     \centering
@@ -121,9 +120,9 @@ Il database fornisce inoltre le informazioni sugli alberi e i relativi progetti 
 
 % Singleton pattern to manage the instance of a database connection.
 
-Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzata una forma del pattern architetturale MVI (\textit{Model-View-Intent}). La \textit{View} viene aggiornata dal DataManager (\textit{Model}) attraverso un flusso unidirezionale dello stato della richiesta dell'utente (\textit{Intent}) che mantiene inoltre i dati del modello aggiornati da visualizzare.
+Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzata una forma del pattern architetturale MVI (\textit{Model-View-Intent}). La \textit{View} viene aggiornata dal DataManager (\textit{Model}) attraverso un flusso unidirezionale contenente lo stato della richiesta dell'utente (\textit{Intent}) che mantiene inoltre i dati del modello aggiornati da visualizzare.
 Buona parte degli eventi scatenati dall'utente nella \textit{View} innescano un \textit{intent}.
-Per esempio nell'app, dopo la scansione del codice qr di un albero viene avviato un \textit{intent} che va ad aggiornare il dominio; la \textit{View} nel frattempo viene costantemente informata sullo stato dell'operazione attraverso un flusso dati permettendo la reattività dell'interfaccia e la visualizzazione dei dati.
+Per esempio nell'app, dopo la scansione del codice qr di un albero viene avviato un \textit{intent} che va ad aggiornare il dominio; la \textit{View} nel frattempo viene costantemente informata sullo stato dell'operazione attraverso un flusso dati permettendo la reattività dell'interfaccia e la visualizzazione dei dati aggiornati.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{img/totem/mvi-schema.png}
@@ -131,9 +130,9 @@ Per esempio nell'app, dopo la scansione del codice qr di un albero viene avviato
     \label{fig:mviPattern}
 \end{figure}
 
-Per l'accesso ai dati è stato utilizzato il pattern \textit{Repository} che prevede una unica interfaccia. La classe \texttt{DataManager} funge anche da repository e fornisce un unico punto di accesso ai dati incapsulando l'elaborazione dei dati prelevati da provider diversi.
-Nel caso del totem si ha solo \texttt{FirebaseProvider} mentre l'app ha anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} come fonti dei dati.
-Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno che permette di definire le operazioni eseguibili sul provider separando l'aspetto implementativo.
+Per l'accesso ai dati è stato utilizzato il pattern \textit{Repository} che prevede una unica interfaccia definita dalla classe \texttt{DataManager} che fornisce un unico punto di accesso ai dati incapsulando l'elaborazione dei dati prelevati da provider diversi.
+\texttt{FirebaseProvider} è l'unico provider di dati del totem mentre l'app ha anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider}.
+Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno di questi e permette di definire le operazioni eseguibili separando l'aspetto implementativo.
 
 \begin{figure}
     \centering
@@ -217,7 +216,7 @@ Per quanto riguarda la homepage sono stati fatti due mockup con design different
     \label{fig:homepages}
 \end{figure}
 
-Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostra il nickname, i progressi e il livello raggiunti dall'utente selezionato. Il design principale nelle tre versioni rimane invariato se non per la decorazione che può essere: a mensola, a cordino o tondeggiante (rispettivamente figura \ref{fig:shelfDetail}, \ref{fig:cordDetail}, \ref{fig:roundDetail}).
+Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostra il nickname, i progressi e il livello raggiunti dell'utente selezionato. Sono stati pensati tre diversi design  che differiscono per decorazione; si ha quindi la mensola, il cordino e lo stile tondeggiante (rispettivamente figura \ref{fig:shelfDetail}, \ref{fig:cordDetail}, \ref{fig:roundDetail}).
 \begin{figure}
     \centering
     \subfloat[Stile mensola]{
@@ -274,6 +273,7 @@ La pagina delle statistiche (figura \ref{fig:statsPage}) mostra sei contatori (f
 %
 %
 %
+
 \section{Tecnologie impiegate}
 In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo della applicativo del totem e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
 
@@ -286,10 +286,10 @@ Il linguaggio Dart è un linguaggio di programmazione ad alto livello multi para
 Di seguito si elencano i plugin flutter utilizzati nello sviluppo dell'applicativo del totem:
 
 \begin{itemize}
-    \item \texttt{flutter\_svg}\cite{providerPlugin}, per la visualizzazione delle immagini vettoriali utilizzate per la rappresentazione dei livelli utente e alcuni elementi grafici dell'interfaccia;
-    \item \texttt{firebase\_core}\cite{firebaseCorePlugin} e \texttt{firebase\_database}\cite{firebaseDatabasePlugin}, pacchetti per poter utilizzare i servizi Firebase e quindi l'accesso al database;
-    \item \texttt{barcode}\cite{barcodePlugin}, è una libreria per la generazione di codici a barre e QR;
-    \item \texttt{provider}\cite{providerPlugin}, permette di utilizzare coma maggiore facilità e semplicità il widget flutter InheritedWidget che serve a propagare una informazione nell'albero dei widget.
+    \item \texttt{flutter\_svg} \cite{providerPlugin}, per la visualizzazione delle immagini vettoriali utilizzate per la rappresentazione dei livelli utente e alcuni elementi grafici dell'interfaccia;
+    \item \texttt{firebase\_core} \cite{firebaseCorePlugin} e \texttt{firebase\_database} \cite{firebaseDatabasePlugin}, pacchetti per poter utilizzare i servizi Firebase e quindi l'accesso al database;
+    \item \texttt{barcode} \cite{barcodePlugin}, è una libreria per la generazione di codici a barre e QR;
+    \item \texttt{provider} \cite{providerPlugin}, permette di utilizzare coma maggiore facilità e semplicità il widget flutter InheritedWidget che serve a propagare una informazione nell'albero dei widget.
     
 \end{itemize}
 \subsection{Firebase Realtime}
@@ -305,7 +305,7 @@ La versione più comune di \textit{QR code} è di tipo \textit{Model 1 o 2} di l
 \section{Strumenti di sviluppo}
 \subsection{Git}
 Git \cite{gitSite} è un \textit{Version Control System} VCS cioè un sistema di controllo delle versioni dei file. I cambiamenti di uno o più file nel tempo vengono memorizzati e questo permette di mantenere una cronologia dei cambiamenti e di ripristinare una versione precedente di file, cartelle o interi progetti. Esistono diverse tipologie di VCS: locale, centralizzato o distribuito.
-Rispetto ai tradizionali VCS, Git non memorizza le differenze dei file (\textit{delta-based version control}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato.
+Rispetto ai tradizionali VCS, Git non memorizza le differenze dei file (\textit{delta-based version control}) ma memorizza una istantanea di come appaiono i file nel \textit{filesystem} nell'istante in cui si effettua un salvataggio di versione (\textit{commit}). Git considera i suoi dati più come a un flusso d'istantanee del progetto che viene tracciato. Git possiede un sistema di branching/merging avanzati e di gestione dei conflitti.
 
 \subsection{Visual Studio Code}
 Visual Studio Code \cite{vsCodeSite} è un editor di codice sorgente, sviluppato da Microsoft per Windows, Mac e Linux. Prevede diverse funzionalità utili per la scrittura di codice come la previsione e suggerimento di codice (IntelliSense) e gli strumenti di segnalazione e correzione degli errori, che i comuni editor di testo non possiedono.
