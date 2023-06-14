@@ -24,7 +24,9 @@ L'utente, trovato un albero appartenente a un bosco digitale all'interno di aree
     \label{fig:arSession}
 \end{figure}
 
-Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'utente che guadagna un badge aumentando di livello. Tutti i progressi raggiunti e i risparmi virtualmente guadagnati vengono visualizzati all'interno della pagina personale (figura \ref{fig:userPage}) dove è possibile anche impostare i dati del profilo e una foto.
+Sono stati inseriti alcuni elementi della gamification (vedi sezione \ref{sec:gamification}), come i badge e i livelli, che mirano ad aumentare l'interesse e il coinvolgimento degli utenti.
+Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'utente che guadagna un badge aumentando di livello.
+Tutti i progressi raggiunti e i risparmi virtualmente guadagnati vengono visualizzati all'interno della pagina personale (figura \ref{fig:userPage}) dove è possibile anche impostare i dati del profilo (es. nome, data di nascita e corso universitario) e una foto.
 
 \begin{figure}
     \centering
@@ -41,7 +43,7 @@ Dopo la scansione di un albero, questo viene memorizzato nella collezione dell'u
 \end{figure}
 
 Gli alberi collezionati si trovano nella pagina principale (figura \ref{fig:treeHome}) con tutte le informazioni e la possibilità di avviare direttamente la sessione di realtà aumentata (figura \ref{fig:treeDetail}).
-L'app è in grado di funzionare offline dopo una prima sincronizzazione necessaria.
+L'app è stata progettata per essere in grado di funzionare offline dopo una prima sincronizzazione necessaria.
 
 \begin{figure}
     \centering
@@ -69,21 +71,21 @@ L'obiettivo di questa tesi è di estendere l'esperienza fornita dall'app Boschet
 \subsubsection{App mobile}
 \begin{itemize}
     \item Condivisone dei progressi: l'utente, dopo aver impostato un nickname, dovrà poter condividere i propri progressi raggiunti con il totem attraverso una schermata dedicata. Entro un certo intervallo di tempo il caricamento deve interrompersi automaticamente.
+    \item La pagina per il caricamento dei progressi deve fornire una breve guida e indicare le informazioni che verranno condivise.
+    \item Nella pagina dei dettagli di un albero collezionato deve essere mostrato anche il progetto associato.
 \end{itemize}
 \subsubsection{Totem}
 \begin{itemize}
     \item Devono essere presenti le schermate: homepage, statistiche, classifica e informazioni.
-    \item Ricezione dei progressi: il totem deve ricevere i progressi dell'utente condivisi tramite app.
     \item La homepage deve mostrare gli utenti coinvolti e i dettagli dei loro progressi 
-    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la co2 virtualmente risparmiate con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
+    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la CO2 virtualmente risparmiate con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
     \item La classifica deve mostrare i 10 migliori utenti sulla base della co2 risparmiata.
     \item Nella pagina delle informazioni deve essere presente la spiegazione dei calcoli effettuati e una sezione con maggiori dettagli sul progetto ReMade. Deve essere possibile aggiungere nuove sezioni.
+    \item Ricezione dei progressi: il totem deve ricevere i progressi dell'utente condivisi tramite app.
 \end{itemize}
 \subsection{Requisiti non funzionali}
 \subsubsection{App mobile}
 \begin{itemize}
-    \item Nella pagina dei dettagli di un albero collezionato deve essere mostrato anche il progetto associato.
-    \item La pagina per il caricamento dei progressi deve fornire una breve guida e indicare le informazioni che verranno condivise.
     \item Il caricamento dei progressi non deve impiegare più 8 secondi altrimenti deve essere interrotto. A fine processo, anche in caso di errore, deve essere mostrata una schermata che informi l'utente dell'avvenuto caricamento dei dati.
 \end{itemize}
 \subsubsection{Totem}
@@ -93,7 +95,11 @@ L'obiettivo di questa tesi è di estendere l'esperienza fornita dall'app Boschet
     \item L'interfaccia deve apparire familiare rispetto all'app mobile in modo da permettere un utilizzo immediato e non scoraggiare gli utenti all'interazione. Devono essere necessari un paio di tocchi per navigare tra le schermate o mostrare il codice QR.
     \item La sincronizzazione dei dati deve essere, per quanto possibile, immediata in modo da mostrare sempre dati aggiornati in tempo reale.
 \end{itemize}
-
+%
+%
+%
+%
+\section{Design}
 \subsection{Modello del dominio}
 I dati del totem, che vengono memorizzati all'interno del database nel cloud, riguardano le informazioni sul totem stesso (ad esempio il nome e la sede UniBo in cui si trova) e tutti i progressi caricati tramite app dagli utenti.
 Si ha quindi un'entità che rappresenta i progressi caricati dall'utente (\texttt{SharedData}) e un'entità che rappresenta il totem (\texttt{Totem}).
@@ -103,26 +109,28 @@ Si ha quindi un'entità che rappresenta i progressi caricati dall'utente (\textt
     \caption[Modello del dominio del totem]{Modello del dominio del totem: in grassetto sono evidenziate le chiavi delle entità}
     \label{fig:totemDomain}
 \end{figure}
-%
-%
-%
-%
-\section{Design}
 \subsection{Architettura e pattern}
 Il sistema si compone di tre componenti principali: l'app mobile, il totem e il cloud database. I progressi dell'utente dall'app vengono caricati sul database quindi scaricati nel totem. In figura \ref{fig:communication-schema} viene mostrato lo schema delle interazioni fra i tre componenti del sistema durante la condivisione dei progressi.
 Il database fornisce inoltre le informazioni sugli alberi e i relativi progetti sia al totem che all'app mobile.
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/arch-totem-app-dati.png}
+    \includegraphics[width=0.7\textwidth]{img/totem/arch-totem-app-dati.png}
     \caption{Schema della architettura e interazione fra app e totem}
     \label{fig:communication-schema}
 \end{figure}
 
-% Singleton pattern to manage the instance of a database connection.
 
-Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzata una forma del pattern architetturale MVI (\textit{Model-View-Intent}). La \textit{View} viene aggiornata dal DataManager (\textit{Model}) attraverso un flusso unidirezionale contenente lo stato della richiesta dell'utente (\textit{Intent}) che mantiene inoltre i dati del modello aggiornati da visualizzare.
+Per quanto riguarda l'architettura interna del software, sia per il totem che per l'app mobile, viene utilizzata una forma del pattern architetturale MVI (\textit{Model-View-Intent}).
+Il Model rappresenta lo stato dell'applicazione, la View  e l'Intent è un'azione o un evento che indica un'interazione dell'utente o un cambiamento di stato.
+\begin{itemize}
+    %TODO: speigare meglio i tre compnenti dell'architettura MVI, come se lo dovessi psiegare a luchino
+    \item La \textbf{View} è responsabile dell'interfaccia grafica e della visualizzazione dei dati ricevuti dal Model. Ad ogni evento, generato dall'interazione dell'utente, la View reagisce e comunica con il Model attraverso gli Intents.
+    \item Il \textbf{Model} rappresenta lo stato dell'applicazione e contiene dati e informazioni immutabili. Il Model viene aggiornato solo generando un nuovo oggetto di stato. Nel caso dell'applicativo del totem ci si riferisce alle strutture dati immutabili che vengono restituite dal DataManager alla View e non al DataManager stesso.
+    \item Gli \textbf{Intent} sono le azioni o gli eventi generati dalla vista per interagire con il modello. Gli intenti sono inviati al modello per richiedere modifiche di stato o azioni specifiche come ad esempio il caricamento dei dati sul database nel cloud.
+\end{itemize}
+La \textit{View} viene aggiornata dal DataManager (\textit{Model}) attraverso un flusso unidirezionale contenente lo stato della richiesta dell'utente (\textit{Intent}) che mantiene inoltre i dati del modello aggiornati da visualizzare.
 Buona parte degli eventi scatenati dall'utente nella \textit{View} innescano un \textit{intent}.
-Per esempio nell'app, dopo la scansione del codice qr di un albero viene avviato un \textit{intent} che va ad aggiornare il dominio; la \textit{View} nel frattempo viene costantemente informata sullo stato dell'operazione attraverso un flusso dati permettendo la reattività dell'interfaccia e la visualizzazione dei dati aggiornati.
+Per esempio nell'app, dopo la scansione del codice QR di un albero viene avviato un \textit{intent} che va ad aggiornare il dominio; la \textit{View}, nel frattempo, viene costantemente informata sullo stato dell'operazione attraverso un flusso dati, permettendo la reattività dell'interfaccia e la visualizzazione dei dati aggiornati.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{img/totem/mvi-schema.png}
@@ -130,22 +138,27 @@ Per esempio nell'app, dopo la scansione del codice qr di un albero viene avviato
     \label{fig:mviPattern}
 \end{figure}
 
-Per l'accesso ai dati è stato utilizzato il pattern \textit{Repository} che prevede una unica interfaccia definita dalla classe \texttt{DataManager} che fornisce un unico punto di accesso ai dati incapsulando l'elaborazione dei dati prelevati da provider diversi.
-\texttt{FirebaseProvider} è l'unico provider di dati del totem mentre l'app ha anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider}.
-Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno di questi e permette di definire le operazioni eseguibili separando l'aspetto implementativo.
+Per l'accesso ai dati si è fatto uso del componente architetturale \textit{Repository} \cite{repositoryComponent} (figura \ref{fig:repository}) che è un'interfaccia, o classe astratta, che fornisce un unico punto di accesso ai dati, provenienti da diversi \textit{Provider}, incapsulandone l'elaborazione e la gestione. I \textit{Provider} sono componenti che forniscono l'accesso a una determinata risorsa dati come può essere un servizio web o un database.
+Nel caso del totem si ha solo \texttt{FirebaseProvider} mentre nell'app mobile sono presenti anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} (figura \ref{fig:repositorySchemaAPP}) che forniscono l'accesso ai dati persistenti memorizzati sullo smartphone.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/repository.png}
+    \caption{Componente repository \cite{repositoryComponent}}
+    \label{fig:repository}
+\end{figure}
+
+Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno di questi e permette di definire le operazioni eseguibili nascondendo l'aspetto implementativo.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{img/app/repository_pattern_scheme.png}
-    \caption{Schema UML pattern Repository nell'app: l'interfaccia \texttt{DataManager} è il repository, mentre \texttt{DatabaseProvider}, \texttt{FirebaseProvider} e \texttt{PreferenciesProvider} sono le interfacce dei singoli fornitori e sorgenti di dati.}
-    \label{fig:repoPattern}
+    \caption{Schema UML architettura accesso ai dati, nell'app mobile, con componente Repository: l'interfaccia \texttt{DataManager} è il Repository, mentre \texttt{DatabaseProvider}, \texttt{FirebaseProvider} e \texttt{PreferenciesProvider} sono le interfacce dei singoli fornitori e sorgenti di dati (\textit{Providers}).}
+    \label{fig:repositorySchemaAPP}
 \end{figure}
 
 \subsection{Mockup}
 Attraverso i \textit{mockup}, vengono presentate e spiegate le diverse schermate del totem.
 Il termine \textit{mockup} o \textit{mock-up}, in italiano \enquote*{modello}, è una realizzazione a scopo illustrativo o espositivo di un oggetto o sistema, senza le complete funzioni dell'originale. Viene tipicamente sviluppato per fornire un'idea visiva del prodotto finale ai clienti, permettendo di effettuare correzioni o modifiche sulla bozza del prodotto ancora prima che si passi alla fase di sviluppo.
-
-Per la creazione dei mockup è stato utilizzato il software Figma anche se in commercio ne esistono molti altri come ad esempio Adobe XD o Balsamiq.
 
 \subsubsection{Mobile app}
 La pagina per la condivisione dei dati, mostrata in figura \ref{fig:sharePage}, fornisce all'utente una breve spiegazione e informa quali dati verranno condivisi e mostrati pubblicamente nel totem.
@@ -201,7 +214,7 @@ In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante che mostr
     \label{fig:depositIconsQR}
 \end{figure}
 
-Per quanto riguarda la homepage sono stati fatti due mockup con design differenti: nel primo vengono mostrati gli utenti come piccoli alberi disposti su delle mensole (figura \ref{fig:shelfHome}), nel secondo viene utilizzato un layout a griglia e gli utenti vengono rappresentati come chiome di alberi visti dall'alto (figura \ref{fig:forestHome}) ricreando un vero e proprio boschetto virtuale. In entrambi i casi il tocco di un elemento espande il pannello dei dettagli utente e le chiome degli alberi variano in base al livello raggiunto.
+Per quanto riguarda la homepage sono stati fatti due mockup con design differenti: nel primo vengono mostrati gli utenti come piccoli alberi disposti su delle mensole (figura \ref{fig:shelfHome}), nel secondo viene utilizzato un layout a griglia e gli utenti vengono rappresentati come chiome di alberi visti dall'alto (figura \ref{fig:forestHome}) ricreando un vero e proprio boschetto virtuale. In entrambi i casi il tocco di un elemento espande il pannello dei dettagli e le chiome degli alberi crescono al crescere del livello utente con lo scopo di stimolare ulteriormente la scansione di nuovi alberi e di conseguenza la consapevolezza sul tema del risparmio di carta e piantumazione di nuovi alberi.
 \begin{figure}
     \centering
     \subfloat[Visualizzazione a mensole]{
@@ -217,6 +230,7 @@ Per quanto riguarda la homepage sono stati fatti due mockup con design different
 \end{figure}
 
 Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostra il nickname, i progressi e il livello raggiunti dell'utente selezionato. Sono stati pensati tre diversi design  che differiscono per decorazione; si ha quindi la mensola, il cordino e lo stile tondeggiante (rispettivamente figura \ref{fig:shelfDetail}, \ref{fig:cordDetail}, \ref{fig:roundDetail}).
+
 \begin{figure}
     \centering
     \subfloat[Stile mensola]{
@@ -236,6 +250,8 @@ Il pannello dei dettagli utente si trova in alto a destra nella homepage e mostr
 \end{figure}
 
 La pagina delle statistiche (figura \ref{fig:statsPage}) mostra sei contatori (figura \ref{fig:statCircle}) ciascuno per un dato disposti in una griglia di tre colonne e due righe. Il contatore è stato pensato come un cerchio colorato con all'interno un'icona rappresentativa della statistica. Al tocco del singolo elemento viene mostrata una breve descrizione del dato.
+
+Tutte le schermate di cui sono state sviluppate più versioni sono state poi sottoposte a un gruppo di utenti target per comprendere quale dei diversi design andasse a soddisfare al meglio le loro esigenze in termini di usabilità e grafica.
 \begin{figure}
     \centering
     \subfloat[]{
@@ -275,13 +291,20 @@ La pagina delle statistiche (figura \ref{fig:statsPage}) mostra sei contatori (f
 %
 
 \section{Tecnologie impiegate}
-In questo capitolo vengono presentate le tecnologie utilizzate per lo sviluppo della applicativo del totem e della applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
+In questa sezione vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem e dell'applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime, mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
+
+\subsection{Figma}
+Per lo sviluppo della UI e per la creazione del mockup è stato utilizzato Figma \cite{figma} che è un'applicazione web collaborativa per lo sviluppo d'interfacce utente, prototipazione interattiva e progettazione grafica.
+Figma permette di testare direttamente sugli smartphone, tablet e computer i prototipi sviluppati, utilizzare plugin o creare un progetto da un template. In assenza di connessione è possibile utilizzare la maggior parte delle funzionalità, escluse la collaborazione con colleghi e l'utilizzo di alcuni plugin.
 
 \subsection{Flutter}
-Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) \textit{open source} che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione alla interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
+Flutter \cite{flutter} è un kit di sviluppo software (\textit{Software Development Kit}, SDK) open-source che comprende diversi strumenti (\textit{DevTools}) per lo sviluppo di applicazioni multi-piattaforma con particolare attenzione all'interfaccia utente (UI, \textit{User Interface}). All'interno del SDK è contenuto il framework Flutter che utilizza il linguaggio di programmazione Dart, anch'esso sviluppato da Google, e librerie grafiche predefinite per le piattaforme Android e iOS.
+
+Flutter porta il vantaggio di sviluppare applicazioni per piattaforme e dispositivi diversi a partire da un unico codice sorgente scritto in linguaggio Dart. Esistono molteplici librerie che permettono di sfruttare al meglio l'architettura dei dispositivi in cui dovrà essere installata l'applicazione, e nel caso di esigenze particolari, è possibile innestare codice nativo (es. Swift per ios o Java per Android) all'interno del codice scritto in Dart.
+%TODO: parlare dell'hot restart e degli strumenti di debug
 
 Il linguaggio Dart è un linguaggio di programmazione ad alto livello multi paradigma, influenzato da altri linguaggi come il C e Java, ed è ottimizzato per lo sviluppo veloce di applicazioni su qualsiasi piattaforma nativa e web.
-
+%TODO: aggiungi i vantaggi e savntaggi rispetto al nativo, perchè proprio flutter anche per il totem e quali sono le feat chiave di dart
 \subsubsection{Plugin utilizzati}
 Di seguito si elencano i plugin flutter utilizzati nello sviluppo dell'applicativo del totem:
 
