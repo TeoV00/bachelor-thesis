@@ -126,7 +126,7 @@ Per quanto riguarda l'architettura del software del totem, come per l'app mobile
     \item La \textbf{View} è responsabile dell'interfaccia grafica e della visualizzazione dei dati ricevuti dal \textit{Model}. A ogni evento, generato dall'interazione dell'utente, la View reagisce e comunica con il Model attraverso gli \textit{Intent}s.
     \item Il \textbf{Model} rappresenta lo stato dell'applicazione e contiene dati e informazioni. Fornisce un'interfaccia che espone metodi che rappresentano gli \textit{Intent}s innescabili dalla \textit{View} e che restituiscono un nuovo \textit{State}.
     \item Gli \textbf{Intent} sono eventi, generati dalla \textit{View}, che possono innescare una richiesta o modifica dei dati del \textit{Model}.
-    \item Lo \textbf{State} viene creato dal \textit{Model} e viene inviato alla View in risposta alle richieste avanzate dagli \textit{Intent}s. Lo State è una struttura dati immutabile che contiene i dati aggiornati del \textit{Model} o uno stato di una certa operazione (es. caricamento d'informazioni sul cloud) che devono essere visualizzati nella \textit{View}.
+    \item Lo \textbf{State} viene creato dal \textit{Model} e viene inviato alla \textit{View} in risposta alle richieste avanzate dagli \textit{Intent}s. Lo State è una struttura dati immutabile che contiene i dati aggiornati del \textit{Model} o uno stato di una certa operazione (es. caricamento d'informazioni sul cloud) che devono essere visualizzati nella \textit{View}.
 \end{itemize}
 \begin{figure}[h!]
     \centering
