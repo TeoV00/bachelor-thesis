@@ -66,7 +66,7 @@ L'app è stata progettata per essere in grado di funzionare offline dopo una pri
 L'obiettivo di questa tesi è di estendere l'esperienza fornita dall'app BoschettoAR integrando un totem interattivo che mostri il livello di consapevolezza raggiunta dalla comunità UniBo sul tema dell'inquinamento, attraverso la visualizzazione degli alberi collezionati (es. bosco virtuale) dagli utenti che hanno deciso di condividere i propri progressi raggiunti nell'app.
 
 \section{Requisiti e analisi}
- in questa sezione vengono elencati i requisiti funzionali e non che devono essere soddisfatti e raggiunti durante lo sviluppo dell'applicativo del totem e nell'aggiornamento dell'applicazione.
+In questa sezione vengono elencati i requisiti funzionali e non che devono essere soddisfatti e raggiunti durante lo sviluppo dell'applicativo del totem e nell'aggiornamento dell'applicazione.
 \subsection{Requisiti funzionali}
 \subsubsection{App mobile}
 \begin{itemize}
@@ -105,7 +105,7 @@ I dati del totem, che vengono memorizzati all'interno del database nel cloud, ri
 Si ha quindi un'entità che rappresenta i progressi caricati dall'utente (\texttt{SharedData}) e un'entità che rappresenta il totem (\texttt{Totem}).
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/totem/totemDomain.png}
+    \includegraphics[width=0.5\textwidth]{img/totem/totemDomain.png}
     \caption[Modello del dominio del totem]{Modello del dominio del totem: in grassetto sono evidenziate le chiavi delle entità}
     \label{fig:totemDomain}
 \end{figure}
@@ -114,7 +114,7 @@ Il sistema si compone di tre componenti principali: l'app mobile, il totem e il 
 Il database fornisce inoltre le informazioni sugli alberi e i relativi progetti sia al totem che all'app mobile.
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/totem/arch-totem-app-dati.png}
+    \includegraphics[width=0.6\textwidth]{img/totem/arch-totem-app-dati.png}
     \caption{Schema della architettura e interazione fra app e totem}
     \label{fig:communication-schema}
 \end{figure}
@@ -128,29 +128,29 @@ Per quanto riguarda l'architettura del software del totem, come per l'app mobile
 \end{itemize}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/totem/mvi-schema.png}
+    \includegraphics[width=0.55\textwidth]{img/totem/mvi-schema.png}
     \caption[Schema pattern MVI]{Schema pattern MVI: gli eventi della View vengono comunicati al Model che risponde con uno State con dati aggiornati da visualizzare.}
     \label{fig:mviPattern}
 \end{figure}
 
-Per esempio nell'app mobile, dopo la scansione del codice QR di un albero, viene generato dalla \textit{View} un \textit{Intent} per aggiungere il nuovo albero. Il \textit{Model} effettua la modifica ai dati persistenti e risponde con un flusso di stati contenenti informazioni sullo'esito dell'operazione in tempo reale che viene visualizzato nella \textit{View} (es. schermata di caricamento).
+% Per esempio nell'app mobile, dopo la scansione del codice QR di un albero, viene generato dalla \textit{View} un \textit{Intent} per aggiungere il nuovo albero. Il \textit{Model} effettua la modifica ai dati persistenti e risponde con un flusso di stati contenenti informazioni sullo'esito dell'operazione in tempo reale che viene visualizzato nella \textit{View} (es. schermata di caricamento).
 
 Per l'accesso ai dati si è fatto uso del componente architetturale \textit{Repository} \cite{repositoryComponent} (figura \ref{fig:repository}) che è un'interfaccia, o classe astratta, che fornisce un unico punto di accesso ai dati, provenienti da diversi \textit{Provider}, incapsulandone l'elaborazione e la gestione. I \textit{Provider} sono componenti che forniscono l'accesso a una determinata risorsa dati come può essere un servizio web o un database.
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/repository.png}
+    \includegraphics[width=0.55\textwidth]{img/repository.png}
     \caption{Componente repository con riferimenti a Dao e Network \cite{repositoryComponent}}
     \label{fig:repository}
 \end{figure}
-Nel caso del totem si ha solo \texttt{FirebaseProvider}, per accedere ai dati nel cloud, mentre nell'app mobile sono presenti anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} (figura \ref{fig:repositorySchemaAPP}) che forniscono l'accesso ai dati persistenti memorizzati sullo smartphone.
+Nel caso del totem si ha solo \texttt{FirebaseProvider}, per accedere ai dati nel cloud, mentre nell'app mobile sono presenti anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} (figura \ref{fig:repositorySchemaAPP}) che forniscono l'accesso ai dati persistenti memorizzati sullo smartphone. Per entrambe i dispositivi la classe che funge da \textit{Repository} è \texttt{DataMnager}.
 Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno di questi e permette di definire le operazioni eseguibili nascondendo l'aspetto implementativo (es. query SQL).
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/app/repository_pattern_scheme.png}
+    \includegraphics[width=0.7\textwidth]{img/app/repository_pattern_scheme.png}
     \caption{Schema UML architettura accesso ai dati, nell'app mobile, con componente Repository: l'interfaccia \texttt{DataManager} è il Repository, mentre \texttt{DatabaseProvider}, \texttt{FirebaseProvider} e \texttt{PreferenciesProvider} sono le interfacce dei singoli fornitori e sorgenti di dati (\textit{Providers}).}
     \label{fig:repositorySchemaAPP}
 \end{figure}
-
+\newpage
 \subsection{Mockup}
 Attraverso i \textit{mockup}, vengono presentate e spiegate le diverse schermate del totem.
 Il termine \textit{mockup} o \textit{mock-up}, in italiano \enquote*{modello}, è una realizzazione a scopo illustrativo o espositivo di un oggetto o sistema, senza le complete funzioni dell'originale. Viene tipicamente sviluppato per fornire un'idea visiva del prodotto finale ai clienti, permettendo di effettuare correzioni o modifiche sulla bozza del prodotto ancora prima che si passi alla fase di sviluppo.
@@ -158,7 +158,7 @@ Il termine \textit{mockup} o \textit{mock-up}, in italiano \enquote*{modello}, �
 \subsubsection{Mobile app}
 La pagina per la condivisione dei dati, mostrata in figura \ref{fig:sharePage}, fornisce all'utente una breve spiegazione e informa quali dati verranno condivisi e mostrati pubblicamente nel totem.
 Cliccando sul pulsante \enquote*{Procedi} si passa all'identificazione del totem tramite codice QR (figura \ref{fig:scanTotem}) e successivamente alla schermata di caricamento dei dati sul totem (figura \ref{fig:uploadinData}).
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \subfloat[Pagina di condivisone progressi]{
         \includegraphics[width=0.3\textwidth]{img/app/uploadPage.png}
@@ -178,7 +178,7 @@ Cliccando sul pulsante \enquote*{Procedi} si passa all'identificazione del totem
 
 \subsubsection{Totem}
 La struttura dell'interfaccia del totem si suddivide in due sezioni principali: una colonna a sinistra contenente la barra di navigazione e la sezione con il QR code del totem e lo spazio restante a destra dove viene visualizzata la pagina selezionata (figura \ref{fig:viewStruct}).
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{img/totem/mainStructure.png}
     \caption{Layout generale della UI del totem}
@@ -186,7 +186,7 @@ La struttura dell'interfaccia del totem si suddivide in due sezioni principali: 
 \end{figure}
 
 Vengono mantenuti i colori, il particolare dell'erba (figura \ref{fig:grassDetails}) e altre grafiche e icone, in modo da avere coerenza e continuità fra gli applicativi.
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{img/totem/grassDetail.png}
     \caption{Dettaglio dell'erba presente nella'app e nel totem}
@@ -197,12 +197,12 @@ In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante che mostr
 \begin{figure}
     \centering
     \subfloat[Codice QR del totem nascosto]{
-        \includegraphics[width=3cm]{img/totem/depositIcon.png}
+        \includegraphics[width=2.5cm]{img/totem/depositIcon.png}
         \label{fig:hideQR}
     }
     \vspace{1cm}
     \subfloat[Codice QR del totem visibile]{
-        \includegraphics[width=3cm]{img/totem/depositQR.png}
+        \includegraphics[width=2.5cm]{img/totem/depositQR.png}
         \label{fig:showQR}
     }
     \caption[Icone del QR code nel totem]{Icone del pulsante per mostrare il codice QR del totem e avviare la condivisione}
@@ -217,7 +217,7 @@ Per quanto riguarda la homepage sono stati fatti due mockup con design different
         \label{fig:shelfHome}
     }
     \subfloat[Visualizzazione a bosco]{
-        \includegraphics[width=0.45\textwidth]{img/totem/forestViewHome.png}
+        \includegraphics[width=0.4\textwidth]{img/totem/forestViewHome.png}
         \label{fig:forestHome}
     }
     \caption[Alternative di homepage nel totem]{Design alternativi per la homepage del totem}
@@ -249,11 +249,11 @@ La pagina delle statistiche (figura \ref{fig:statsPage}) mostra sei contatori (f
 \begin{figure}
     \centering
     \subfloat[]{
-        \includegraphics[width=0.3\textwidth]{img/totem/plantedTreeStats.png}
+        \includegraphics[width=3cm]{img/totem/plantedTreeStats.png}
         \label{fig:statCircle}
     }
     \subfloat[]{
-        \includegraphics[width=0.3\textwidth]{img/totem/plantedTreeStatsdescr.png}
+        \includegraphics[width=3cm]{img/totem/plantedTreeStatsdescr.png}
         \label{fig:descrShowedStats}
     }
     \caption{Elemento contatore nella pagina statistiche}
@@ -289,7 +289,7 @@ Tutte le schermate di cui sono state sviluppate più versioni sono state poi sot
 %
 %
 %
-
+\newpage
 \section{Tecnologie impiegate}
 In questa sezione vengono presentate le tecnologie utilizzate per lo sviluppo dell'applicativo del totem e dell'applicazione mobile. Per entrambi i dispositivi si è sviluppato utilizzando il framework Flutter, per l'integrazione e gestione dei dati è stato utilizzato il servizio cloud Firebase Realtime, mentre per l'identificazione degli alberi e del totem sono stati utilizzati i codici QR.
 
