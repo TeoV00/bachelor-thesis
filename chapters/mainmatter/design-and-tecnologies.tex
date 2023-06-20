@@ -5,7 +5,7 @@
 L'applicazione mobile, da integrare con il totem, si chiama BoschettoAR \cite{repoBoschettoAR} ed è stata sviluppata precedentemente durante il periodo di tirocinio interno. Questa applicazione, attraverso la realtà aumentata e la gamification, cerca d'informare e sensibilizzare gli utenti sui temi della dematerializzazione e piantumazione, mostrando i progressi raggiunti dal'Università di Bologna con il progetto ReMade (vedi sezione \ref{sec:remade}).
 
 Di seguito viene descritto brevemente il funzionamento dell'app.
-L'utente, trovato un albero appartenente a un bosco digitale all'interno di aree verdi dell'ateneo, apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto inizia l'esperienza di realtà aumentata che permette all'utente di comprendere più concretamente, e vedere con i propri occhi, l'ammontare di carta e di anidride carbonica risparmiata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) in quantità proporzionale alla CO2 evitata dall'Università; vengono mostrate una breve descrizione dell'albero e dell'attività UniBo associata e anche informazioni sui risparmi ottenuti in termini di CO2, carta, elettricità e benzina.
+L'utente, trovato un albero appartenente a un bosco digitale all'interno di aree verdi dell'ateneo, apre l'applicazione, inquadra il codice QR sull'albero (figura \ref{fig:scanQRapp}) e una volta riconosciuto inizia l'esperienza di realtà aumentata che permette all'utente di comprendere più concretamente, e vedere con i propri occhi, l'ammontare di carta e di anidride carbonica risparmiata. In questa sessione di AR, l'utente ha la possibilità di posizionare sul terreno plichi di carta e taniche di benzina (figure \ref{fig:paperAR} e \ref{fig:tankAR}) in quantità proporzionale alla CO\textsubscript{2} evitata dall'Università; vengono mostrate una breve descrizione dell'albero e dell'attività UniBo associata e anche informazioni sui risparmi ottenuti in termini di CO\textsubscript{2}, carta, elettricità e benzina.
 
 \begin{figure}
     \centering
@@ -80,8 +80,8 @@ In questa sezione vengono elencati i requisiti funzionali e non che devono esser
 \begin{itemize}
     \item Devono essere presenti le schermate: homepage, statistiche, classifica e informazioni.
     \item La homepage deve mostrare gli utenti coinvolti e i dettagli dei loro progressi 
-    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la CO2 virtualmente risparmiate con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
-    \item La classifica deve mostrare i 10 migliori utenti sulla base della co2 risparmiata.
+    \item La schermata delle statistiche deve mostrare il conteggio totale di alberi e progetti coinvolti, la carta, l'elettricità, la benzina, la corrente elettrica e la CO\textsubscript{2} virtualmente risparmiate con la partecipazione degli utenti. Si deve mostrare una breve descrizione per ciascun dato mostrato.
+    \item La classifica deve mostrare i 10 migliori utenti sulla base della CO\textsubscript{2} risparmiata.
     \item Nella pagina delle informazioni deve essere presente la spiegazione dei calcoli effettuati e una sezione con maggiori dettagli sul progetto ReMade. Deve essere possibile aggiungere nuove sezioni.
     \item Ricezione dei progressi: il totem deve ricevere i progressi dell'utente condivisi tramite app.
 \end{itemize}
@@ -144,7 +144,7 @@ Per l'accesso ai dati si è fatto uso del componente architetturale \textit{Repo
     \caption{Componente repository con riferimenti a Dao e Network \cite{repositoryComponent}}
     \label{fig:repository}
 \end{figure}
-Nel caso del totem si ha solo \texttt{FirebaseProvider}, per accedere ai dati nel cloud, mentre nell'app mobile sono presenti anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} (figura \ref{fig:repositorySchemaAPP}) che forniscono l'accesso ai dati persistenti memorizzati sullo smartphone. Per entrambe i dispositivi la classe che funge da \textit{Repository} è \texttt{DataMnager}.
+Nel caso del totem si ha solo \texttt{FirebaseProvider}, per accedere ai dati nel cloud, mentre nell'app mobile sono presenti anche \texttt{DatabaseProvider} e \texttt{PreferenciesProvider} (figura \ref{fig:repositorySchemaAPP}) che forniscono l'accesso ai dati persistenti memorizzati sullo smartphone. Per entrambe i dispositivi la classe che funge da \textit{Repository} è \texttt{DataManager}.
 Il repository comunica con i provider attraverso un'interfaccia DAO (\textit{Data Access Object}) specifica per ciascuno di questi e permette di definire le operazioni eseguibili nascondendo l'aspetto implementativo (es. query SQL).
 \begin{figure}[h]
     \centering
@@ -187,13 +187,7 @@ La struttura dell'interfaccia del totem si suddivide in due sezioni principali: 
     \label{fig:viewStruct}
 \end{figure}
 
-Vengono mantenuti i colori, il particolare dell'erba (figura \ref{fig:grassDetails}) e altre grafiche e icone, in modo da avere coerenza e continuità fra gli applicativi.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.4\textwidth]{img/totem/grassDetail.png}
-    \caption{Dettaglio dell'erba presente nella'app e nel totem}
-    \label{fig:grassDetails}
-\end{figure}
+Vengono mantenuti i colori, il particolare dell'erba e altre grafiche e icone, in modo da avere coerenza e continuità fra gli applicativi.
 
 In figura \ref{fig:depositIconsQR} viene mostrata l'icona del pulsante che mostra il codice QR del totem. Al tocco del pulsante, questo si ingrandisce rendendo visibile al suo interno il codice QR (figura \ref{fig:showQR}).
 \begin{figure}
