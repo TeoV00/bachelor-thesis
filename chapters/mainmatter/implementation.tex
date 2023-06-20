@@ -1,8 +1,9 @@
 % ! TeX root = ../../main.tex
 \chapter{Implementazione}
-In questo capitolo vengono trattate le implementazioni e i pattern utilizzati per raggiungere i requisiti di progettazione presentati nel capitolo precedente. Sono presentate le effettive schermate ottenute partendo dai mockup mostrandone porzioni di codice particolarmente interessanti o dove sono stati applicati pattern.
+In questo capitolo vengono trattate le implementazioni e i pattern utilizzati per raggiungere i requisiti di progettazione presentati nel capitolo precedente. Sono presentate le effettive schermate ottenute partendo dai mockup mostrandone porzioni di codice particolarmente interessanti o dove sono stati applicati pattern. Il pattern MVI è stato applicato nello stesso modo sia nell'app mobile che nel totem e la sua implementazione viene discussa dopo la trattazione del DataManager del totem in modo da avere tutti gli elementi che compongono il pattern.
 
-I sorgenti del progetto sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle del progetto del totem, chiamato TotemBoschettoAR \cite{repoTotemBoschettoAR}, viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati con cui comunica il \texttt{DataManager} (file \texttt{data\_manager.dart}).
+\section{Organizzazione progetto}
+I file del codice sorgente sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle del progetto del totem, chiamato TotemBoschettoAR \cite{repoTotemBoschettoAR}, viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati con cui comunica il \texttt{DataManager} (file \texttt{data\_manager.dart}).
 
 \begin{lstlisting}[language=C, caption={Albero della directory del progetto TotemBoschettoAR}, label={lst:projectDir}]
     TotemBoschettoAR/
@@ -30,11 +31,10 @@ I sorgenti del progetto sono organizzati in cartelle relative a ciascuna scherma
         +- data_manager.dart
         +- main.dart
 \end{lstlisting}
-% Lavorando in Flutter e dart ciascuna schermata è una composizione di widget
 
 \section{App Mobile}
-Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione dei progressi. Sono state effettuate alcune modifiche come si può notare dagli screenshot in figura \ref{fig:shareDataApp}: invece del nickname utente viene indicato come visualizzare il QR code sul totem che nel mockup veniva mostrato invece nella pagina di scansione, infine nella schermata di caricamento è stata modificata sostituendo l'icona e mostrando un testo che informi l'utente del caricamento dei dati.
-\begin{figure}[h]
+Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione dei progressi. Sono state effettuate alcune modifiche come si può notare dagli screenshot in figura \ref{fig:shareDataApp}: invece del nickname utente viene indicato come visualizzare il QR code sul totem mentre nella pagina di scansione è stato rimossa questa indicazione, infine la schermata di caricamento è stata modificata sostituendo l'icona e mostrando un testo che informi l'utente del caricamento dei dati.
+\begin{figure}[h!]
     \centering
     \subfloat[Pagina di condivisone progressi]{
         \includegraphics[width=0.3\textwidth]{img/app/uploadPage.png}
@@ -52,14 +52,15 @@ Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione
     \label{fig:shareDataApp}
 \end{figure}
 
-Questa schermata è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. In entrambe le pagine è stato aggiunto all'AppBar il pulsante \texttt{IconButton} che inserisce la schermata allo stack di navigazione. Nel listato \ref{lst:shareIconButton} viene mostrato il codice inserito
+\subsubsection{Pagina di condivisione progressi}
+La schermata di caricamento dei progressi è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. In entrambe le pagine è stato aggiunto all'\texttt{AppBar} il pulsante \texttt{IconButton} che permette di mostrare la pagina di condivisione aggiungendola allo stack di schermate dell'app chiamando il metodo \textit{push} della classe \texttt{Navigator} che disciplina la navigazione fra pagine. Nel listato \ref{lst:shareIconButton} da riga 7 a riga 20 inclusa viene mostrato il codice aggironato.
 
-\begin{lstlisting}[style=FlutterStyle, caption=Python example, label={lst:shareIconButton}]
+\begin{lstlisting}[style=FlutterStyle, caption={Codice aggiornato della barra degli strumenti dell'app: inserito pulsante per la condivisione dei progressi.}, label={lst:shareIconButton}]
     Scaffold (
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: mainColor,
+        backgroundColor: mainColor, 
         title: const Text("Profilo"),
         leading: IconButton(
           onPressed: () => Navigator.push(
@@ -78,9 +79,11 @@ Questa schermata è raggiungibile dalla pagina utente oppure direttamente dalla 
       body: //contenuto della pagina Utente o della Home
     );
 \end{lstlisting}
+
+\subsubsection{Scansione del codice QR}
 % Implementazione della sch rmata di scansione del qr del riutilizzo della schermata di scansione (forze pattern strategy), con schema d'interfaccia volendo 
 % Implementazione della schermata con codice effettivo dell'implementazione del pattern mvi
-
+\subsubsection{Pagina di caricamento ed esito}
 
 \section{Totem}
 \subsection{Dati Firebase}
@@ -90,7 +93,7 @@ Questa schermata è raggiungibile dalla pagina utente oppure direttamente dalla 
 Avendo deciso di utilizzare il database Firebase Realtime, che è di tipo documentale, si è reso necessario convertire lo schema UML in figura \ref{fig:totemDomain} in formato JSON per avere la struttura generale dei dati che verranno memorizzati.
 Per non avere troppi oggetti annidati, si è deciso di separare le informazioni del totem (listato \ref{lst:totemInfo}) dai dati utente che sono stati condivisi (listato \ref{lst:userDataTotem}).
 
-\begin{lstlisting}[language=json, caption={}, label={lst:totemInfo}]
+\begin{lstlisting}[language=json, caption={Oggetto JSON contenente le informazioni sui totem}, label={lst:totemInfo}]
     "totemInfo": {
         "totemIdString": {
           "place": "locationName",
@@ -99,7 +102,7 @@ Per non avere troppi oggetti annidati, si è deciso di separare le informazioni 
       },
 \end{lstlisting}  
 
-\begin{lstlisting}[language=json, caption={}, label={lst:userDataTotem}]
+\begin{lstlisting}[language=json, caption={Scheletro dell'oggetto JSON che memorizza i dati utente per ciascun Totem}, label={lst:userDataTotem}]
       "totems": {
         "ces_remade": {
           "userNickname": {
@@ -129,3 +132,6 @@ Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell
 \subsection{infopage}
 Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
 come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
+
+\section{Applicazione pattern MVI}
+\textcolor{red}{TODO qui parlo di come è stato utilizzato e interpetato il pattern mvi in flutter sfruttando il widget FutureBuilder in generale}
