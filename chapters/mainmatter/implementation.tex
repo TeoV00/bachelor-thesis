@@ -52,7 +52,7 @@ Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione
     \label{fig:shareDataApp}
 \end{figure}
 
-\subsubsection{Pagina di condivisione progressi}
+\subsection{Pagina di condivisione progressi}
 La schermata di caricamento dei progressi è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. Nella barra degli strumenti (\texttt{AppBar}) di entrambe le pagine è stato aggiunto un pulsante (\texttt{IconButton})che permette di aprire la pagina di condivisione aggiungendola allo stack di schermate dell'app chiamando il metodo \textit{push} della classe \texttt{Navigator} che disciplina la navigazione fra pagine. Nel listato \ref{lst:shareIconButton} da riga 7 a riga 20 inclusa viene mostrato il codice inserito.
 
 \begin{lstlisting}[style=FlutterStyle, caption={Codice aggiornato della barra degli strumenti dell'app: inserito pulsante per la condivisione dei progressi.}, label={lst:shareIconButton}]
@@ -80,7 +80,7 @@ La schermata di caricamento dei progressi è raggiungibile dalla pagina utente o
     );
 \end{lstlisting}
 
-\subsubsection{Scansione QR e caricamento}
+\subsection{Scansione QR e caricamento}
 % Implementazione della schermata di scansione del qr del riutilizzo della schermata di scansione (forze pattern strategy), con schema d'interfaccia volendo 
 % Implementazione della schermata con codice effettivo dell'implementazione del pattern mvi
 \textcolor{red}{TODO: RIFORMULARE , IL CONCETTO è QUELLO}
@@ -144,12 +144,11 @@ Per non avere troppi oggetti annidati, si è deciso di separare le informazioni 
 \end{lstlisting}
 
 \subsection{DataManager}
-%Come è il datamanager, cosa ritorna e come viene gestito il pattern observer di Firebase che chiama metodo dopo che il db viene modificato
 Il DataManager, come spiegato nel capitolo del design, funge sia da Repository che da Model del pattern MVI. Mantiene al suo interno i riferimenti ai diversi provider di cui fa uso, al momento solo \texttt{FirebaseProvider}, ed espone metodi che restituiscono \textit{State}, indirizzati alla \textit{View}, contenenti i dati utili alle schermate. A livello implementativo gli \textit{State} sono un oggetto della classe \texttt{Future} e vengono utilizzati come risultato ad una computazione asincrona permettendo di svolgerne altre finché non viene completata. Utilizzando \texttt{Future} come tipo di ritorno dei metodi del DataManager in combinazione con il \texttt{FutureBuilder} si individua una forma di pattern MVI con la possibilità di adattare la View in base allo stato della computazione.
 
-La classe \texttt{DataManager}, come si può notare in riga 1 del listato \ref{lst:dataManager}, estende \texttt{ChangeNotifier} e questo permette d'informare la View della presenza di nuovi dati aggiornati.
+La classe \texttt{DataManager}, come si può notare in riga 1 del listato \ref{lst:dataManager}, estende \texttt{ChangeNotifier} e questo permette di aggiornare la View con i nuovi dati aggiornati.
 Inoltre viene utilizzato il pattern Observer sul FirebaseProvider: il DataManager, implementando l'interfaccia \texttt{FirebaseObserver} e aggiungendosi come observer (riga 8 listato \ref{lst:dataManager}), viene notificato per qualsiasi genere di modifica dei dati nel cloud.
-In cascata quindi ogni modifica sul database Firebase fa scattare la notifica delle Views con il metodo \texttt{notifyListeners} (riga 25 listato \ref{lst:dataManager}).
+In cascata quindi ogni modifica sul database Firebase fa scattare la notifica delle Views con il metodo \texttt{notifyListeners} (riga 24 listato \ref{lst:dataManager}).
 
 \begin{lstlisting}[style=FlutterStyle, caption={Classe DataManager}, label={lst:dataManager}]
   class DataManager extends ChangeNotifier implements FirebaseObserver {
@@ -180,14 +179,120 @@ In cascata quindi ogni modifica sul database Firebase fa scattare la notifica de
   }
 \end{lstlisting}
 
-\subsection{Pagina Homepage}
+\subsection{Pagina Home} 
+Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome degli utenti che insieme compongono un bosco rigoglioso ed è stato scelto questo design grafico in quanto più affine all'idea di bosco virtuale. Con una visualizzazione di questo genere gli utenti hanno una maggiore percezione del senso di comunità dove ciascun giocatore contribuisce a rendere il bosco più verde e ricco di alberi. In figura \ref{fig:homepage} viene mostrata una istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi e del loro comportamento al tocco dove rispettivamente è stato utilizzato il widget \texttt{GridView} (riga 8) e la classi \texttt{GestureDetector} (riga 14).
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/totem/screenshot/homepage.png}
+  \caption{Screenshot della pagina Home dove viene visualizzato il bosco virtuale costruito dalla partecipazione degli utenti.}
+  \label{fig:homepage}
+\end{figure}
+\break
+\begin{lstlisting}[style=FlutterStyle, caption={Parte del codice per la creazione del bosco della Homepage}, label={lst:homepageCode}]
+Consumer<DataManager>(
+builder: (context, dataManager, child) =>
+    FutureBuilder<List<SharedData>>(
+    future: dataManager.getData(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        // widget per la disposizione a griglia delle chiome
+        return GridView.count(
+          crossAxisCount: 20,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          children: (snapshot.data ?? []).map(
+            (userDataTree) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    userData = userDataTree;
+                    showDetails = !showDetails;
+                  });
+                },
+                // chioma dell'albero dell'utente
+                child: ForestTree(level: userDataTree.level),
+              );
+            },
+          ).toList(),
+        );
+      } else {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Color.fromRGBO(161, 204, 130, 1),
+        ));
+      }
+    },
+  ),
+),
+\end{lstlisting}
+%
+%
 \subsection{Pagina Statistiche}
-Animazione dell'elemento della griglia, creazione della pagina, quali widget flutter sono stati utilizzati e codice di pattern mvi per il caricamento dei dati e la loro attesa, operazioni che vengono svolte all'interno di data manager per ricavare i dati
+% Animazione dell'elemento della griglia, creazione della pagina, quali widget flutter sono stati utilizzati per il caricamento dei dati e la loro attesa, operazioni che vengono svolte all'interno di data manager per ricavare i dati, i cerchi alla fine sono tutti colorati non sono indicatori gauge come si era pensato 
 
+%
+%
 \subsection{Classifica}
 Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell'alberello e info di co2, caricamento dati solito pattern mvi, come viene stilata la classifica codice lato repository (datamanager)... Ipotesi di poter decidere su cosa viene fatta la classifica es. co2, benzina o che altro. anche se poi alla fine le quantità sono proporzionali, cambierebbe poco la classifica.
 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/totem/screenshot/top10screen.png}
+  \caption{Pagina della classifica conclusa.}
+  \label{fig:top10screen}
+\end{figure}
+
+%
+%
 \subsection{Pagina Informazioni}
-Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
-come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
+% Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
+% come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{img/totem/infopage-layout.png}
+  \caption[Layout pagina informazioni]{Layout della pagina delle informazioni del totem considerando una larghezza di 3 colonne}
+  \label{fig:infopageLayout}
+\end{figure}
+
+\begin{lstlisting}[language=pseudocode, caption={Pseudocodice per la costruzione della griglia di Tiles con occupazione della riga variabile}, label={lst:gridTileViewClass}]
+rowsAmount = tilesToPlace / itemsPerRow
+for row = 0 to rowsAmount
+  while rowCapacity > 0 and tilesToPlace list not empty
+    if row can contain tile
+      add tile to row
+      remove tile from tilesToPlace list
+    else 
+      skip to next tile in tilesToPlace list
+
+  create row graphic-element
+
+return column view with previous rows
+\end{lstlisting}
+
+\begin{lstlisting}[style=FlutterStyle, caption={Interfacce GridTileItem e GridViewNotifier}, label={lst:gridTileItem}]
+  abstract class GridTileItem {
+    int getCellWidth();
+    Widget getChild();
+    Widget? getDetailsWidget();
+  }
+  // interfaccia pattern observer
+  abstract class GridViewNotifier {
+    void notifyTileTapped(Widget? detailsView);
+  }
+  \end{lstlisting}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/totem/screenshot/infoPageScreen.png}
+    \caption{Pagina delle informazioni effettiva}
+    \label{fig:infoPage}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/totem/screenshot/infoPagePopupScreen.png}
+    \caption{Pagina delle informazioni: vengono mostrati i dettagli relativi alla tile cliccata.}
+    \label{fig:infoPagePopup}
+  \end{figure}
