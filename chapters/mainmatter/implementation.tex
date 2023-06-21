@@ -1,9 +1,9 @@
 % ! TeX root = ../../main.tex
 \chapter{Implementazione}
-In questo capitolo vengono trattate le implementazioni e i pattern utilizzati per raggiungere i requisiti di progettazione presentati nel capitolo precedente. Sono presentate le effettive schermate ottenute partendo dai mockup mostrandone porzioni di codice particolarmente interessanti o dove sono stati applicati pattern. Il pattern MVI è stato applicato nello stesso modo sia nell'app mobile che nel totem e la sua implementazione viene discussa dopo la trattazione del DataManager del totem in modo da avere tutti gli elementi che compongono il pattern.
+In questo capitolo vengono trattate le implementazioni e i pattern utilizzati per raggiungere i requisiti di progettazione presentati nel capitolo precedente. Sono presentate le effettive schermate ottenute partendo dai mockup mostrandone porzioni di codice particolarmente interessanti o dove sono stati applicati pattern.
 
 \section{Organizzazione progetto}
-I file del codice sorgente sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle del progetto del totem, chiamato TotemBoschettoAR \cite{repoTotemBoschettoAR}, viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati con cui comunica il \texttt{DataManager} (file \texttt{data\_manager.dart}).
+I file del progetto sorgente sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati utilizzati dal \texttt{DataManager} (file \texttt{data\_manager.dart}) per il reperimento delle informazioni.
 
 \begin{lstlisting}[language=C, caption={Albero della directory del progetto TotemBoschettoAR}, label={lst:projectDir}]
     TotemBoschettoAR/
@@ -33,7 +33,7 @@ I file del codice sorgente sono organizzati in cartelle relative a ciascuna sche
 \end{lstlisting}
 
 \section{App Mobile}
-Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione dei progressi. Sono state effettuate alcune modifiche come si può notare dagli screenshot in figura \ref{fig:shareDataApp}: invece del nickname utente viene indicato come visualizzare il QR code sul totem mentre nella pagina di scansione è stato rimossa questa indicazione, infine la schermata di caricamento è stata modificata sostituendo l'icona e mostrando un testo che informi l'utente del caricamento dei dati.
+Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione dei progressi. Sono state effettuate alcune modifiche come si può notare dagli screenshot in figura \ref{fig:shareDataApp}: in sostituzione al nickname utente impostato è stata messa una breve indicazione, che si trovava precedentemente nella pagina di scansione, sul come visualizzare il QR code del totem e infine la schermata di caricamento è stata modificata sostituendo l'icona e mostrando un testo che informi l'utente del caricamento dei dati.
 \begin{figure}[h!]
     \centering
     \subfloat[Pagina di condivisone progressi]{
@@ -47,13 +47,13 @@ Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione
     \subfloat[Schermata di caricamento progressi]{
         \includegraphics[width=0.3\textwidth]{img/app/uploadingPage.png}
         \label{fig:uploadinData}
-    }
-    \caption{Schermata condivisione dati da app}
+    } 
+    \caption{Screenshot schermate condivisione dati da app, scansione totem e caricamento}
     \label{fig:shareDataApp}
 \end{figure}
 
 \subsubsection{Pagina di condivisione progressi}
-La schermata di caricamento dei progressi è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. In entrambe le pagine è stato aggiunto all'\texttt{AppBar} il pulsante \texttt{IconButton} che permette di mostrare la pagina di condivisione aggiungendola allo stack di schermate dell'app chiamando il metodo \textit{push} della classe \texttt{Navigator} che disciplina la navigazione fra pagine. Nel listato \ref{lst:shareIconButton} da riga 7 a riga 20 inclusa viene mostrato il codice aggironato.
+La schermata di caricamento dei progressi è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. Nella barra degli strumenti (\texttt{AppBar}) di entrambe le pagine è stato aggiunto un pulsante (\texttt{IconButton})che permette di aprire la pagina di condivisione aggiungendola allo stack di schermate dell'app chiamando il metodo \textit{push} della classe \texttt{Navigator} che disciplina la navigazione fra pagine. Nel listato \ref{lst:shareIconButton} da riga 7 a riga 20 inclusa viene mostrato il codice inserito.
 
 \begin{lstlisting}[style=FlutterStyle, caption={Codice aggiornato della barra degli strumenti dell'app: inserito pulsante per la condivisione dei progressi.}, label={lst:shareIconButton}]
     Scaffold (
@@ -80,20 +80,46 @@ La schermata di caricamento dei progressi è raggiungibile dalla pagina utente o
     );
 \end{lstlisting}
 
-\subsubsection{Scansione del codice QR}
-% Implementazione della sch rmata di scansione del qr del riutilizzo della schermata di scansione (forze pattern strategy), con schema d'interfaccia volendo 
+\subsubsection{Scansione QR e caricamento}
+% Implementazione della schermata di scansione del qr del riutilizzo della schermata di scansione (forze pattern strategy), con schema d'interfaccia volendo 
 % Implementazione della schermata con codice effettivo dell'implementazione del pattern mvi
-\subsubsection{Pagina di caricamento ed esito}
+\textcolor{red}{TODO: RIFORMULARE , IL CONCETTO è QUELLO}
+La schermata della scansione del codice QR del totem prevede il riutilizzo della stesso componente utilizzato nella scansione del QR dell'albero. Infatti come si può vedere in figura ??, la schermata di scansione fa uso della classe \texttt{ScanQRView} che gestisce la fotocamera e la lettura dei codici QR. Riconosciuto un codice QR le informazioni contenute al suo interno vengono passate alla classe specifica per il totem che verifica la validità delle informazioni per poi procedere con la preparazione e caricamento dei progressi utente. Durante tutte le due fasi viene visualizzata la schermata in figura \ref{fig:uploadinData} che risulta reattiva in attesa di un esito del caricamento o della validità del codice QR.
 
+Consiste specie di pattern strategy E in cui oltre la strategia che viene utilizzata per la validazione del codice QR scansionare si indica anche la schermata barra interfaccia utente che deve essere visualizzata dopo la scansione del codice. Ciò schermata poi possiede la sua strategia per validare ed utilizzare i dati presi dal QR.
+\textcolor{red}{scegli se mettere solo future builder o tutta la classe}
+
+ \begin{lstlisting}[style=FlutterStyle, caption={}, label={lst:strategyViewTotem}]
+  Consumer<DataManager>(
+    builder: (context, dataManager, child) => FutureBuilder<bool>(
+      future: dataManager
+          .uploadUserData(totemId)
+          .timeout(const Duration(seconds: 8)),
+      builder: (context, snap) {
+        ConnectionState conState = snap.connectionState;
+        bool uploadDone = snap.hasData ? snap.data! : false;
+        if (conState == ConnectionState.waiting) {
+          return const UploadingDataView();
+        } else if (conState == ConnectionState.done) {
+          if (uploadDone) {
+            return const CompletedUploadView();
+          } else {
+            return const ErrorView(message: "Errore invio dati");
+          }
+        } else {
+          return const ErrorView(message: "Errore sconosciuto");
+        }
+      },
+    ),
+  ),
+\end{lstlisting}
+%%%%%%%%%%%%%%%%%%%%% TOTEM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Totem}
 \subsection{Dati Firebase}
-% Come sono stati modellati i dati caricati su un totem su Firebase, struttura generale dei dati JSON ed esempio
-% regole di accesso al database
-
-Avendo deciso di utilizzare il database Firebase Realtime, che è di tipo documentale, si è reso necessario convertire lo schema UML in figura \ref{fig:totemDomain} in formato JSON per avere la struttura generale dei dati che verranno memorizzati.
+Una volta deciso di utilizzare il database Firebase Realtime, che è di tipo documentale, si è reso necessario convertire lo schema UML in figura \ref{fig:totemDomain} in formato JSON per avere la struttura generale dei dati che verranno memorizzati.
 Per non avere troppi oggetti annidati, si è deciso di separare le informazioni del totem (listato \ref{lst:totemInfo}) dai dati utente che sono stati condivisi (listato \ref{lst:userDataTotem}).
 
-\begin{lstlisting}[language=json, caption={Oggetto JSON contenente le informazioni sui totem}, label={lst:totemInfo}]
+\begin{lstlisting}[language=json, caption={Esempio di oggetto JSON contenente le informazioni sui totem}, label={lst:totemInfo}]
     "totemInfo": {
         "totemIdString": {
           "place": "locationName",
@@ -102,7 +128,7 @@ Per non avere troppi oggetti annidati, si è deciso di separare le informazioni 
       },
 \end{lstlisting}  
 
-\begin{lstlisting}[language=json, caption={Scheletro dell'oggetto JSON che memorizza i dati utente per ciascun Totem}, label={lst:userDataTotem}]
+\begin{lstlisting}[language=json, caption={Esempio di oggetto JSON che memorizza i dati utente per ciascun Totem}, label={lst:userDataTotem}]
       "totems": {
         "ces_remade": {
           "userNickname": {
@@ -117,21 +143,51 @@ Per non avere troppi oggetti annidati, si è deciso di separare le informazioni 
       }
 \end{lstlisting}
 
-\subsection{Datamanager}
+\subsection{DataManager}
 %Come è il datamanager, cosa ritorna e come viene gestito il pattern observer di Firebase che chiama metodo dopo che il db viene modificato
-Il data manager, come spiegato nel capitolo del design, funge da repository e da Model nel pattern MVI.
-Al suo interno mantiene un riferimento al database firebase...
+Il DataManager, come spiegato nel capitolo del design, funge sia da Repository che da Model del pattern MVI. Mantiene al suo interno i riferimenti ai diversi provider di cui fa uso, al momento solo \texttt{FirebaseProvider}, ed espone metodi che restituiscono \textit{State}, indirizzati alla \textit{View}, contenenti i dati utili alle schermate. A livello implementativo gli \textit{State} sono un oggetto della classe \texttt{Future} e vengono utilizzati come risultato ad una computazione asincrona permettendo di svolgerne altre finché non viene completata. Utilizzando \texttt{Future} come tipo di ritorno dei metodi del DataManager in combinazione con il \texttt{FutureBuilder} si individua una forma di pattern MVI con la possibilità di adattare la View in base allo stato della computazione.
 
+La classe \texttt{DataManager}, come si può notare in riga 1 del listato \ref{lst:dataManager}, estende \texttt{ChangeNotifier} e questo permette d'informare la View della presenza di nuovi dati aggiornati.
+Inoltre viene utilizzato il pattern Observer sul FirebaseProvider: il DataManager, implementando l'interfaccia \texttt{FirebaseObserver} e aggiungendosi come observer (riga 8 listato \ref{lst:dataManager}), viene notificato per qualsiasi genere di modifica dei dati nel cloud.
+In cascata quindi ogni modifica sul database Firebase fa scattare la notifica delle Views con il metodo \texttt{notifyListeners} (riga 25 listato \ref{lst:dataManager}).
 
+\begin{lstlisting}[style=FlutterStyle, caption={Classe DataManager}, label={lst:dataManager}]
+  class DataManager extends ChangeNotifier implements FirebaseObserver {
+    final String _totemId = "ces_remade";
+    late final FirebaseProvider _firebaseProvider;
+  
+    DataManager() {
+      _firebaseProvider = FirebaseProvider(_totemId);
+      _firebaseProvider.addObserver(this);
+    }
+  
+    String getCurrentTotemId() {
+      return _totemId;
+    }
+  
+    Future<List<SharedData>> getData() async {
+      return _firebaseProvider.getTotemData();
+    }
+  
+    Future<List<SharedData?>> getTop10User() async {...}
+  
+    Future<Map<StatId, String>> getStatistics() async {...}
+  
+    @override
+    void firebaseNotify() {
+      notifyListeners(); 
+    }
+  }
+\end{lstlisting}
 
-\subsection{statspage}
+\subsection{Pagina Homepage}
+
+\subsection{Pagina Statistiche}
 Animazione dell'elemento della griglia, creazione della pagina, quali widget flutter sono stati utilizzati e codice di pattern mvi per il caricamento dei dati e la loro attesa, operazioni che vengono svolte all'interno di data manager per ricavare i dati
+
 \subsection{Classifica}
 Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell'alberello e info di co2, caricamento dati solito pattern mvi, come viene stilata la classifica codice lato repository (datamanager)... Ipotesi di poter decidere su cosa viene fatta la classifica es. co2, benzina o che altro. anche se poi alla fine le quantità sono proporzionali, cambierebbe poco la classifica.
 
-\subsection{infopage}
+\subsection{Pagina Informazioni}
 Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
 come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
-
-\section{Applicazione pattern MVI}
-\textcolor{red}{TODO qui parlo di come è stato utilizzato e interpetato il pattern mvi in flutter sfruttando il widget FutureBuilder in generale}
