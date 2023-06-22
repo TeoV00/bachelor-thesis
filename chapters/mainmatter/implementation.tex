@@ -182,13 +182,17 @@ In cascata quindi ogni modifica sul database Firebase fa scattare la notifica de
 \subsection{Pagina Home} 
 Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome degli utenti che insieme compongono un bosco rigoglioso ed è stato scelto questo design grafico in quanto più affine all'idea di bosco virtuale. Con una visualizzazione di questo genere gli utenti hanno una maggiore percezione del senso di comunità dove ciascun giocatore contribuisce a rendere il bosco più verde e ricco di alberi. In figura \ref{fig:homepage} viene mostrata una istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi e del loro comportamento al tocco dove rispettivamente è stato utilizzato il widget \texttt{GridView} (riga 8) e la classi \texttt{GestureDetector} (riga 14).
 
+Per questa pagina, come per le altre che seguono, è stato utilizzato sempre la stessa metodologia e architettura del codice per la loro creazione: con l'ausilio del \texttt{FutureBuilder} è stato possibile gestire con maggiore semplicità ed astrazione il pattern MVI. 
+\textcolor{red}{CONTROLLA sotto}
+Più precisamente all'atto della creazione dell View vengono richiesti i dati al \texttt{DataManager} chiamando il metodo specifico che soddisfa l'intent. Il datamanager quindi restituisce un tipo di dato future<List<SharedData>> (State) che permette di avere una interfaccia reattiva nonostante l'intent dell'utente debba essere ancora evaso.
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/homepage.png}
   \caption{Screenshot della pagina Home dove viene visualizzato il bosco virtuale costruito dalla partecipazione degli utenti.}
   \label{fig:homepage}
 \end{figure}
-\break
+\newpage
 \begin{lstlisting}[style=FlutterStyle, caption={Parte del codice per la creazione del bosco della Homepage}, label={lst:homepageCode}]
 Consumer<DataManager>(
 builder: (context, dataManager, child) =>
@@ -249,6 +253,8 @@ Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell
 \subsection{Pagina Informazioni}
 % Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
 % come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
+La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche indicato nel capitolo Design \ref{subsec:totem} in cui viene trattato il design del totem, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad uno a visualizzazione a griglia; la scelta di quest'ultimo è stata molto condizionata dall'esito di sondaggio eseguito su un piccolo gruppo di utenti target, che provando entrambi i mockup, hanno dimostrato una maggiore preferenza per la visualizzazione a piastrelle in quanto più immediata e ordinata.
+
 
 \begin{figure}[h]
   \centering
@@ -296,3 +302,5 @@ return column view with previous rows
     \caption{Pagina delle informazioni: vengono mostrati i dettagli relativi alla tile cliccata.}
     \label{fig:infoPagePopup}
   \end{figure}
+
+\section{Testing e Debug}
