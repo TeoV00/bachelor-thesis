@@ -253,54 +253,43 @@ Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell
 \subsection{Pagina Informazioni}
 % Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
 % come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
-La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche indicato nel capitolo Design \ref{subsec:totem} in cui viene trattato il design del totem, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad uno a visualizzazione a griglia; la scelta di quest'ultimo è stata molto condizionata dall'esito di sondaggio eseguito su un piccolo gruppo di utenti target, che provando entrambi i mockup, hanno dimostrato una maggiore preferenza per la visualizzazione a piastrelle in quanto più immediata e ordinata.
-
+La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche indicato nel capitolo Design \ref{subsec:totem} in cui viene trattato il design del totem, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad uno a visualizzazione a griglia; la decisione d'implementare quest'ultimo è stata molto condizionata dall'esito di un sondaggio eseguito su un piccolo gruppo di utenti target, che provando entrambi i mockup su device touchscreen, hanno dimostrato una maggiore preferenza per la visualizzazione a piastrelle (\textit{tiles}) in quanto più immediata, ordinata e di facile comprensione, prediligendo il tipo d'interazione \enquote*{a tocco} (\textit{tap gesture}) con l'interfaccia per accedere alle informazioni al posto dello scorrimento verticale (\textit{vertical scrolling gesture}). In figura \ref{fig:infoPage} viene mostrata la pagina delle informazioni ottenuta mentre in figura \ref{fig:infoPagePopup} è possibile vedere come, dopo il tocco di una tile, vengono mostrate le informazioni dettagliate.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=8cm]{img/totem/infopage-layout.png}
-  \caption[Layout pagina informazioni]{Layout della pagina delle informazioni del totem considerando una larghezza di 3 colonne}
-  \label{fig:infopageLayout}
+  \includegraphics[width=\textwidth]{img/totem/screenshot/infoPageScreen.png}
+  \caption{Pagina delle informazioni effettiva}
+  \label{fig:infoPage}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{img/totem/screenshot/infoPagePopupScreen.png}
+  \caption{Pagina delle informazioni: vengono mostrati i dettagli relativi alla tile cliccata.}
+  \label{fig:infoPagePopup}
 \end{figure}
 
-\begin{lstlisting}[language=pseudocode, caption={Pseudocodice per la costruzione della griglia di Tiles con occupazione della riga variabile}, label={lst:gridTileViewClass}]
-rowsAmount = tilesToPlace / itemsPerRow
-for row = 0 to rowsAmount
-  while rowCapacity > 0 and tilesToPlace list not empty
-    if row can contain tile
-      add tile to row
-      remove tile from tilesToPlace list
-    else 
-      skip to next tile in tilesToPlace list
+Per la composizione della vista a griglia è stato utilizzato il widget \texttt{GridView} utilizzando un layout personalizzato definito dalla classe \texttt{SliverQuiltedGridDelegate} del package flutter \texttt{flutter\_staggered\_grid\_view} \cite{staggeredGridView} che permette di mostrare elementi che possono occupare più di una cella e colonna.
 
-  create row graphic-element
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=8cm]{img/totem/infopage-layout.png}
+%   \caption[Layout pagina informazioni]{Layout della pagina delle informazioni del totem considerando una larghezza di 3 colonne}
+%   \label{fig:infopageLayout}
+% \end{figure}
 
-return column view with previous rows
-\end{lstlisting}
+% \begin{lstlisting}[language=pseudocode, caption={Pseudocodice per la costruzione della griglia di Tiles con occupazione della riga variabile}, label={lst:gridTileViewClass}]
+% rowsAmount = tilesToPlace / itemsPerRow
+% for row = 0 to rowsAmount
+%   while rowCapacity > 0 and tilesToPlace list not empty
+%     if row can contain tile
+%       add tile to row
+%       remove tile from tilesToPlace list
+%     else 
+%       skip to next tile in tilesToPlace list
 
-\begin{lstlisting}[style=FlutterStyle, caption={Interfacce GridTileItem e GridViewNotifier}, label={lst:gridTileItem}]
-  abstract class GridTileItem {
-    int getCellWidth();
-    Widget getChild();
-    Widget? getDetailsWidget();
-  }
-  // interfaccia pattern observer
-  abstract class GridViewNotifier {
-    void notifyTileTapped(Widget? detailsView);
-  }
-  \end{lstlisting}
+%   create row graphic-element
 
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{img/totem/screenshot/infoPageScreen.png}
-    \caption{Pagina delle informazioni effettiva}
-    \label{fig:infoPage}
-  \end{figure}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{img/totem/screenshot/infoPagePopupScreen.png}
-    \caption{Pagina delle informazioni: vengono mostrati i dettagli relativi alla tile cliccata.}
-    \label{fig:infoPagePopup}
-  \end{figure}
+% return column view with previous rows
+% \end{lstlisting}
 
 \section{Testing e Debug}
