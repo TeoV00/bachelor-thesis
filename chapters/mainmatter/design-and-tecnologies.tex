@@ -179,6 +179,7 @@ Cliccando sul pulsante \enquote*{Procedi} si passa all'identificazione del totem
 \end{figure}
 
 \subsubsection{Totem}
+\label{subsec:totem}
 La struttura dell'interfaccia del totem si suddivide in due sezioni principali: una colonna a sinistra contenente la barra di navigazione e la sezione con il QR code del totem e lo spazio restante a destra dove viene visualizzata la pagina selezionata (figura \ref{fig:viewStruct}).
 \begin{figure}[h]
     \centering
@@ -301,7 +302,8 @@ Di seguito si elencano i plugin flutter utilizzati nello sviluppo dell'applicati
     \item \texttt{flutter\_svg} \cite{providerPlugin}, per la visualizzazione delle immagini vettoriali utilizzate per la rappresentazione dei livelli utente e alcuni elementi grafici dell'interfaccia;
     \item \texttt{firebase\_core} \cite{firebaseCorePlugin} e \texttt{firebase\_database} \cite{firebaseDatabasePlugin}, pacchetti per poter utilizzare i servizi Firebase e quindi l'accesso al database;
     \item \texttt{barcode} \cite{barcodePlugin}, è una libreria per la generazione di codici a barre e QR;
-    \item \texttt{provider} \cite{providerPlugin}, permette di utilizzare coma maggiore facilità e semplicità il widget flutter InheritedWidget che serve a propagare una informazione nell'albero dei widget.
+    \item \texttt{provider} \cite{providerPlugin}, permette di utilizzare coma maggiore facilità e semplicità il widget flutter InheritedWidget che serve a propagare una informazione nell'albero dei widget;
+    \item \texttt{flutter\_staggered\_grid\_view} \cite{staggeredGridView}, package che permette di creare e gestire layout a griglia più complessi.
 \end{itemize}
 \subsection{Firebase Realtime}
 Firebase Realtime \cite{firebase} è un database non relazionale (NoSQL) memorizzato nel cloud, gestito da Google. In quanto NoSQL, i dati e le relazioni non vengono memorizzati in tabelle ma in documenti, archivi \textit{wide-column} o grafi (nodi e archi) a seconda della tipologia del database.
