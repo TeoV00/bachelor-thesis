@@ -117,7 +117,7 @@ Consiste specie di pattern strategy E in cui oltre la strategia che viene utiliz
 \section{Totem}
 \subsection{Dati Firebase}
 Una volta deciso di utilizzare il database Firebase Realtime, che è di tipo documentale, si è reso necessario convertire lo schema UML in figura \ref{fig:totemDomain} in formato JSON per avere la struttura generale dei dati che verranno memorizzati.
-Per non avere troppi oggetti annidati, si è deciso di separare le informazioni del totem (listato \ref{lst:totemInfo}) dai dati utente che sono stati condivisi (listato \ref{lst:userDataTotem}).
+Per non avere troppi oggetti annidati, si è deciso di separare le informazioni del totem (listato \ref{lst:totemInfo}) dai dati utente che sono stati condivisi tramite app (listato \ref{lst:userDataTotem}).
 
 \begin{lstlisting}[language=json, caption={Esempio di oggetto JSON contenente le informazioni sui totem}, label={lst:totemInfo}]
     "totemInfo": {
@@ -144,11 +144,11 @@ Per non avere troppi oggetti annidati, si è deciso di separare le informazioni 
 \end{lstlisting}
 
 \subsection{DataManager}
-Il DataManager, come spiegato nel capitolo del design, funge sia da Repository che da Model del pattern MVI. Mantiene al suo interno i riferimenti ai diversi provider di cui fa uso, al momento solo \texttt{FirebaseProvider}, ed espone metodi che restituiscono \textit{State}, indirizzati alla \textit{View}, contenenti i dati utili alle schermate. A livello implementativo gli \textit{State} sono un oggetto della classe \texttt{Future} e vengono utilizzati come risultato ad una computazione asincrona permettendo di svolgerne altre finché non viene completata. Utilizzando \texttt{Future} come tipo di ritorno dei metodi del DataManager in combinazione con il \texttt{FutureBuilder} si individua una forma di pattern MVI con la possibilità di adattare la View in base allo stato della computazione.
+Il DataManager, come spiegato nel capitolo del design, funge sia da Repository che da Model del pattern MVI. Mantiene al suo interno i riferimenti ai diversi provider di cui fa uso, al momento solo \texttt{FirebaseProvider}, ed espone metodi che restituiscono degli \textit{State} indirizzati alla \textit{View} contenenti i dati utili alle schermate. A livello implementativo gli \textit{State} sono un oggetto della classe \texttt{Future} e vengono utilizzati come risultato ad una computazione asincrona permettendo di svolgerne altre finché non viene completata. Utilizzando \texttt{Future} come tipo di ritorno dei metodi del DataManager in combinazione con il \texttt{FutureBuilder}, si individua una forma di pattern MVI con la possibilità di adattare la View in base allo stato della computazione.
 
 La classe \texttt{DataManager}, come si può notare in riga 1 del listato \ref{lst:dataManager}, estende \texttt{ChangeNotifier} e questo permette di aggiornare la View con i nuovi dati aggiornati.
 Inoltre viene utilizzato il pattern Observer sul FirebaseProvider: il DataManager, implementando l'interfaccia \texttt{FirebaseObserver} e aggiungendosi come observer (riga 8 listato \ref{lst:dataManager}), viene notificato per qualsiasi genere di modifica dei dati nel cloud.
-In cascata quindi ogni modifica sul database Firebase fa scattare la notifica delle Views con il metodo \texttt{notifyListeners} (riga 24 listato \ref{lst:dataManager}).
+In cascata quindi ogni modifica sul database nel cloud fa scattare l'aggiornamento delle Views con il metodo \texttt{notifyListeners} (riga 24 listato \ref{lst:dataManager}).
 
 \begin{lstlisting}[style=FlutterStyle, caption={Classe DataManager}, label={lst:dataManager}]
   class DataManager extends ChangeNotifier implements FirebaseObserver {
@@ -180,11 +180,9 @@ In cascata quindi ogni modifica sul database Firebase fa scattare la notifica de
 \end{lstlisting}
 
 \subsection{Pagina Home} 
-Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome degli utenti che insieme compongono un bosco rigoglioso ed è stato scelto questo design grafico in quanto più affine all'idea di bosco virtuale. Con una visualizzazione di questo genere gli utenti hanno una maggiore percezione del senso di comunità dove ciascun giocatore contribuisce a rendere il bosco più verde e ricco di alberi. In figura \ref{fig:homepage} viene mostrata una istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi e del loro comportamento al tocco dove rispettivamente è stato utilizzato il widget \texttt{GridView} (riga 8) e la classi \texttt{GestureDetector} (riga 14).
+Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome d'albero degli utenti che insieme compongono un bosco rigoglioso in quanto più affine all'idea di bosco virtuale. Con una visualizzazione di questo genere gli utenti hanno una maggiore percezione del senso di comunità e ciascuno può contribuire a rendere il bosco più verde e ricco di alberi. In figura \ref{fig:homepage} viene mostrata una istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi a riga 8 e del loro comportamento al tocco in riga 14.
 
-Per questa pagina, come per le altre che seguono, è stato utilizzato sempre la stessa metodologia e architettura del codice per la loro creazione: con l'ausilio del \texttt{FutureBuilder} è stato possibile gestire con maggiore semplicità ed astrazione il pattern MVI. 
-\textcolor{red}{CONTROLLA sotto}
-Più precisamente all'atto della creazione dell View vengono richiesti i dati al \texttt{DataManager} chiamando il metodo specifico che soddisfa l'intent. Il datamanager quindi restituisce un tipo di dato future<List<SharedData>> (State) che permette di avere una interfaccia reattiva nonostante l'intent dell'utente debba essere ancora evaso.
+Per questa pagina, come per le altre, è stata utilizzata sempre la stessa metodologia e architettura del codice per la loro creazione: con l'ausilio del \texttt{FutureBuilder} è stata sviluppata la View con la possibilità di gestire con maggiore semplicità ed astrazione l'invio degli \textit{Inten}s al Model (metodi della classe \texttt{DataManager}) e la ricezione degli \textit{State} di risposta.
 
 \begin{figure}[h]
   \centering
@@ -192,20 +190,21 @@ Più precisamente all'atto della creazione dell View vengono richiesti i dati al
   \caption{Screenshot della pagina Home dove viene visualizzato il bosco virtuale costruito dalla partecipazione degli utenti.}
   \label{fig:homepage}
 \end{figure}
+
 \newpage
 \begin{lstlisting}[style=FlutterStyle, caption={Parte del codice per la creazione del bosco della Homepage}, label={lst:homepageCode}]
-Consumer<DataManager>(
+Consumer<DataManager>( // model
 builder: (context, dataManager, child) =>
     FutureBuilder<List<SharedData>>(
-    future: dataManager.getData(),
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
+    future: dataManager.getData(), // intent
+    builder: (context, state) { // state 
+      if (state.hasData) {
         // widget per la disposizione a griglia delle chiome
-        return GridView.count(
+        return GridView.count( // view
           crossAxisCount: 20,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
-          children: (snapshot.data ?? []).map(
+          children: (state.data ?? []).map(
             (userDataTree) {
               return GestureDetector(
                 onTap: () {
@@ -233,14 +232,12 @@ builder: (context, dataManager, child) =>
 %
 %
 \subsection{Pagina Statistiche}
-% Animazione dell'elemento della griglia, creazione della pagina, quali widget flutter sono stati utilizzati per il caricamento dei dati e la loro attesa, operazioni che vengono svolte all'interno di data manager per ricavare i dati, i cerchi alla fine sono tutti colorati non sono indicatori gauge come si era pensato 
+\textcolor{red}{Animazione dell'elemento della griglia, creazione della pagina, quali widget flutter sono stati utilizzati per il caricamento dei dati e la loro attesa, operazioni che vengono svolte all'interno di data manager per ricavare i dati, i cerchi alla fine sono tutti colorati non sono indicatori gauge come si era pensato}
 
 %
 %
 \subsection{Classifica}
-Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell'alberello e info di co2, caricamento dati solito pattern mvi, come viene stilata la classifica codice lato repository (datamanager)... Ipotesi di poter decidere su cosa viene fatta la classifica es. co2, benzina o che altro. anche se poi alla fine le quantità sono proporzionali, cambierebbe poco la classifica.
-
-
+Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup, nelle diverse posizioni sono stati inseriti nuovi particolari grafici come la quantità di CO\textsubscript{2} e l'alberello che indica il livello utente.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/top10screen.png}
@@ -251,9 +248,7 @@ Schermata della classifica, le modifiche grafiche che ha subito, l'aggiunta dell
 %
 %
 \subsection{Pagina Informazioni}
-% Pagina informazioni, struttura a griglia, le classi che sono state create e politica di disposizione delle tiles;  pattern observer per mostrare e chiudere il pop up delle info
-% come si deve fare per aggiungere una tile e impostazioni delle tile, grandezza e contenuto
-La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche indicato nel capitolo Design \ref{subsec:totem} in cui viene trattato il design del totem, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad uno a visualizzazione a griglia; la decisione d'implementare quest'ultimo è stata molto condizionata dall'esito di un sondaggio eseguito su un piccolo gruppo di utenti target, che provando entrambi i mockup su device touchscreen, hanno dimostrato una maggiore preferenza per la visualizzazione a piastrelle (\textit{tiles}) in quanto più immediata, ordinata e di facile comprensione, prediligendo il tipo d'interazione \enquote*{a tocco} (\textit{tap gesture}) con l'interfaccia per accedere alle informazioni al posto dello scorrimento verticale (\textit{vertical scrolling gesture}). In figura \ref{fig:infoPage} viene mostrata la pagina delle informazioni ottenuta mentre in figura \ref{fig:infoPagePopup} è possibile vedere come, dopo il tocco di una tile, vengono mostrate le informazioni dettagliate.
+La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche precisato nel capitolo \ref{subsec:totem}, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad una visualizzazione a griglia contente tante \textit{tile}s (blocchi o piastrelle); la decisione d'implementare quest'ultimo è stata molto condizionata dall'esito di un sondaggio svolto su un piccolo gruppo di utenti target, che provando entrambi i mockup su device touchscreen, hanno dimostrato una maggiore preferenza per la visualizzazione a griglia in quanto più immediata, ordinata e di facile comprensione, prediligendo il tipo d'interazione \enquote*{con il tocco} (\textit{tap gesture}) per la fruizione delle informazioni al posto dello scorrimento verticale (\textit{vertical scrolling gesture}). In figura \ref{fig:infoPage} viene mostrata la pagina delle informazioni e nell \ref{fig:infoPagePopup} una delle piastrelle espanse che mostra informazioni dettagliate.
 
 \begin{figure}[h]
   \centering
@@ -264,32 +259,63 @@ La pagina delle informazioni nel corso del suo concepimento ha subito vari cambi
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/infoPagePopupScreen.png}
-  \caption{Pagina delle informazioni: vengono mostrati i dettagli relativi alla tile cliccata.}
+  \caption{Pagina delle informazioni: tile selezionata espansa che mostra maggiori dettagli.}
   \label{fig:infoPagePopup}
 \end{figure}
 
-Per la composizione della vista a griglia è stato utilizzato il widget \texttt{GridView} utilizzando un layout personalizzato definito dalla classe \texttt{SliverQuiltedGridDelegate} del package flutter \texttt{flutter\_staggered\_grid\_view} \cite{staggeredGridView} che permette di mostrare elementi che possono occupare più di una cella e colonna.
+Per la disposizione a griglia degli elementi è stato utilizzato il widget \texttt{GridView} utilizzando un layout personalizzato definito dalla classe \texttt{SliverQuiltedGridDelegate} del package flutter \texttt{flutter\_staggered\_grid\_view} \cite{staggeredGridView} che permette agli elementi della griglia di occupare più righe e colonne.
+Attualmente sono visualizzati cinque elementi di cui uno largo il doppio (figura \ref{fig:infopageLayout}) ma è possibile aggiungerne altri, di qualsiasi dimensione compatibile alla griglia, abilitando così la navigazione verticale tramite scorrimento.
 
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=8cm]{img/totem/infopage-layout.png}
-%   \caption[Layout pagina informazioni]{Layout della pagina delle informazioni del totem considerando una larghezza di 3 colonne}
-%   \label{fig:infopageLayout}
-% \end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=9cm]{img/totem/layout_gridview.png}
+  \caption[Layout pagina informazioni]{Layout pagina informazioni: in giallo l'area visibile, in viola le tile attualmente presenti infine in grigio quelle che potrebbero essere aggiunte, non esclusivamente in quella disposizione. I numeri presenti indicano quante colonne occupa ciascuna piastrella.}
+  \label{fig:infopageLayout}
+\end{figure}
 
-% \begin{lstlisting}[language=pseudocode, caption={Pseudocodice per la costruzione della griglia di Tiles con occupazione della riga variabile}, label={lst:gridTileViewClass}]
-% rowsAmount = tilesToPlace / itemsPerRow
-% for row = 0 to rowsAmount
-%   while rowCapacity > 0 and tilesToPlace list not empty
-%     if row can contain tile
-%       add tile to row
-%       remove tile from tilesToPlace list
-%     else 
-%       skip to next tile in tilesToPlace list
-
-%   create row graphic-element
-
-% return column view with previous rows
-% \end{lstlisting}
+\begin{lstlisting}[style=FlutterStyle, caption={}, label={lst:infoPageCode}]
+  Stack(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(50.0),
+        // creazione vista a griglia
+        child: GridView.custom(
+          gridDelegate: SliverQuiltedGridDelegate(
+            crossAxisCount: 3,
+            mainAxisSpacing: 30,
+            crossAxisSpacing: 30,
+            repeatPattern: QuiltedGridRepeatPattern.inverted,
+            pattern: const [
+              // 1 riga ed 1 colonna occupata
+              QuiltedGridTile(1, 1),  
+              QuiltedGridTile(1, 1),
+              QuiltedGridTile(1, 1),
+              // 1 riga e 2 colonne occupate
+              QuiltedGridTile(1, 2),
+              QuiltedGridTile(1, 1),
+            ],
+          ),
+          childrenDelegate: SliverChildBuilderDelegate(
+            childCount: infoTiles.length,
+            (context, index) => GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60.0),
+                child: infoTiles[index],
+              ),
+              onTap: () {
+                setState(() {
+                  detailsWidget = infoTiles[index].getDetailsWidget();
+                });
+              },
+            ),
+          ),
+        ),
+      ),
+      if (detailsWidget != null) ...[
+        // pannello che mostra i dettagli relativi alla tile cliccata
+      ],
+    ],
+  );
+\end{lstlisting}
 
 \section{Testing e Debug}
