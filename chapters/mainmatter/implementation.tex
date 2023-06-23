@@ -2,8 +2,19 @@
 \chapter{Implementazione}
 In questo capitolo vengono trattate le implementazioni e i pattern utilizzati per raggiungere i requisiti di progettazione presentati nel capitolo precedente. Sono presentate le effettive schermate ottenute partendo dai mockup mostrandone porzioni di codice particolarmente interessanti o dove sono stati applicati pattern.
 
+\section{Integrazione totem e app BoschettoAR}
+L'integrazione fra totem e l'app ha richiesto un'analisi sulla disponibilità e praticabilità di utilizzare determinate tecnologie per l'interazione fra i due dispositivi anche in un'ottica di \textit{user experience}, usabilità e scalabilità.
+
+Per questo progetto si è optato per un'integrazione basata sul \textit{cloud computing} e più precisamente utilizzando un servizio \textit{cloud-based} per la memorizzazione in tempo reale dei dati. Viene utilizzato il prodotto Firebase Realtime di Google \cite{firebase} che offre, anche gratuitamente, scalabilità, affidabilità, facilità d'uso e sicurezza.
+Scegliendo questo modo d'integrazione si apre la possibilità di aggiungere nel tempo nuove totem interattivi per l'espansione del progetto in altre sedi dell'Università di Bologna.
+
+\`E' stato considerato l'utilizzo della tecnologia NFC per il trasferimento dei dati da APP a totem interattivo ma la mancanza dell'hardware necessario, e considerando che non tutti gli smartphone (in particolare quelli meno recenti) possiedono tale tecnologia, si è deciso di non utilizzarla.
+
+Come ulteriore alternativa  per il caricamento dei dati da parte dell'APP si è valutato l'utilizzo di una architettura client-server e di API esposte dal web-server installato sul totem. Quest'ultima opzione sarebbe stata un buon compromesso in termini di sicurezza e velocità di trasmissione ma poco scalabile e limitando la condivisione dei dati a solo quegli utenti connessi alla rete WiFi dell'Ateneo in sede a Cesena.
+
+
 \section{Organizzazione progetto}
-I file del progetto sorgente sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati utilizzati dal \texttt{DataManager} (file \texttt{data\_manager.dart}) per il reperimento delle informazioni.
+I file del progetto sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati utilizzati dal \texttt{DataManager} (file \texttt{data\_manager.dart}) per il reperimento delle informazioni.
 
 \begin{lstlisting}[language=C, caption={Albero della directory del progetto TotemBoschettoAR}, label={lst:projectDir}]
     TotemBoschettoAR/
@@ -84,6 +95,7 @@ La schermata di caricamento dei progressi è raggiungibile dalla pagina utente o
 % Implementazione della schermata di scansione del qr del riutilizzo della schermata di scansione (forze pattern strategy), con schema d'interfaccia volendo 
 % Implementazione della schermata con codice effettivo dell'implementazione del pattern mvi
 \textcolor{red}{TODO: RIFORMULARE , IL CONCETTO è QUELLO}
+
 La schermata della scansione del codice QR del totem prevede il riutilizzo della stesso componente utilizzato nella scansione del QR dell'albero. Infatti come si può vedere in figura ??, la schermata di scansione fa uso della classe \texttt{ScanQRView} che gestisce la fotocamera e la lettura dei codici QR. Riconosciuto un codice QR le informazioni contenute al suo interno vengono passate alla classe specifica per il totem che verifica la validità delle informazioni per poi procedere con la preparazione e caricamento dei progressi utente. Durante tutte le due fasi viene visualizzata la schermata in figura \ref{fig:uploadinData} che risulta reattiva in attesa di un esito del caricamento o della validità del codice QR.
 
 Consiste specie di pattern strategy E in cui oltre la strategia che viene utilizzata per la validazione del codice QR scansionare si indica anche la schermata barra interfaccia utente che deve essere visualizzata dopo la scansione del codice. Ciò schermata poi possiede la sua strategia per validare ed utilizzare i dati presi dal QR.
@@ -232,8 +244,108 @@ builder: (context, dataManager, child) =>
 %
 %
 \subsection{Pagina Statistiche}
-\textcolor{red}{Animazione dell'elemento della griglia, creazione della pagina, quali widget flutter sono stati utilizzati per il caricamento dei dati e la loro attesa, operazioni che vengono svolte all'interno di data manager per ricavare i dati, i cerchi alla fine sono tutti colorati non sono indicatori gauge come si era pensato}
+\textcolor{red}{ operazioni che vengono svolte all'interno di data manager per ricavare i dati, i cerchi alla fine sono tutti colorati non sono indicatori gauge come si era pensato}
+Anche questa pagina prevede l'utilizzo delle classi \texttt{Consumer<DataManager>} e \texttt{FutureBuilder<DataManager>} per rispettivamente avere accesso al DataManager e poter richiedere e ricevere i dati statistici. Inoltre per la disposizione a griglia di sei colonne e tre righe dei contatori è stato utilizzato il costruttore \texttt{GridView.count(...)}.
+%TODO: PARLARE DI COME VENGONO PRESI I DATI DAL CLOUD
+\subsubsection{Contatore}
+Il contatore è frutto della composizione di semplici elementi grafici sovrapposti fra di loro; osservando l'immagine \ref{fig:statCont3d} partendo sinistra si ha un cerchio verde, uno bianco più piccolo, un'immagine e al di sotto una descrizione testuale. Al tocco i cerchi cambiano forma diventando quadrati, l'icona si sposta verso l'alto rimpicciolendosi lasciando al testo che viene mostrato.
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{img/totem/statsItem3d.png}
+  \caption[Contatore statistica come composizione di widget]{Contatore delle statistiche come composizione di widget: un quadrato all'interno dell'altro con sopra un'immagine e un testo (rettangolo tratteggiato).}
+  \label{fig:statCont3d}
+\end{figure}
+%
 
+I cerchi/quadrati vengono implementati (listato \ref{lst:roundedBox}) con la classe \texttt{RoundedBox} che restituisce un \texttt{AnimatedContainer} che è una classe che permette di animare il \textit{container}\footnote{widget di convenienza che combina widget comuni di pittura, posizionamento e dimensionamento} restituito ogni volta che viene modificata una sua caratteristica; in questo caso ad ogni tocco viene modificato il raggio del bordo (\textit{borderRadius}).
+
+\begin{lstlisting}[style=FlutterStyle, caption={Classe RoundedBox per usata nella creazione del contatore delle statistiche}, label={lst:roundedBox}]
+class RoundedBox extends StatefulWidget {
+  final Color color;
+  final double size;
+  final double radius;
+
+  const RoundedBox(
+      {super.key,
+      required this.color,
+      required this.size,
+      required this.radius});
+
+  @override
+  State<StatefulWidget> createState() => RoundedBoxState();
+}
+
+class RoundedBoxState extends State<RoundedBox> {
+  @override
+  Widget build(BuildContext context) {
+    double size = widget.size;
+    return AnimatedContainer(
+      curve: Curves.ease,
+      duration: const Duration(milliseconds: 400),
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: widget.color,
+        borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+%
+
+L'animazione dell'immagine è stata implementata (listato \ref{lst:resizingIcon}) utilizzando il \texttt{TweenAnimationBuilder} che permette di creare una animazione sfruttando la generazione di valori compresi in un intervallo e di un ulteriore animazione (\texttt{AnimatedSlide}) per la sua traslazione. Questa animazione è stata utilizzata anche nel pulsante del codice QR del totem.
+
+\begin{lstlisting}[style=FlutterStyle, caption={}, label={lst:resizingIcon}]
+  // animationStart e animationStop vengono invertiti in base a runTransition (booleano)
+  TweenAnimationBuilder(
+      tween: Tween<double>(begin: animationStart, end: animationStop),
+      duration: widget.duration ?? defaultDuration,
+      builder: (context, size, child) {
+        return AnimatedSlide(
+          duration: widget.duration ?? defaultDuration,
+          offset: Offset(0.0, widget.runTransition ? widget.iconOffset : 0.0),
+          child: SizedBox(
+            height: size,
+            width: size,
+            child: widget.icon, // element a cui applicare l'animazione
+          ),
+        );
+      },
+    );
+\end{lstlisting}
+
+Infine per la descrizione del contatore (in figura \ref{fig:statCont3d} il rettangolo tratteggiato) è stata utilizzata la classe \texttt{AnimatedCrossFade}, incapsulata all'interno di \texttt{DescriptionBox} (listato \ref{lst:descrBoxStat}), che genera una transizione in dissolvenza tra \texttt{firstChild} e \texttt{secondChild}. 
+
+\begin{lstlisting}[style=FlutterStyle, caption={Stato della classe DescriptionBox che genera il widget della descrizione del contatore}, label={lst:descrBoxStat}]
+
+  class _DescriptionBoxState extends State<DescriptionBox> {
+    @override
+    Widget build(BuildContext context) {
+      var textBoxSize = widget.size - widget.boxPadding;
+      return AnimatedCrossFade(
+        firstChild: SizedBox(
+          height: textBoxSize,
+          width: textBoxSize,
+          child: Padding(
+            padding: EdgeInsets.all(widget.boxPadding) +
+                (widget.offsetBox ?? const EdgeInsets.all(0)),
+            child: Text(
+              widget.description,
+              style: TextStyle(fontSize: widget.textSize),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        secondChild: const SizedBox(),
+        crossFadeState: widget.showText
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        duration: const Duration(milliseconds: 400),
+      );
+    }
+  }
+\end{lstlisting}
 %
 %
 \subsection{Classifica}
@@ -250,13 +362,13 @@ Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup,
 \subsection{Pagina Informazioni}
 La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche precisato nel capitolo \ref{subsec:totem}, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad una visualizzazione a griglia contente tante \textit{tile}s (blocchi o piastrelle); la decisione d'implementare quest'ultimo è stata molto condizionata dall'esito di un sondaggio svolto su un piccolo gruppo di utenti target, che provando entrambi i mockup su device touchscreen, hanno dimostrato una maggiore preferenza per la visualizzazione a griglia in quanto più immediata, ordinata e di facile comprensione, prediligendo il tipo d'interazione \enquote*{con il tocco} (\textit{tap gesture}) per la fruizione delle informazioni al posto dello scorrimento verticale (\textit{vertical scrolling gesture}). In figura \ref{fig:infoPage} viene mostrata la pagina delle informazioni e nell \ref{fig:infoPagePopup} una delle piastrelle espanse che mostra informazioni dettagliate.
 
-\begin{figure}[h]
+\begin{figure}
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/infoPageScreen.png}
   \caption{Pagina delle informazioni effettiva}
   \label{fig:infoPage}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/infoPagePopupScreen.png}
   \caption{Pagina delle informazioni: tile selezionata espansa che mostra maggiori dettagli.}
