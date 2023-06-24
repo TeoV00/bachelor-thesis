@@ -1,6 +1,6 @@
 % ! TeX root = ../../main.tex
 \chapter{Implementazione}
-In questo capitolo vengono trattate le implementazioni e i pattern utilizzati per raggiungere i requisiti di progettazione presentati nel capitolo precedente. Sono presentate le effettive schermate ottenute partendo dai mockup mostrandone porzioni di codice particolarmente interessanti o dove sono stati applicati pattern.
+In questo capitolo vengono mostrate le schermate effettive del totem e le loro implementazioni soffermandosi su porzioni di codice particolarmente interessanti o dove sono stati applicati pattern specifici.
 
 \section{Integrazione totem e app BoschettoAR}
 L'integrazione fra totem e l'app ha richiesto un'analisi sulla disponibilità e praticabilità di utilizzare determinate tecnologie per l'interazione fra i due dispositivi anche in un'ottica di \textit{user experience}, usabilità e scalabilità.
@@ -8,10 +8,9 @@ L'integrazione fra totem e l'app ha richiesto un'analisi sulla disponibilità e 
 Per questo progetto si è optato per un'integrazione basata sul \textit{cloud computing} e più precisamente utilizzando un servizio \textit{cloud-based} per la memorizzazione in tempo reale dei dati. Viene utilizzato il prodotto Firebase Realtime di Google \cite{firebase} che offre, anche gratuitamente, scalabilità, affidabilità, facilità d'uso e sicurezza.
 Scegliendo questo modo d'integrazione si apre la possibilità di aggiungere nel tempo nuove totem interattivi per l'espansione del progetto in altre sedi dell'Università di Bologna.
 
-\`E' stato considerato l'utilizzo della tecnologia NFC per il trasferimento dei dati da APP a totem interattivo ma la mancanza dell'hardware necessario, e considerando che non tutti gli smartphone (in particolare quelli meno recenti) possiedono tale tecnologia, si è deciso di non utilizzarla.
+\`E' stato considerato l'utilizzo della tecnologia NFC per il trasferimento dei dati da app a totem interattivo ma la mancanza dell'hardware necessario, e considerando che non tutti gli smartphone (in particolare quelli meno recenti) possiedono tale tecnologia, si è deciso di non utilizzarla.
 
-Come ulteriore alternativa  per il caricamento dei dati da parte dell'APP si è valutato l'utilizzo di una architettura client-server e di API esposte dal web-server installato sul totem. Quest'ultima opzione sarebbe stata un buon compromesso in termini di sicurezza e velocità di trasmissione ma poco scalabile e limitando la condivisione dei dati a solo quegli utenti connessi alla rete WiFi dell'Ateneo in sede a Cesena.
-
+Come ulteriore alternativa per il caricamento dei progressi utente da dall'app si è valutato di utilizzare una architettura client-server con API esposte dal web-server installato sul totem. Quest'ultima opzione sarebbe stata un buon compromesso in termini di sicurezza e velocità di trasmissione ma poco scalabile e limitando la condivisione dei dati a solo quegli utenti connessi alla rete WiFi della sede dell'Ateneo.
 
 \section{Organizzazione progetto}
 I file del progetto sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati utilizzati dal \texttt{DataManager} (file \texttt{data\_manager.dart}) per il reperimento delle informazioni.
@@ -59,12 +58,12 @@ Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione
         \includegraphics[width=0.3\textwidth]{img/app/uploadingPage.png}
         \label{fig:uploadinData}
     } 
-    \caption{Screenshot schermate condivisione dati da app, scansione totem e caricamento}
+    \caption{Screenshot schermate condivisione dati da app, scansione totem e caricamento \cite{repoBoschettoAR}}
     \label{fig:shareDataApp}
 \end{figure}
 
 \subsection{Pagina di condivisione progressi}
-La schermata di caricamento dei progressi è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. Nella barra degli strumenti (\texttt{AppBar}) di entrambe le pagine è stato aggiunto un pulsante (\texttt{IconButton})che permette di aprire la pagina di condivisione aggiungendola allo stack di schermate dell'app chiamando il metodo \textit{push} della classe \texttt{Navigator} che disciplina la navigazione fra pagine. Nel listato \ref{lst:shareIconButton} da riga 7 a riga 20 inclusa viene mostrato il codice inserito.
+La schermata di caricamento dei progressi è raggiungibile dalla pagina utente oppure direttamente dalla pagina \textit{Home} in cui vi sono gli alberi collezionati. Nella barra degli strumenti (\texttt{AppBar}) di entrambe le pagine è stato aggiunto un pulsante (\texttt{IconButton}) che permette di aprire la pagina di condivisione aggiungendola allo stack di schermate dell'app chiamando il metodo \textit{push} della classe \texttt{Navigator} che disciplina la navigazione fra pagine. Nel listato \ref{lst:shareIconButton} da riga 7 a riga 20 inclusa viene mostrato il codice inserito.
 
 \begin{lstlisting}[style=FlutterStyle, caption={Codice aggiornato della barra degli strumenti dell'app: inserito pulsante per la condivisione dei progressi.}, label={lst:shareIconButton}]
     Scaffold (
@@ -91,45 +90,63 @@ La schermata di caricamento dei progressi è raggiungibile dalla pagina utente o
     );
 \end{lstlisting}
 
-\subsection{Scansione QR e caricamento}
-% Implementazione della schermata di scansione del qr del riutilizzo della schermata di scansione (forze pattern strategy), con schema d'interfaccia volendo 
-% Implementazione della schermata con codice effettivo dell'implementazione del pattern mvi
-\textcolor{red}{TODO: RIFORMULARE , IL CONCETTO è QUELLO}
+\subsection{Scansione del QR code}
+La schermata d'identificazione del totem tramite QR prevede il riutilizzo della classe \texttt{ScanQRView} che si occupa della grafica dello schermata, della gestione della fotocamera e del flusso dati generato dal riconoscimento di un codice QR; questa classe viene utilizzata anche dalla pagina di scansione dell'albero e in seguito ad una ristrutturazione del codice, è stato applicato il pattern \textit{Strategy} in modo da poter decidere quale schermata mostrare dopo la scansione di un codice QR e soprattutto come gestire, validare e utilizzare i dati riconosciuti senza dover andare a creare tante versioni della classe \texttt{ScanQRView} specifiche. In figura \ref{fig:strategyQRScan} viene mostrato lo schema UML che chiarisce il ruolo delle classi all'interno del pattern \textit{Strategy}: la strategia è rappresentata dall'interfaccia \texttt{QrScanData} mentre le implementazioni sono la classe \texttt{SucessfullDataLoaded} (listato \ref{lst:SucessfullDataLoaded}) e la classe \texttt{ArViewLoader} rispettivamente per il caricamento dei progressi utente nel totem e per l'identificazione dell'albero.
 
-La schermata della scansione del codice QR del totem prevede il riutilizzo della stesso componente utilizzato nella scansione del QR dell'albero. Infatti come si può vedere in figura ??, la schermata di scansione fa uso della classe \texttt{ScanQRView} che gestisce la fotocamera e la lettura dei codici QR. Riconosciuto un codice QR le informazioni contenute al suo interno vengono passate alla classe specifica per il totem che verifica la validità delle informazioni per poi procedere con la preparazione e caricamento dei progressi utente. Durante tutte le due fasi viene visualizzata la schermata in figura \ref{fig:uploadinData} che risulta reattiva in attesa di un esito del caricamento o della validità del codice QR.
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{img/app/startegyScanQR.png}
+  \caption{Pattern Strategy applicato alla scansione del codice QR nell'app mobile BoschettoAR}
+  \label{fig:strategyQRScan}
+\end{figure}
 
-Consiste specie di pattern strategy E in cui oltre la strategia che viene utilizzata per la validazione del codice QR scansionare si indica anche la schermata barra interfaccia utente che deve essere visualizzata dopo la scansione del codice. Ciò schermata poi possiede la sua strategia per validare ed utilizzare i dati presi dal QR.
-\textcolor{red}{scegli se mettere solo future builder o tutta la classe}
+ \begin{lstlisting}[style=FlutterStyle, caption={Codice rilevante della classe \texttt{SucessfullDataLoaded}.}, label={lst:SucessfullDataLoaded}]
+  class SucessfullDataLoaded implements QRScanData {
+  String? data;
 
- \begin{lstlisting}[style=FlutterStyle, caption={}, label={lst:strategyViewTotem}]
-  Consumer<DataManager>(
-    builder: (context, dataManager, child) => FutureBuilder<bool>(
-      future: dataManager
-          .uploadUserData(totemId)
-          .timeout(const Duration(seconds: 8)),
-      builder: (context, snap) {
-        ConnectionState conState = snap.connectionState;
-        bool uploadDone = snap.hasData ? snap.data! : false;
-        if (conState == ConnectionState.waiting) {
-          return const UploadingDataView();
-        } else if (conState == ConnectionState.done) {
-          if (uploadDone) {
-            return const CompletedUploadView();
-          } else {
-            return const ErrorView(message: "Errore invio dati");
-          }
-        } else {
-          return const ErrorView(message: "Errore sconosciuto");
-        }
-      },
-    ),
-  ),
+  @override
+  Widget getWidget() {
+    if (data != null) {
+      String totemId = data!;
+      ... // codice omesso 
+      Consumer<DataManager>(
+        builder: (context, dataManager, child) => FutureBuilder<bool>(
+          future: dataManager
+              .uploadUserData(totemId) // intent mandato al dataManager (model)
+              .timeout(const Duration(seconds: 8)), // limite massimo di computazione dell'intent
+          builder: (context, snap) {
+            ConnectionState conState = snap.connectionState;
+            bool uploadDone = snap.hasData ? snap.data! : false;
+            if (conState == ConnectionState.waiting) {
+              return const UploadingDataView();
+            } else if (conState == ConnectionState.done) {
+              if (uploadDone) {
+                return const CompletedUploadView();
+              } else {
+                return const ErrorView(message: "Errore invio dati");
+              }
+            } else {
+              return const ErrorView(
+                  message: "Si e' verificato un problema sconosciuto");
+            }
+          },
+        ),
+      ),
+      ... // codice omesso 
+    }
+  }
+
+  @override
+  void setScannedData(String qrCodeData) {
+    data = qrCodeData;
+  }
+}
 \end{lstlisting}
 %%%%%%%%%%%%%%%%%%%%% TOTEM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Totem}
 \subsection{Dati Firebase}
-Una volta deciso di utilizzare il database Firebase Realtime, che è di tipo documentale, si è reso necessario convertire lo schema UML in figura \ref{fig:totemDomain} in formato JSON per avere la struttura generale dei dati che verranno memorizzati.
-Per non avere troppi oggetti annidati, si è deciso di separare le informazioni del totem (listato \ref{lst:totemInfo}) dai dati utente che sono stati condivisi tramite app (listato \ref{lst:userDataTotem}).
+Avendo deciso di utilizzare il database Firebase Realtime, che è di tipo documentale, è stato necessario convertire lo schema UML in figura \ref{fig:totemDomain} in formato JSON per avere la struttura generale dei dati che devono essere memorizzati.
+Per ridurre il numero di oggetti annidati, si è deciso di separare le informazioni del totem (listato \ref{lst:totemInfo}) dai dati utente che sono stati condivisi tramite app (listato \ref{lst:userDataTotem}).
 
 \begin{lstlisting}[language=json, caption={Esempio di oggetto JSON contenente le informazioni sui totem}, label={lst:totemInfo}]
     "totemInfo": {
@@ -156,10 +173,10 @@ Per non avere troppi oggetti annidati, si è deciso di separare le informazioni 
 \end{lstlisting}
 
 \subsection{DataManager}
-Il DataManager, come spiegato nel capitolo del design, funge sia da Repository che da Model del pattern MVI. Mantiene al suo interno i riferimenti ai diversi provider di cui fa uso, al momento solo \texttt{FirebaseProvider}, ed espone metodi che restituiscono degli \textit{State} indirizzati alla \textit{View} contenenti i dati utili alle schermate. A livello implementativo gli \textit{State} sono un oggetto della classe \texttt{Future} e vengono utilizzati come risultato ad una computazione asincrona permettendo di svolgerne altre finché non viene completata. Utilizzando \texttt{Future} come tipo di ritorno dei metodi del DataManager in combinazione con il \texttt{FutureBuilder}, si individua una forma di pattern MVI con la possibilità di adattare la View in base allo stato della computazione.
+Il DataManager, come spiegato nel capitolo del design, funge sia da Repository che da Model del pattern MVI. Mantiene al suo interno i riferimenti ai diversi provider di cui fa uso, al momento solo \texttt{FirebaseProvider}, ed espone metodi che restituiscono degli \textit{State} indirizzati alla \textit{View} contenenti i dati richiesti dalle schermate. A livello implementativo gli \textit{State} sono un oggetto della classe \texttt{Future} che è il tipo di dato di ritorno delle computazioni asincrone del \texttt{DataManager} e usato in combinazione con il \texttt{FutureBuilder}, si individua una forma di pattern MVI con la possibilità di adattare la View in base allo stato della computazione.
 
-La classe \texttt{DataManager}, come si può notare in riga 1 del listato \ref{lst:dataManager}, estende \texttt{ChangeNotifier} e questo permette di aggiornare la View con i nuovi dati aggiornati.
-Inoltre viene utilizzato il pattern Observer sul FirebaseProvider: il DataManager, implementando l'interfaccia \texttt{FirebaseObserver} e aggiungendosi come observer (riga 8 listato \ref{lst:dataManager}), viene notificato per qualsiasi genere di modifica dei dati nel cloud.
+La classe \texttt{DataManager}, come si può notare in riga 1 del listato \ref{lst:dataManager}, estende \texttt{ChangeNotifier} e questo permette di aggiornare la View con i nuovi dati aggiornati appena modificati nel database.
+Inoltre viene utilizzato il pattern Observer sul FirebaseProvider: il \texttt{DataManager}, implementando l'interfaccia \texttt{FirebaseObserver} e aggiungendosi come observer (riga 8 listato \ref{lst:dataManager}), viene notificato per qualsiasi genere di modifica dei dati nel cloud.
 In cascata quindi ogni modifica sul database nel cloud fa scattare l'aggiornamento delle Views con il metodo \texttt{notifyListeners} (riga 24 listato \ref{lst:dataManager}).
 
 \begin{lstlisting}[style=FlutterStyle, caption={Classe DataManager}, label={lst:dataManager}]
@@ -192,7 +209,10 @@ In cascata quindi ogni modifica sul database nel cloud fa scattare l'aggiornamen
 \end{lstlisting}
 
 \subsection{Pagina Home} 
-Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome d'albero degli utenti che insieme compongono un bosco rigoglioso in quanto più affine all'idea di bosco virtuale. Con una visualizzazione di questo genere gli utenti hanno una maggiore percezione del senso di comunità e ciascuno può contribuire a rendere il bosco più verde e ricco di alberi. In figura \ref{fig:homepage} viene mostrata una istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi a riga 8 e del loro comportamento al tocco in riga 14.
+Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome d'albero degli utenti che insieme compongono un bosco rigoglioso in quanto più affine all'idea di bosco virtuale e di comunità. 
+Il pannello dei dettagli che si è scelto d'implementare è quello che ricorda una tendina con il cordino (figura \ref{fig:cordDetail}) in quanto ritenuto più adatto alla visualizzazione a chiome degli utenti.
+
+In figura \ref{fig:homepage} viene mostrata una istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi a riga 8 e del loro comportamento al tocco in riga 14.
 
 Per questa pagina, come per le altre, è stata utilizzata sempre la stessa metodologia e architettura del codice per la loro creazione: con l'ausilio del \texttt{FutureBuilder} è stata sviluppata la View con la possibilità di gestire con maggiore semplicità ed astrazione l'invio degli \textit{Inten}s al Model (metodi della classe \texttt{DataManager}) e la ricezione degli \textit{State} di risposta.
 
@@ -203,7 +223,6 @@ Per questa pagina, come per le altre, è stata utilizzata sempre la stessa metod
   \label{fig:homepage}
 \end{figure}
 
-\newpage
 \begin{lstlisting}[style=FlutterStyle, caption={Parte del codice per la creazione del bosco della Homepage}, label={lst:homepageCode}]
 Consumer<DataManager>( // model
 builder: (context, dataManager, child) =>
@@ -244,20 +263,27 @@ builder: (context, dataManager, child) =>
 %
 %
 \subsection{Pagina Statistiche}
-\textcolor{red}{ operazioni che vengono svolte all'interno di data manager per ricavare i dati, i cerchi alla fine sono tutti colorati non sono indicatori gauge come si era pensato}
-Anche questa pagina prevede l'utilizzo delle classi \texttt{Consumer<DataManager>} e \texttt{FutureBuilder<DataManager>} per rispettivamente avere accesso al DataManager e poter richiedere e ricevere i dati statistici. Inoltre per la disposizione a griglia di sei colonne e tre righe dei contatori è stato utilizzato il costruttore \texttt{GridView.count(...)}.
-%TODO: PARLARE DI COME VENGONO PRESI I DATI DAL CLOUD
+Anche questa pagina prevede l'utilizzo delle classi \texttt{Consumer<DataManager>} e \texttt{FutureBuilder<DataManager>} per rispettivamente avere accesso al DataManager e poter richiedere e ricevere i dati statistici. Inoltre per la disposizione a griglia di sei colonne e tre righe dei contatori è stato utilizzato il costruttore \texttt{GridView.count}.
+
 \subsubsection{Contatore}
-Il contatore è frutto della composizione di semplici elementi grafici sovrapposti fra di loro; osservando l'immagine \ref{fig:statCont3d} partendo sinistra si ha un cerchio verde, uno bianco più piccolo, un'immagine e al di sotto una descrizione testuale. Al tocco i cerchi cambiano forma diventando quadrati, l'icona si sposta verso l'alto rimpicciolendosi lasciando al testo che viene mostrato.
-\begin{figure}
+Il contatore è frutto della composizione di semplici elementi grafici sovrapposti fra di loro; osservando l'immagine \ref{fig:circleStat3d} partendo sinistra si ha un cerchio verde, uno bianco più piccolo, un'immagine e al di sotto una descrizione testuale. Al tocco i cerchi cambiano forma diventando quadrati, l'icona si sposta verso l'alto rimpicciolendosi lasciando spazio al testo che viene mostrato.
+\begin{figure}[h]
   \centering
-  \includegraphics[width=8cm]{img/totem/statsItem3d.png}
-  \caption[Contatore statistica come composizione di widget]{Contatore delle statistiche come composizione di widget: un quadrato all'interno dell'altro con sopra un'immagine e un testo (rettangolo tratteggiato).}
+  \subfloat[]{
+    \includegraphics[width=3.5cm]{img/totem/circleStat3d.png}
+    \label{fig:circleStat3d}
+  }
+  \subfloat[]{
+    \includegraphics[width=4cm]{img/totem/squareStat3d.png}
+    \label{fig:squareStat3d}
+  }
+  \caption[Contatore come composizione di widget]{Contatore delle statistiche come composizione di widget: un quadrato, con raggio del bordo variabile, all'interno dell'altro con sopra un'immagine e un testo (rettangolo tratteggiato).}
   \label{fig:statCont3d}
 \end{figure}
 %
 
-I cerchi/quadrati vengono implementati (listato \ref{lst:roundedBox}) con la classe \texttt{RoundedBox} che restituisce un \texttt{AnimatedContainer} che è una classe che permette di animare il \textit{container}\footnote{widget di convenienza che combina widget comuni di pittura, posizionamento e dimensionamento} restituito ogni volta che viene modificata una sua caratteristica; in questo caso ad ogni tocco viene modificato il raggio del bordo (\textit{borderRadius}).
+I cerchi/quadrati vengono implementati (listato \ref{lst:roundedBox}) con la classe \texttt{RoundedBox} che restituisce un \texttt{AnimatedContainer} che è un elemento grafico in grado di contenerne un altro e di generare un'animazione di se stesso qunado viene modificato.
+Nel caso specifico del contatore viene modificato il raggio del bordo (\textit{borderRadius}) che passa da un valore massimo (cerchio) ad un valore di \texttt{10.0} (quadrato con spigoli smussati).
 
 \begin{lstlisting}[style=FlutterStyle, caption={Classe RoundedBox per usata nella creazione del contatore delle statistiche}, label={lst:roundedBox}]
 class RoundedBox extends StatefulWidget {
@@ -294,7 +320,7 @@ class RoundedBoxState extends State<RoundedBox> {
 \end{lstlisting}
 %
 
-L'animazione dell'immagine è stata implementata (listato \ref{lst:resizingIcon}) utilizzando il \texttt{TweenAnimationBuilder} che permette di creare una animazione sfruttando la generazione di valori compresi in un intervallo e di un ulteriore animazione (\texttt{AnimatedSlide}) per la sua traslazione. Questa animazione è stata utilizzata anche nel pulsante del codice QR del totem.
+L'animazione dell'immagine è stata implementata (listato \ref{lst:resizingIcon}) utilizzando il \texttt{TweenAnimationBuilder}, che sfrutta la generazione di valori compresi in un intervallo per modifica della dimensione, insieme ad (\texttt{AnimatedSlide}) per la sua traslazione verso l'alto. Questa animazione è stata utilizzata anche nell'animazione della freccia nel pulsante per mostrare il codice QR del totem.
 
 \begin{lstlisting}[style=FlutterStyle, caption={}, label={lst:resizingIcon}]
   // animationStart e animationStop vengono invertiti in base a runTransition (booleano)
@@ -349,7 +375,7 @@ Infine per la descrizione del contatore (in figura \ref{fig:statCont3d} il retta
 %
 %
 \subsection{Classifica}
-Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup, nelle diverse posizioni sono stati inseriti nuovi particolari grafici come la quantità di CO\textsubscript{2} e l'alberello che indica il livello utente.
+Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup, nelle diverse posizioni sono stati inseriti nuovi particolari grafici come la quantità di CO\textsubscript{2} e l'alberello che indica il livello utente in modo da renderli più interessanti e spronare ancora di più gli utenti a raggiungere il primo posto con un albero ricco di foglie e frutti.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/top10screen.png}
@@ -360,7 +386,7 @@ Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup,
 %
 %
 \subsection{Pagina Informazioni}
-La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche precisato nel capitolo \ref{subsec:totem}, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad una visualizzazione a griglia contente tante \textit{tile}s (blocchi o piastrelle); la decisione d'implementare quest'ultimo è stata molto condizionata dall'esito di un sondaggio svolto su un piccolo gruppo di utenti target, che provando entrambi i mockup su device touchscreen, hanno dimostrato una maggiore preferenza per la visualizzazione a griglia in quanto più immediata, ordinata e di facile comprensione, prediligendo il tipo d'interazione \enquote*{con il tocco} (\textit{tap gesture}) per la fruizione delle informazioni al posto dello scorrimento verticale (\textit{vertical scrolling gesture}). In figura \ref{fig:infoPage} viene mostrata la pagina delle informazioni e nell \ref{fig:infoPagePopup} una delle piastrelle espanse che mostra informazioni dettagliate.
+La pagina delle informazioni nel corso del suo concepimento ha subito vari cambiamenti, come anche precisato nel capitolo \ref{subsec:totem}, che comprendono un cambio drastico di layout passando da una semplice pagina scorrevole ad una visualizzazione a griglia contente tante \textit{tile}s (blocchi o piastrelle); la decisione d'implementare quest'ultimo layout è stata molto condizionata dall'esito di un sondaggio svolto su un piccolo gruppo di utenti target, che provando entrambi i mockup su device touchscreen, hanno dimostrato una maggiore preferenza per la visualizzazione a griglia in quanto più immediata, ordinata e di facile comprensione, prediligendo il tipo d'interazione \enquote*{con il tocco} (\textit{tap gesture}) per la fruizione delle informazioni al posto del prevalente scorrimento verticale (\textit{vertical scrolling gesture}). In figura \ref{fig:infoPage} viene mostrata la pagina delle informazioni e nella \ref{fig:infoPagePopup} una delle piastrelle espanse che mostra informazioni dettagliate.
 
 \begin{figure}
   \centering
@@ -376,7 +402,7 @@ La pagina delle informazioni nel corso del suo concepimento ha subito vari cambi
 \end{figure}
 
 Per la disposizione a griglia degli elementi è stato utilizzato il widget \texttt{GridView} utilizzando un layout personalizzato definito dalla classe \texttt{SliverQuiltedGridDelegate} del package flutter \texttt{flutter\_staggered\_grid\_view} \cite{staggeredGridView} che permette agli elementi della griglia di occupare più righe e colonne.
-Attualmente sono visualizzati cinque elementi di cui uno largo il doppio (figura \ref{fig:infopageLayout}) ma è possibile aggiungerne altri, di qualsiasi dimensione compatibile alla griglia, abilitando così la navigazione verticale tramite scorrimento.
+Attualmente sono visualizzati cinque elementi di cui uno largo il doppio (figura \ref{fig:infopageLayout}) ma è possibile aggiungerne altri, di qualsiasi dimensione compatibile alla griglia, abilitando così la navigazione con scorrimento verticale.
 
 \begin{figure}
   \centering
@@ -429,5 +455,3 @@ Attualmente sono visualizzati cinque elementi di cui uno largo il doppio (figura
     ],
   );
 \end{lstlisting}
-
-\section{Testing e Debug}
