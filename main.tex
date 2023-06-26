@@ -10,7 +10,6 @@
 \usepackage{subfig}
 \usepackage{wrapfig}
 %
-
 \addbibresource{bibliography.bib}	% see bibliography.bib file for bibliography declarations
 %
 \begin{document}
@@ -39,18 +38,17 @@
 
     \backmatter
     \input{./chapters/backmatter/conclusion.tex}
-    \input{./chapters/backmatter/ringraziamenti.tex}
     % ---------------------------------------------------------------------
     % Backmatter command leaves the page numbering alone but switches the 
     % chapters back to being not numbered.
     % ---------------------------------------------------------------------
     \nocite{*}{
-        \backmatter
         \printbibliography[
             heading=bibintoc,
             title={Bibliografia}
         ]
     }
+    \input{./chapters/backmatter/ringraziamenti.tex}
     % ---------------------------------------------------------------------
     % Appendix
     % ---------------------------------------------------------------------
