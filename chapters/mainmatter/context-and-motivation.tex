@@ -11,7 +11,7 @@ Ad oggi si parla molto di sostenibilità ed ecosostenibilità ma spesso non se n
 \end{description}
 
 \subsection{Millenium Declaration e Agenda 2030}
-Nel settembre degli anni 2000 venne adottata la Dichiarazione del Millennio delle Nazioni Unite (\textit{United Nations Millennium Declaration}) \cite{millennium_declaration} da parte degli stati membri che, considerando alcuni principi considerati fondamentali per le relazioni internazionali nel ventunesimo secolo (libertà, uguaglianza, solidarietà, tolleranza, rispetto per la natura, responsabilità condivisa), identificarono otto obiettivi principali da raggiungere entro il 2015 chiamandoli \textit{Millenium Development Goals} (MDGs); questi comprendevano:
+Nel settembre degli anni 2000 venne adottata la Dichiarazione del Millennio delle Nazioni Unite (\textit{United Nations Millennium Declaration}) \cite{millennium_declaration} da parte degli stati membri che, considerando alcuni principi ritenuti fondamentali per le relazioni internazionali nel ventunesimo secolo (libertà, uguaglianza, solidarietà, tolleranza, rispetto per la natura, responsabilità condivisa), identificarono otto obiettivi principali da raggiungere entro il 2015 chiamandoli \textit{Millenium Development Goals} (MDGs); questi comprendevano:
 \begin{description}
     \item[Goal 1] Sradicare l'estrema povertà e la fame
     \item[Goal 2] Raggiungere una educazione primaria universale
@@ -23,7 +23,7 @@ Nel settembre degli anni 2000 venne adottata la Dichiarazione del Millennio dell
     \item[Goal 8] Instaurare una partnership globale per lo sviluppo
 \end{description}
 
-Come proseguimento del \textit{Millenium Declaration} nel 2015 le Nazioni Unite hanno elaborato e sottoscritto un nuovo programma denominato Agenda 2030 \cite{agenda2030}, contenente 169 traguardi raggruppati in 17 Obiettivi per lo Sviluppo Sostenibile (Sdgs, \ref{sec:sdgs}) con il fine di porre una buona base, condivisa da tutti i paesi membri, da cui partire per costruire un mondo sostenibile dal punto di vista ambientale, economico e sociale.
+Come proseguimento del \textit{Millenium Declaration} nel 2015 le Nazioni Unite hanno elaborato e sottoscritto un nuovo programma denominato Agenda 2030 \cite{agenda2030}, contenente 169 traguardi raggruppati in 17 Obiettivi per lo Sviluppo Sostenibile (SDGs, capitolo \ref{sec:sdgs}) con il fine di porre una buona base, condivisa da tutti i paesi membri, da cui partire per costruire un mondo sostenibile dal punto di vista ambientale, economico e sociale.
 %
 Ciascun Stato membro è tenuto a sviluppare una strategia nazionale e a questo proposito l'Italia ha istituito la cabina di regia "Benessere Italia", un organo della Presidenza del Consiglio, che si occupa di coordinare, monitorare, misurare e opportunamente migliorare le politiche applicate dai Ministeri per l'attuazione della Strategia Nazionale di Sviluppo Sostenibile (SNSvS) \cite{SNSvS}.
 
@@ -219,7 +219,7 @@ EndeavorRx \cite{endeavorRx} (Figura \ref{fig:endeavorRx}) è un gioco che aiuta
 \end{figure}
 
 \subsubsection{Information Tower - Educazione}
-Information Tower \cite{infoTower} (Figura \ref{fig:infoTower}), finanziato da Google e Altroconsumo, ha l'obiettivo di educare a riconoscere le \textit{fake news} che ogni giorno possiamo incontrare. Vengono forniti tre indizi che permettono di valutare la qualità e la veridicità della notizia, l'utente deve poi dichiarare se quelle proposte dal gioco è un \textit{fake} o è vera. 
+Information Tower \cite{infoTower} (Figura \ref{fig:infoTower}), finanziato da Google e Altroconsumo, ha l'obiettivo di educare a riconoscere le \textit{fake news} che ogni giorno possiamo incontrare. Vengono forniti tre indizi che permettono di valutare la qualità e la veridicità della notizia, l'utente deve poi dichiarare se quella proposta dal gioco è un \textit{fake} o è vera. 
 
 \begin{figure} [h!]
     \center
@@ -345,7 +345,7 @@ Si tratta di \textit{Virtual-Reality therapy}. Si può citare lo studio condotto
 
 \subsection{Mixed reality}
 La Realtà Mista, in inglese \textit{Mixed Reality} MR, viene definita per la prima volta nell'articolo \citetitle{MilgramMRTaxonomy} \cite{MilgramMRTaxonomy} di \Citeauthor{MilgramMRTaxonomy} dove viene anche introdotto il concetto di \textit{virtuality continuum}.
-Il \textit{virtuality continuum} (figura \ref{fig:virtualcontinuum}) viene descritto come uno spettro i cui estremi sono il mondo reale e il mondo virtuale (\textit{Virtual Reality}, VR \ref{sec:vr}) e al suo interno troviamo la Mixed Reality dove sono comprese tutte le altre sfumature di realtà come ad esempio la AR \ref{sec:ar} o la Virtualità Aumentata (\textit{Augmented Virtuality} VA, ad esempio nel mondo virtuale vengono mostrati oggetti del mondo reale).
+Il \textit{virtuality continuum} (figura \ref{fig:virtualcontinuum}) viene descritto come uno spettro i cui estremi sono il mondo reale e il mondo virtuale (\textit{Virtual Reality}, VR \ref{sec:vr}) e al suo interno troviamo la Mixed Reality dove sono comprese tutte le altre sfumature di realtà come ad esempio la AR (capitolo \ref{sec:ar}) o la Virtualità Aumentata (\textit{Augmented Virtuality} VA, ad esempio nel mondo virtuale vengono mostrati oggetti del mondo reale).
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{img/Reality-Virtuality_Continuum.png}
@@ -364,6 +364,7 @@ Come primo passo occorre considerare diversi aspetti del sistema, come per esemp
 Di seguito si elencano le principali tecniche d'integrazione:
 
 \begin{description}
+    \itemsep1em
     \item [\textit{Application Programming Interface} o API] {Queste sono il modo più classico d'integrare e far comunicare due componenti software. Una API è un tipo d'interfaccia dove vengono esposti i servizi e le funzionalità ritenute essenziali dal programmatore per l'interazione e integrazione con altri componenti esterni.
     Queste possono essere pubbliche (ad esempio le API di un servizio meteorologico) o private (ad esempio API interne di una azienda) e se ne distinguono quattro in base al loro funzionamento: SOAP (\textit{Simple Object Access Protocol}), RPC (\textit{Remote Procedure Calls}), WebSocket e REST (\textit{Representational State Transfer}) (schema esemplificativo in figura \ref{fig:restAPIschema}), la più diffusa nel mondo web.
     Le API, oltre a diversi vantaggi, sono utilizzate per integrare nuove applicazioni con sistemi software esistenti permettendo una maggiore velocità di sviluppo e riutilizzo di codice esistente.}
@@ -385,7 +386,7 @@ Di seguito si elencano le principali tecniche d'integrazione:
     \end{figure}
 
     \item [\textit{Cloud computing}] Viene descritto da IBM \cite{ibm_cloudcomputing} come un accesso on-demand a pagamento (in abbonamento o a consumo), tramite internet, a risorse di calcolo, applicazioni, server (fisici e virtuali), storage di dati, strumenti di sviluppo, funzionalità di rete e altro ancora ospitate in un data center remoto gestito da un fornitore di servizi cloud (o CSP, \textit{Cloud Service Provider}) come ad esempio Amazon Web Services (AWS) o Microsoft Azure \cite{azure}.
-    \begin{figure} 
+    \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/cloud-computing-services.png}
         \caption{Aree di competenza del Cloud computing \cite{cloudcomputing}}
@@ -393,7 +394,7 @@ Di seguito si elencano le principali tecniche d'integrazione:
     \end{figure}
     Esistono modelli diversi di \textit{cloud computing} (Figura \ref{fig:cloudcomp-models}) e fra questi si citano IaaS (Infrastructure-as-a-Service), PaaS (Platform-as-a-Service) e SaaS (Software-as-a-Service).
 
-    \begin{figure} 
+    \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{img/cloud-computing-models.png}
         \caption{Modelli di \textit{cloud computing} con esempi \cite{cloudcomputingModels}}
@@ -407,6 +408,7 @@ Di seguito si elencano le principali tecniche d'integrazione:
 L'integrazione specifica tra totem e smartphone può avvenire utilizzando diverse tecnologie o servizi. Di seguito si elencano alcune delle possibili soluzioni adottabili per la comunicazione e interazione fra un totem interattivo e un o smartphone (figura \ref{fig:totem-phone-tech}):
 
 \begin{itemize}
+    \itemsep1em
     \item \textbf{WiFi}: attraverso una rete WiFi, messa a disposizione dal totem, gli utenti connessi con lo smartphone possono accedere a contenuti multimediali, a servizi web e cloud o interagire con il totem.
     \item \textbf{Bluetooth}: questa tecnologia può essere utilizzata per trasferire informazioni, abilitare il controllo remoto del totem attraverso lo smartphone o ampliare i metodi d'interazione con il totem.
     \item \textbf{NFC} (\textit{Near Field Communication}): questa può essere utilizzata per innescare azioni, trasferire piccole quantità di dati o effettuare pagamenti.
