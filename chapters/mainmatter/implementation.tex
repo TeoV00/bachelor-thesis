@@ -1,6 +1,6 @@
 % ! TeX root = ../../main.tex
 \chapter{Implementazione}
-In questo capitolo vengono trattati tutti gli aspetti ritenuti particolarmente interessanti durante la fase d'implementazione dell'applicativo TotemBoschettoAR\footnote{\url{https://github.com/TeoV00/TotemBoschettoAR.git}}, come l'uso di pattern, oltre a mostrare gli screenshot delle pagine sviluppate.
+In questo capitolo vengono trattati tutti gli aspetti ritenuti particolarmente interessanti durante la fase d'implementazione dell'applicativo TotemBoschettoAR, come l'uso di pattern, oltre a mostrare gli screenshot delle pagine sviluppate.
 
 \section{Integrazione totem e app BoschettoAR}
 L'integrazione fra il totem e l'app ha richiesto un'analisi sulla disponibilità e praticabilità di utilizzare determinate tecnologie per l'interazione fra i due dispositivi anche in un'ottica di \textit{user experience}, usabilità e scalabilità.
@@ -12,7 +12,6 @@ Come ulteriore alternativa per il caricamento dei progressi utente dall'app si �
 Viste le precedenti considerazioni si è optato per un'integrazione basata sul \textit{cloud computing} e, più precisamente, utilizzando come servizio \textit{cloud-based} per la memorizzazione in tempo reale dei dati Firebase Realtime di Google \cite{firebase} che offre, anche gratuitamente, scalabilità, affidabilità, facilità d'uso e sicurezza.
 Scegliendo questo modo d'integrazione si apre la possibilità di aggiungere nel tempo nuove totem interattivi per l'espansione del progetto in altre sedi dell'Università di Bologna.
 
-\section{Organizzazione progetto}
 I file del progetto sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati utilizzati dal \texttt{DataManager} (file \texttt{data\_manager.dart}) per il reperimento delle informazioni.
 
 \begin{lstlisting}[language=C, caption={Albero della directory del progetto TotemBoschettoAR}, label={lst:projectDir}]
@@ -58,7 +57,7 @@ Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione
         \includegraphics[width=0.3\textwidth]{img/app/uploadingPage.png}
         \label{fig:uploadinData}
     } 
-    \caption{Screenshot schermate condivisione dati da app, scansione totem e caricamento \cite{repoBoschettoAR}}
+    \caption{Screenshot schermate condivisione dati da app, scansione totem e caricamento.}
     \label{fig:shareDataApp}
 \end{figure}
 \subsection{Pagina di condivisione progressi}
@@ -200,15 +199,20 @@ class DataManager extends ChangeNotifier implements FirebaseObserver {
   }
 }
 \end{lstlisting}
-\newpage
-\subsection{Pagina Home} 
+
+\subsection{Pagina Home}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{img/totem/screenshot/homepage.png}
+  \caption{Screenshot della pagina Home dove viene visualizzato il bosco virtuale costruito dalla partecipazione degli utenti.}
+  \label{fig:homepage}
+\end{figure}
 Per la pagina principale è stata sviluppata l'idea del mockup in figura \ref{fig:forestHome} dove vengono visualizzate le chiome d'albero degli utenti che insieme compongono un bosco rigoglioso in quanto più affine all'idea di bosco virtuale e di comunità. 
 Il pannello dei dettagli che si è scelto d'implementare è quello che ricorda una tendina con il cordino (figura \ref{fig:cordDetail}) in quanto ritenuto più adatto alla visualizzazione a chiome degli utenti.
 
 In figura \ref{fig:homepage} viene mostrata un'istantanea della homepage mentre nel listato \ref{lst:homepageCode} è possibile consultare il codice che si occupa della disposizione degli alberi (a riga 8) e del loro comportamento al tocco (in riga 14).
-
-Per questa pagina, come per le altre, è stata utilizzata sempre la stessa metodologia e architettura del codice per la loro creazione: con l'ausilio del \texttt{FutureBuilder} è stata sviluppata la View con la possibilità di gestire con maggiore semplicità ed astrazione l'invio degli \textit{Inten}s al Model (metodi della classe \texttt{DataManager}) e la ricezione degli \textit{State} di risposta.
 \vspace{\baselineskip}
+
 \begin{lstlisting}[style=FlutterStyle, caption={Parte del codice per la creazione del bosco della Homepage}, label={lst:homepageCode}]
   Consumer<DataManager>( // model
   builder: (context, dataManager, child) =>
@@ -246,17 +250,13 @@ Per questa pagina, come per le altre, è stata utilizzata sempre la stessa metod
     ),
   ),
 \end{lstlisting}
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{img/totem/screenshot/homepage.png}
-  \caption{Screenshot della pagina Home dove viene visualizzato il bosco virtuale costruito dalla partecipazione degli utenti.}
-  \label{fig:homepage}
-\end{figure}
+Per questa pagina, come per le altre, è stata utilizzata sempre la stessa metodologia e architettura del codice per la loro creazione: con l'ausilio del \texttt{FutureBuilder} è stata sviluppata la View con la possibilità di gestire con maggiore semplicità ed astrazione l'invio degli \textit{Inten}s al Model (metodi della classe \texttt{DataManager}) e la ricezione degli \textit{State} di risposta.
+
 %
 %
-\break
 \subsection{Pagina Statistiche}
 Anche questa pagina (figura \ref{fig:statsPage}) prevede l'utilizzo delle classi \texttt{Consumer<DataManager>} e \texttt{FutureBuilder<DataManager>} per, rispettivamente, avere accesso al DataManager e poter richiedere e ricevere i dati statistici. Inoltre per la disposizione a griglia di sei colonne e tre righe dei contatori è stato utilizzato il costruttore \texttt{GridView.count}.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{img/totem/screenshot/statsCircle.png}
@@ -265,6 +265,19 @@ Anche questa pagina (figura \ref{fig:statsPage}) prevede l'utilizzo delle classi
 \end{figure}
 \subsubsection{Contatore}
 Il contatore è frutto della composizione di semplici elementi grafici sovrapposti fra di loro; osservando l'immagine \ref{fig:circleStat3d} partendo sinistra si ha un cerchio verde, uno bianco più piccolo, un'immagine e al di sotto una descrizione testuale. Al tocco i cerchi cambiano forma diventando quadrati, l'icona si sposta verso l'alto rimpicciolendosi e lasciando spazio al testo che viene mostrato.
+\begin{figure}[h!]
+  \centering
+  \subfloat[]{
+    \includegraphics[width=3cm]{img/totem/circleStat3d.png}
+    \label{fig:circleStat3d}
+  }
+  \subfloat[]{
+    \includegraphics[width=3.5cm]{img/totem/squareStat3d.png}
+    \label{fig:squareStat3d}
+  }
+  \caption[Contatore come composizione di widget]{Contatore delle statistiche come composizione di widget: un quadrato, con raggio del bordo variabile, all'interno dell'altro con sopra un'immagine e un testo (rettangolo tratteggiato).}
+  \label{fig:statCont3d}
+\end{figure}
 
 I cerchi/quadrati vengono implementati (listato \ref{lst:roundedBox}) con la classe \texttt{RoundedBox} che restituisce un \texttt{AnimatedContainer}, un elemento grafico in grado di contenerne un altro e di generare un'animazione di se stesso quando viene modificato. Nel caso specifico del contatore viene modificato il raggio del bordo (\textit{borderRadius}) che passa da un valore massimo (cerchio) ad un valore di \texttt{10.0} (quadrato con spigoli smussati).
 
@@ -357,22 +370,7 @@ Infine per la descrizione del contatore (in figura \ref{fig:statCont3d} il retta
   }
 \end{lstlisting}
 %
-\begin{figure}[h!]
-  \centering
-  \subfloat[]{
-    \includegraphics[width=3.5cm]{img/totem/circleStat3d.png}
-    \label{fig:circleStat3d}
-  }
-  \subfloat[]{
-    \includegraphics[width=4cm]{img/totem/squareStat3d.png}
-    \label{fig:squareStat3d}
-  }
-  \caption[Contatore come composizione di widget]{Contatore delle statistiche come composizione di widget: un quadrato, con raggio del bordo variabile, all'interno dell'altro con sopra un'immagine e un testo (rettangolo tratteggiato).}
-  \label{fig:statCont3d}
-\end{figure}
 %
-%
-\break
 \subsection{Classifica}
 Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup, nelle diverse posizioni sono stati inseriti nuovi particolari grafici come la quantità di CO\textsubscript{2} e l'alberello che indica il livello utente in modo da renderli più interessanti e spronare ancora di più gli utenti a raggiungere il primo posto con un albero ricco di foglie e frutti.
 \begin{figure}[h!]
@@ -381,7 +379,6 @@ Nella pagina della classifica (figura \ref{fig:top10screen}) rispetto al mockup,
   \caption{Pagina della classifica conclusa.}
   \label{fig:top10screen}
 \end{figure}
-
 %
 %
 \subsection{Pagina Informazioni}
@@ -389,7 +386,7 @@ La pagina delle informazioni nel corso del suo concepimento ha subito vari cambi
 
 Per la disposizione a griglia degli elementi è stato utilizzato il widget \texttt{GridView} (riga 6 listato \ref{lst:infoPageCode}) utilizzando un layout personalizzato definito dalla classe \texttt{SliverQuiltedGridDelegate} del package flutter \texttt{flutter\_staggered\_grid\_view} \cite{staggeredGridView} che permette agli elementi della griglia di occupare più righe e colonne.
 Attualmente sono visualizzati cinque elementi di cui uno largo il doppio (figura \ref{fig:infopageLayout}) ma è possibile aggiungerne altri, di qualsiasi dimensione compatibile alla griglia, abilitando così la navigazione con scorrimento verticale.
-
+\vspace{\baselineskip}
 \begin{lstlisting}[style=FlutterStyle, caption={Porzione di codice all'interno di \texttt{\_InfoPageState} per la creazione della pagina delle informazioni.}, label={lst:infoPageCode}]
   Stack(
     children: [
