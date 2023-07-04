@@ -12,35 +12,6 @@ Come ulteriore alternativa per il caricamento dei progressi utente dall'app si �
 Viste le precedenti considerazioni si è optato per un'integrazione basata sul \textit{cloud computing} e, più precisamente, utilizzando come servizio \textit{cloud-based} per la memorizzazione in tempo reale dei dati Firebase Realtime di Google \cite{firebase} che offre, anche gratuitamente, scalabilità, affidabilità, facilità d'uso e sicurezza.
 Scegliendo questo modo d'integrazione si apre la possibilità di aggiungere nel tempo nuove totem interattivi per l'espansione del progetto in altre sedi dell'Università di Bologna.
 
-I file del progetto sono organizzati in cartelle relative a ciascuna schermata, componente o funzionalità. L'albero delle cartelle viene presentato nel listato \ref{lst:projectDir} dove vengono espanse solo le cartelle di primo livello (model, views e dataProvider). All'interno della cartella \texttt{model} sono state inserite le classi che definiscono il modello dei dati utente (file \texttt{share\_data\_model.dart}) e i metodi/classi/interfacce di utilità (file \texttt{obj2map.dart}), in \texttt{views} sono presenti i file delle schermate raccolti in cartelle e infine in \texttt{dataProvider} sono contenuti tutti i provider di dati utilizzati dal \texttt{DataManager} (file \texttt{data\_manager.dart}) per il reperimento delle informazioni.
-
-\begin{lstlisting}[language=C, caption={Albero della directory del progetto TotemBoschettoAR}, label={lst:projectDir}]
-    TotemBoschettoAR/
-        |
-        +- model/
-            |
-            +- obj2map.dart
-            +- share_data_model.dart
-        +- views/
-            |
-            +- common/
-            +- navigation_menu/
-            +- home_page/
-            +- stats_page/
-            +- chart_page/
-            +- info_page/
-            +- home_page.dart
-            +- stats_page.dart
-            +- chart_page.dart
-            +- info_page.dart
-        +- dataProvider/
-            |
-            +- firebase_provider.dart
-        +- unit_converter.dart
-        +- data_manager.dart
-        +- main.dart
-\end{lstlisting}
-\break
 \section{App Mobile}
 Seguendo i mockup sono state sviluppate le diverse schermate per la condivisione dei progressi. Sono state effettuate alcune modifiche come si può notare dagli screenshot in figura \ref{fig:shareDataApp}: in sostituzione al nickname utente impostato è stata messa una breve indicazione, che si trovava precedentemente nella pagina di scansione, sul come visualizzare il QR code del totem e infine la schermata di caricamento è stata modificata sostituendo l'icona e mostrando un testo che informi l'utente del caricamento dei dati.
 \begin{figure}[h!]
